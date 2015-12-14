@@ -1027,12 +1027,13 @@ static inline bool task_notify_on_migrate(struct task_struct *p)
 {
 	return task_group(p)->notify_on_migrate;
 }
-
+#ifdef TJK_HMP
 static inline bool task_sched_boost(struct task_struct *p)
 {
 	return task_group(p)->sched_boost &&
 		TASK_NICE(p) <= sysctl_sched_upmigrate_min_nice;
 }
+#endif
 
 /* Change a task's cfs_rq and parent entity if it moves across CPUs/groups */
 static inline void set_task_rq(struct task_struct *p, unsigned int cpu)
