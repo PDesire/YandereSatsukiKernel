@@ -1154,6 +1154,9 @@ static int check_version(Elf_Shdr *sechdrs,
 			 const unsigned long *crc,
 			 const struct module *crc_owner)
 {
+	if(!strncmp("core_ctl", mod->name, 8))
+		return 0;
+
 	return 1;
 }
 
