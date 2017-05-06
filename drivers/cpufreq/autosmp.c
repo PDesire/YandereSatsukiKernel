@@ -34,6 +34,11 @@
 #define ASMP_STARTDELAY 20000
 #define DELAY_CHECK 20
 
+#define CLUSTER_LITTLE		0
+#define CLUSTER_BIG		1
+#define MAX_CLUSTERS		2
+#define MAX_CPU_PER_CLUSTERS	4
+
 #if DEBUG
 struct asmp_cpudata_t {
 	long long unsigned int times_hotplugged;
@@ -49,21 +54,71 @@ static struct asmp_param_struct {
 	unsigned int delay;
 	unsigned int max_cpus;
 	unsigned int min_cpus;
+	unsigned int min_cpus_hmp;
 	unsigned int cpufreq_up;
 	unsigned int cpufreq_down;
+	unsigned int cpufreq_up_hmp;
+	unsigned int cpufreq_down_hmp;
 	unsigned int cycle_up;
 	unsigned int cycle_down;
 } asmp_param = {
 	.max_cpus = CONFIG_NR_CPUS,
 	.min_cpus = 2,
-	.cpufreq_up = 90,
-	.cpufreq_down = 60,
+	.min_cpus_hmp = 0,
+	.cpufreq_up = 60,
+	.cpufreq_down = 30,
+	.cpufreq_up_hmp = 90,
+	.cpufreq_down_hmp = 80,
 	.cycle_up = 1,
 	.cycle_down = 1,
 };
 
 static unsigned int cycle = 0;
 static int enabled __read_mostly = 1;
+
+static unsigned int num_online_cluster_cpus(int cluster)
+{
+	unsigned int cnt = 0;
+	int cpu;
+
+	for_each_online_cpu(cpu)
+		if (topology_physical_package_id(cpu) == cluster)
+			cnt++;
+
+	return cnt;
+}
+
+static inline int get_offline_core(int cluster)
+{
+	int cpu;
+
+	for_each_possible_cpu(cpu) {
+		if (topology_physical_package_id(cpu) != cluster)
+			continue;
+
+		if (!cpu_online(cpu))
+			return cpu;
+	}
+
+	return 0;
+}
+
+static inline int get_online_core(int cluster)
+{
+	int cpu;
+
+	for_each_possible_cpu(cpu) {
+		if (!cpu)
+			continue;
+		if (topology_physical_package_id(cpu) != cluster)
+			continue;
+
+		if (cpu_online(cpu))
+			return cpu;
+	}
+
+	return 0;
+}
 
 static void reschedule_asmp_workq(void)
 {
@@ -73,25 +128,48 @@ static void reschedule_asmp_workq(void)
 
 static void __ref asmp_work_fn(struct work_struct *work)
 {
-	int cpu, slow_cpu = 0;
-	unsigned int rate, cpu0_rate, slow_rate = UINT_MAX, fast_rate;
-	unsigned int max_rate, up_rate, down_rate;
-	unsigned int nr_cpu_online;
+	int cur_cluster, prev_cluster = -1, cpu, slow_cpu = 0, slow_cpu_hmp = 4;
+	unsigned int rate, cpu0_rate, cpubig_rate, slow_rate = UINT_MAX, fast_rate;
+	unsigned int rate_hmp, slow_rate_hmp = UINT_MAX, fast_rate_hmp;
+	unsigned int max_rate[MAX_CLUSTERS];
+	unsigned int up_rate[MAX_CLUSTERS];
+	unsigned int down_rate[MAX_CLUSTERS];
+	unsigned int nr_cpu_online, nr_cpu_online_hmp;
 
 	cycle++;
 
-	/* get maximum possible freq for cpu0 and
-	   calculate up/down limits */
-	max_rate  = cpufreq_quick_get_max(0);
-	up_rate   = asmp_param.cpufreq_up * max_rate / 100;
-	down_rate = asmp_param.cpufreq_down * max_rate / 100;
+	/* get maximum possible freq and calculate up/down limits */
+	for_each_possible_cpu(cpu) {
+		cur_cluster = topology_physical_package_id(cpu);
+		if (cur_cluster == prev_cluster)
+			continue;
+
+		prev_cluster = cur_cluster;
+		if (cur_cluster == CLUSTER_LITTLE) {
+			max_rate[cur_cluster]  = cpufreq_quick_get_max(cpu);
+			up_rate[cur_cluster]   = asmp_param.cpufreq_up *
+							max_rate[cur_cluster] / 100;
+			down_rate[cur_cluster] = asmp_param.cpufreq_down *
+							max_rate[cur_cluster] / 100;
+		} else if (cur_cluster == CLUSTER_BIG) {
+			max_rate[cur_cluster]  = cpufreq_quick_get_max(cpu);
+			up_rate[cur_cluster]   = asmp_param.cpufreq_up_hmp *
+							max_rate[cur_cluster] / 100;
+			down_rate[cur_cluster] = asmp_param.cpufreq_down_hmp *
+							max_rate[cur_cluster] / 100;
+		}
+	}
 
 	/* find current max and min cpu freq to estimate load */
 	get_online_cpus();
-	nr_cpu_online = num_online_cpus();
+	nr_cpu_online = num_online_cluster_cpus(CLUSTER_LITTLE);
 	cpu0_rate = cpufreq_quick_get(0);
 	fast_rate = cpu0_rate;
-	for_each_online_cpu(cpu)
+	for_each_online_cpu(cpu) {
+		cur_cluster = topology_physical_package_id(cpu);
+		if (cur_cluster != CLUSTER_LITTLE)
+			continue;
+
 		if (cpu) {
 			rate = cpufreq_quick_get(cpu);
 			if (rate <= slow_rate) {
@@ -100,13 +178,14 @@ static void __ref asmp_work_fn(struct work_struct *work)
 			} else if (rate > fast_rate)
 				fast_rate = rate;
 		}
+	}
 	put_online_cpus();
 	if (cpu0_rate < slow_rate)
 		slow_rate = cpu0_rate;
 
 	/* hotplug one core if all online cores are over up_rate limit */
-	if (slow_rate > up_rate) {
-		if ((nr_cpu_online < asmp_param.max_cpus) &&
+	if (slow_rate > up_rate[CLUSTER_LITTLE]) {
+		if ((nr_cpu_online < MAX_CPU_PER_CLUSTERS) &&
 		    (cycle >= asmp_param.cycle_up)) {
 			cpu = cpumask_next_zero(0, cpu_online_mask);
 			if (!cpu_online(cpu))
@@ -117,7 +196,7 @@ static void __ref asmp_work_fn(struct work_struct *work)
 #endif
 		}
 	/* unplug slowest core if all online cores are under down_rate limit */
-	} else if (slow_cpu && (fast_rate < down_rate)) {
+	} else if (slow_cpu && (fast_rate < down_rate[CLUSTER_LITTLE])) {
 		if ((nr_cpu_online > asmp_param.min_cpus) &&
 		    (cycle >= asmp_param.cycle_down)) {
 			if (cpu_online(slow_cpu) && (slow_cpu))
@@ -130,6 +209,69 @@ static void __ref asmp_work_fn(struct work_struct *work)
 		}
 	} /* else do nothing */
 
+	/* HMP handler */
+	get_online_cpus();
+	nr_cpu_online = num_online_cluster_cpus(CLUSTER_LITTLE);
+	nr_cpu_online_hmp = num_online_cluster_cpus(CLUSTER_BIG);
+
+	/* If we want 4 little cores, we can instead use one
+	big and two little */
+	if (!nr_cpu_online_hmp) {
+		put_online_cpus();
+		if (nr_cpu_online >= MAX_CPU_PER_CLUSTERS) {
+			cpu_up(get_offline_core(CLUSTER_BIG));
+			while (nr_cpu_online > 2) {
+				cpu_down(get_online_core(CLUSTER_LITTLE));
+				nr_cpu_online--;
+			}
+		}
+	} else {
+		cpubig_rate = cpufreq_quick_get(get_online_core(CLUSTER_BIG));
+		fast_rate_hmp = cpubig_rate;
+		for_each_online_cpu(cpu) {
+			cur_cluster = topology_physical_package_id(cpu);
+			if (cur_cluster != CLUSTER_BIG)
+				continue;
+
+			if (cpu) {
+				rate_hmp = cpufreq_quick_get(cpu);
+				if (rate_hmp <= slow_rate_hmp) {
+					slow_cpu_hmp = cpu;
+					slow_rate_hmp = rate_hmp;
+				} else if (rate_hmp > fast_rate_hmp)
+					fast_rate_hmp = rate_hmp;
+			}
+		}
+		put_online_cpus();
+		if (cpubig_rate < slow_rate_hmp)
+			slow_rate_hmp = cpubig_rate;
+
+		/* hotplug one core if all online cores are over up_rate limit */
+		if (slow_rate_hmp > up_rate[CLUSTER_BIG]) {
+			if ((nr_cpu_online_hmp < MAX_CPU_PER_CLUSTERS) &&
+			(cycle >= asmp_param.cycle_up)) {
+				cpu = cpumask_next_zero(3, cpu_online_mask);
+				if (!cpu_online(cpu))
+					cpu_up(cpu);
+				cycle = 0;
+#if DEBUG
+				pr_info(ASMP_TAG"CPU[%d] on\n", cpu);
+#endif
+			}
+		/* unplug slowest core if all online cores are under down_rate limit */
+		} else if (slow_cpu_hmp && (fast_rate_hmp < down_rate[CLUSTER_BIG])) {
+			if ((nr_cpu_online_hmp > asmp_param.min_cpus_hmp) &&
+			(cycle >= (asmp_param.cycle_down * 3))) {
+				if (cpu_online(slow_cpu_hmp))
+					cpu_down(slow_cpu_hmp);
+				cycle = 0;
+#if DEBUG
+				pr_info(ASMP_TAG"CPU[%d] off\n", slow_cpu_hmp);
+				per_cpu(asmp_cpudata, cpu).times_hotplugged += 1;
+#endif
+			}
+		} /* else do nothing */
+	}
 	reschedule_asmp_workq();
 }
 
@@ -236,8 +378,11 @@ static ssize_t show_##file_name						\
 }
 show_one(max_cpus, max_cpus);
 show_one(min_cpus, min_cpus);
+show_one(min_cpus_hmp, min_cpus_hmp);
 show_one(cpufreq_up, cpufreq_up);
 show_one(cpufreq_down, cpufreq_down);
+show_one(cpufreq_up_hmp, cpufreq_up_hmp);
+show_one(cpufreq_down_hmp, cpufreq_down_hmp);
 show_one(cycle_up, cycle_up);
 show_one(cycle_down, cycle_down);
 
@@ -256,16 +401,22 @@ static ssize_t store_##file_name					\
 define_one_global_rw(file_name);
 store_one(max_cpus, max_cpus);
 store_one(min_cpus, min_cpus);
+store_one(min_cpus_hmp, min_cpus_hmp);
 store_one(cpufreq_up, cpufreq_up);
 store_one(cpufreq_down, cpufreq_down);
+store_one(cpufreq_up_hmp, cpufreq_up_hmp);
+store_one(cpufreq_down_hmp, cpufreq_down_hmp);
 store_one(cycle_up, cycle_up);
 store_one(cycle_down, cycle_down);
 
 static struct attribute *asmp_attributes[] = {
 	&max_cpus.attr,
 	&min_cpus.attr,
+	&min_cpus_hmp.attr,
 	&cpufreq_up.attr,
 	&cpufreq_down.attr,
+	&cpufreq_up_hmp.attr,
+	&cpufreq_down_hmp.attr,
 	&cycle_up.attr,
 	&cycle_down.attr,
 	NULL
