@@ -1,0 +1,209 @@
+#!/bin/bash
+
+echo "Kernel Buildscript"
+echo
+
+function goto
+{
+    label=$1
+    cmd=$(sed -n "/$label:/{:a;n;p;ba};" $0 | grep -v ':$')
+    eval "$cmd"
+    exit
+}
+
+MY_PATH="`dirname \"$0\"`"              # relative
+MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
+if [ -z "$MY_PATH" ] ; then
+  # error; for some reason, the path is not accessible
+  # to the script (e.g. permissions re-evaled after suid)
+  exit 1  # fail
+fi
+
+# Tuneables Here
+toolchain="aarch64-linux-gnu-6.3.1"
+clang="dragontc-3.9-clang"
+prefix="aarch64-linux-gnu-"
+toolchain_path="/home/PDesire/kernel/toolchains/$toolchain/bin/:$PATH"
+clang_path="/home/PDesire/kernel/toolchains/$clang/bin"
+name_of_your_kernel="PDesireCoreKernel-2.0"
+defconfig="msm8994-perf_defconfig"
+cpu_jobs="`grep -c ^processor /proc/cpuinfo`"
+kerneltype="Image.gz-dtb"
+cmdline="androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 dwc3_msm.prop_chg_detect=Y coherent_pool=2M dwc3_msm.hvdcp_max_current=1500"
+author="Tristan Marsell (tristan.marsell@t-online.de)"
+kernel_author="PDesire (Tristan Marsell)"
+ps=4096
+base=0x00000000
+ramdisk_offset=0x02000000
+tags_offset=0x01E00000
+
+export USE_CCACHE=1
+export CCACHE_DIR=~/.ccache-ubertc
+
+export ARCH=arm64
+export PATH=$toolchain_path
+export CROSS_COMPILE=$prefix
+
+export HOSTCC=$clang_path/clang 
+export CC=$clang_path/clang 
+
+export HOSTCXX=$clang_path/clang++ 
+export CXX=$clang_path/clang++ 
+
+# Go to kernel root
+cd $MY_PATH
+
+while read -p "Do you want to make clean (y/n)? " cchoice
+do
+case "$cchoice" in
+	y|Y )
+		echo "Removing old files..."
+		rm -rf final_files
+		rm -f log*
+		make mrproper -j$cpu_jobs
+		rm -rf arch/arm64/boot/"$kerneltype"
+		
+		echo "Removing old files..."
+		mkdir final_files
+		chmod -R 0755 final_files
+		break
+		;;
+	n|N )
+		break
+		;;
+	* )
+		echo
+		echo "Invalid try again!"
+		echo
+		;;
+esac
+done
+
+echo "For which device you want to compile?"
+
+PS3='Please enter your choice: '
+options=("satsuki" "satsuki_dsds" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "satsuki")
+            diffconfig="satsuki_diffconfig"
+            target="Xperia Z5 Premium"
+            device_name="E6853"
+            device_codename="satsuki"
+            goto secondstep
+            ;;
+        "satsuki_dsds")
+            diffconfig="satsuki_dsds_diffconfig"
+            target="Xperia Z5 Premium Dual"
+            device_name="E6883"
+            device_codename="satsuki_dsds"
+            goto secondstep
+            ;;
+        "Quit")
+            goto end
+            ;;
+        *) echo invalid option;;
+    esac
+done
+
+secondstep:
+
+export KBUILD_DIFFCONFIG=$diffconfig
+
+while read -p "Do you want to make defconfig (y/n)? " cchoice
+do
+case "$cchoice" in
+	y|Y )
+		make $defconfig -j$cpu_jobs |& tee log_defconfig.txt
+		echo
+		echo "Done"
+		echo
+		break
+		;;
+	n|N )
+		break
+		;;
+	* )
+		echo
+		echo "Invalid try again!"
+		echo
+		;;
+esac
+done
+
+echo " "
+echo " "
+echo "##################################################"
+echo "Kernel Infos:"
+echo "Bootsplash Kernel Name: $name_of_your_kernel"
+echo "SoC (ARCH) Type: AARCH64 (ARM64)"
+echo "Used Defconfig: $defconfig"
+echo "Used Diffconfig: $diffconfig"
+echo "Kerneltype: $kerneltype"
+echo "Kernel Authors: $kernel_author"
+echo "CCache used: Yes"
+echo "--------------------------------------------------"
+echo "Ramdisk Infos:"
+echo "Ramdisk Cmdline: $cmdline"
+echo "Pagesize: $ps Kilobytes"
+echo "Base: $base"
+echo "Ramdisk Offset: $ramdisk_offset"
+echo "Tags Offset: $tags_offset"
+echo "--------------------------------------------------"
+echo "Build Infos:"
+echo "Build Target Device: $target"
+echo "Toolchain: $toolchain"
+echo "Threads: $cpu_jobs"
+echo "Buildscript Author: $author"
+echo "##################################################"
+echo " "
+echo " "
+echo " "
+
+
+while read -p "Do you want to build (y/n)? " cchoice
+do
+echo
+case "$cchoice" in
+	y|Y )
+		sleep 1s
+		echo "Start building kernel..."
+		make -j$cpu_jobs |& tee log_compile.txt
+		echo "Done"
+		echo
+		break
+		;;
+	n|N )
+		break
+		;;
+	* )
+		echo
+		echo "Invalid try again!"
+		echo
+		;;
+esac
+done
+
+if [ -f arch/arm64/boot/"$kerneltype" -a ! -f final_files/*.img ]; then
+	echo "Making boot.img..."
+	./mkbootimg --cmdline "$cmdline" --base $base --kernel arch/arm64/boot/Image.gz-dtb --ramdisk propietaries/$device_codename/ramdisk.cpio.gz --ramdisk_offset $ramdisk_offset --pagesize $ps -o final_files/boot_$device_name.img --tags_offset $tags_offset
+fi
+
+if [ -f final_files/*.img ]; then
+	# Packing to ZIP
+	cp -fr flashscripts/* final_files
+	chmod -R 0777 final_files
+	cd final_files
+	mv boot_$device_name.img boot.img
+	zip -r $device_codename.$name_of_your_kernel.zip *
+	cd ..
+	mkdir uploads
+	chmod -R 0777 uploads
+	mv final_files/$device_codename.$name_of_your_kernel.zip uploads/$device_codename.$name_of_your_kernel.zip
+	chmod -R 0777 uploads
+	chmod -R 0777 final_files
+fi
+
+end:
+exit 0;
