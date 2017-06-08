@@ -354,9 +354,13 @@ CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 CFLAGS_MODULE   =
 AFLAGS_MODULE   =
 LDFLAGS_MODULE  =
+<<<<<<< HEAD
 
 CFLAGS_KERNEL	= -mtune=cortex-a57.cortex-a53 -mfix-cortex-a53-843419   
 
+=======
+CFLAGS_KERNEL	= -march=armv8-a -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfix-cortex-a53-843419 -mfix-cortex-a53-835769  
+>>>>>>> ebbafaf810229... Makefile: Add more optimization flags
 AFLAGS_KERNEL	=
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
 
@@ -385,6 +389,9 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
 		   -fno-delete-null-pointer-checks \
+		   -march=armv8-a+crypto+crc \
+		   -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 \
+		   -mfix-cortex-a53-843419 -mfix-cortex-a53-835769 \
 		   -std=gnu89
 
 KBUILD_AFLAGS_KERNEL :=
