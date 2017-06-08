@@ -63,12 +63,12 @@ static struct asmp_param_struct {
 	unsigned int cycle_down;
 } asmp_param = {
 	.max_cpus = CONFIG_NR_CPUS,
-	.min_cpus = 2,
+	.min_cpus = 1,
 	.min_cpus_hmp = 0,
 	.cpufreq_up = 60,
 	.cpufreq_down = 30,
 	.cpufreq_up_hmp = 90,
-	.cpufreq_down_hmp = 80,
+	.cpufreq_down_hmp = 60,
 	.cycle_up = 1,
 	.cycle_down = 1,
 };
