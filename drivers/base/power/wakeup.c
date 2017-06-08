@@ -43,6 +43,9 @@ module_param(enable_wlan_wake_wl, bool, 0644);
 static bool enable_bluedroid_timer_wl = true;
 module_param(enable_bluedroid_timer_wl, bool, 0644);
 
+static unsigned long timer_delay_wakelocks = 3000;
+module_param(timer_delay_wakelocks, long, 0644);
+
 /*
  * If set, the suspend/hibernate code will abort transitions to a sleep state
  * if wakeup events are registered during or immediately before the transition.
@@ -84,7 +87,7 @@ static bool wakeup_source_delay_release(struct wakeup_source *ws) {
 	bool display_on = is_display_on();
 	
 	if(!display_on)
-		usleep_range(5000, 10000);
+		msleep(timer_delay_wakelocks);
 	
 	return true;
 }
