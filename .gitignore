@@ -93,3 +93,9 @@ signing_key.x509
 x509.genkey
 log_dsds.txt
 log_generic.txt
+log_compile.txt
+log_defconfig.txt
+
+# Output Files
+/uploads/
+/final_files/
