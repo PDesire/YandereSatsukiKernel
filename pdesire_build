@@ -25,7 +25,7 @@ clang="dragontc-3.9-clang"
 prefix="aarch64-linux-gnu-"
 toolchain_path="/home/PDesire/kernel/toolchains/$toolchain/bin/:$PATH"
 clang_path="/home/PDesire/kernel/toolchains/$clang/bin"
-name_of_your_kernel="PDesireCoreKernel-2.0"
+name_of_your_kernel="SatsukiXperiaEliteKernel"
 defconfig="msm8994-perf_defconfig"
 cpu_jobs="`grep -c ^processor /proc/cpuinfo`"
 kerneltype="Image.gz-dtb"
@@ -40,15 +40,11 @@ tags_offset=0x01E00000
 export USE_CCACHE=1
 export CCACHE_DIR=~/.ccache-ubertc
 
+export CLANG_HOST=yes
+
 export ARCH=arm64
 export PATH=$toolchain_path
 export CROSS_COMPILE=$prefix
-
-export HOSTCC=$clang_path/clang 
-export CC=$clang_path/clang 
-
-export HOSTCXX=$clang_path/clang++ 
-export CXX=$clang_path/clang++ 
 
 # Go to kernel root
 cd $MY_PATH
@@ -142,7 +138,6 @@ echo "Used Defconfig: $defconfig"
 echo "Used Diffconfig: $diffconfig"
 echo "Kerneltype: $kerneltype"
 echo "Kernel Authors: $kernel_author"
-echo "CCache used: Yes"
 echo "--------------------------------------------------"
 echo "Ramdisk Infos:"
 echo "Ramdisk Cmdline: $cmdline"
