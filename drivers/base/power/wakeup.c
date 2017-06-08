@@ -16,8 +16,32 @@
 #include <linux/debugfs.h>
 #include <linux/types.h>
 #include <trace/events/power.h>
+#include <linux/moduleparam.h>
+#include <linux/display_state.h>
+#include <linux/delay.h>
 
 #include "power.h"
+
+static bool enable_sensorhub_wl = true;
+module_param(enable_sensorhub_wl, bool, 0644);
+
+static bool enable_ssp_wl = true;
+module_param(enable_ssp_wl, bool, 0644);
+
+static bool enable_bcm4773_wl = true;
+module_param(enable_bcm4773_wl, bool, 0644);
+
+static bool enable_wlan_rx_wake_wl = true;
+module_param(enable_wlan_rx_wake_wl, bool, 0644);
+
+static bool enable_wlan_ctrl_wake_wl = true;
+module_param(enable_wlan_ctrl_wake_wl, bool, 0644);
+
+static bool enable_wlan_wake_wl = true;
+module_param(enable_wlan_wake_wl, bool, 0644);
+
+static bool enable_bluedroid_timer_wl = true;
+module_param(enable_bluedroid_timer_wl, bool, 0644);
 
 /*
  * If set, the suspend/hibernate code will abort transitions to a sleep state
@@ -55,6 +79,15 @@ static LIST_HEAD(wakeup_sources);
 static DECLARE_WAIT_QUEUE_HEAD(wakeup_count_wait_queue);
 
 static ktime_t last_read_time;
+
+static bool wakeup_source_delay_release(struct wakeup_source *ws) {
+	bool display_on = is_display_on();
+	
+	if(!display_on)
+		usleep_range(5000, 10000);
+	
+	return true;
+}
 
 /**
  * wakeup_source_prepare - Prepare a new wakeup source for initialization.
@@ -450,68 +483,6 @@ static void wakeup_source_activate(struct wakeup_source *ws)
 	trace_wakeup_source_activate(ws->name, cec);
 }
 
-/**
- * wakeup_source_report_event - Report wakeup event using the given source.
- * @ws: Wakeup source to report the event for.
- */
-static void wakeup_source_report_event(struct wakeup_source *ws)
-{
-	ws->event_count++;
-	/* This is racy, but the counter is approximate anyway. */
-	if (events_check_enabled)
-		ws->wakeup_count++;
-
-	if (!ws->active)
-		wakeup_source_activate(ws);
-}
-
-/**
- * __pm_stay_awake - Notify the PM core of a wakeup event.
- * @ws: Wakeup source object associated with the source of the event.
- *
- * It is safe to call this function from interrupt context.
- */
-void __pm_stay_awake(struct wakeup_source *ws)
-{
-	unsigned long flags;
-
-	if (!ws)
-		return;
-
-	spin_lock_irqsave(&ws->lock, flags);
-
-	wakeup_source_report_event(ws);
-	del_timer(&ws->timer);
-	ws->timer_expires = 0;
-
-	spin_unlock_irqrestore(&ws->lock, flags);
-}
-EXPORT_SYMBOL_GPL(__pm_stay_awake);
-
-/**
- * pm_stay_awake - Notify the PM core that a wakeup event is being processed.
- * @dev: Device the wakeup event is related to.
- *
- * Notify the PM core of a wakeup event (signaled by @dev) by calling
- * __pm_stay_awake for the @dev's wakeup source object.
- *
- * Call this function after detecting of a wakeup event if pm_relax() is going
- * to be called directly after processing the event (and possibly passing it to
- * user space for further processing).
- */
-void pm_stay_awake(struct device *dev)
-{
-	unsigned long flags;
-
-	if (!dev)
-		return;
-
-	spin_lock_irqsave(&dev->power.lock, flags);
-	__pm_stay_awake(dev->power.wakeup);
-	spin_unlock_irqrestore(&dev->power.lock, flags);
-}
-EXPORT_SYMBOL_GPL(pm_stay_awake);
-
 #ifdef CONFIG_PM_AUTOSLEEP
 static void update_prevent_sleep_time(struct wakeup_source *ws, ktime_t now)
 {
@@ -578,6 +549,104 @@ static void wakeup_source_deactivate(struct wakeup_source *ws)
 	if (!inpr && waitqueue_active(&wakeup_count_wait_queue))
 		wake_up(&wakeup_count_wait_queue);
 }
+
+static bool wakeup_source_blocker(struct wakeup_source *ws)
+{
+ 	unsigned int wslen = 0;
+ 
+ 	if (ws) {
+ 		wslen = strlen(ws->name);
+ 
+ 		if ((!enable_sensorhub_wl && !strncmp(ws->name, "ssp_sensorhub_wake_lock", wslen)) ||
+ 			(!enable_wlan_rx_wake_wl &&
+ 				!strncmp(ws->name, "wlan_rx_wake", wslen)) ||
+ 			(!enable_wlan_ctrl_wake_wl &&
+ 				!strncmp(ws->name, "wlan_ctrl_wake", wslen)) ||
+ 			(!enable_wlan_wake_wl &&
+ 				!strncmp(ws->name, "wlan_wake", wslen)) ||
+ 			(!enable_bluedroid_timer_wl &&
+ 				!strncmp(ws->name, "bluedroid_timer", wslen)) ||
+ 			(!enable_ssp_wl &&
+ 				!strncmp(ws->name, "ssp_wake_lock", wslen)) ||
+ 			(!enable_bcm4773_wl &&
+ 				!strncmp(ws->name, "bcm4773_wake_lock", wslen))) {
+ 			if (ws->active) {
+					wakeup_source_deactivate(ws);
+					pr_info("forcefully deactivate wakeup source: %s\n",
+						ws->name);
+ 			}
+ 
+ 			return true;
+ 		}
+ 	}
+ 
+ 	return false;
+}
+
+/**
+ * wakeup_source_report_event - Report wakeup event using the given source.
+ * @ws: Wakeup source to report the event for.
+ */
+static void wakeup_source_report_event(struct wakeup_source *ws)
+{
+	if (!wakeup_source_blocker(ws)) {
+		wakeup_source_delay_release(ws);
+		ws->event_count++;
+		/* This is racy, but the counter is approximate anyway. */
+		if (events_check_enabled)
+			ws->wakeup_count++;
+			
+		if (!ws->active)
+			wakeup_source_activate(ws);
+	}
+}
+
+/**
+ * __pm_stay_awake - Notify the PM core of a wakeup event.
+ * @ws: Wakeup source object associated with the source of the event.
+ *
+ * It is safe to call this function from interrupt context.
+ */
+void __pm_stay_awake(struct wakeup_source *ws)
+{
+	unsigned long flags;
+
+	if (!ws)
+		return;
+
+	spin_lock_irqsave(&ws->lock, flags);
+
+	wakeup_source_report_event(ws);
+	del_timer(&ws->timer);
+	ws->timer_expires = 0;
+
+	spin_unlock_irqrestore(&ws->lock, flags);
+}
+EXPORT_SYMBOL_GPL(__pm_stay_awake);
+
+/**
+ * pm_stay_awake - Notify the PM core that a wakeup event is being processed.
+ * @dev: Device the wakeup event is related to.
+ *
+ * Notify the PM core of a wakeup event (signaled by @dev) by calling
+ * __pm_stay_awake for the @dev's wakeup source object.
+ *
+ * Call this function after detecting of a wakeup event if pm_relax() is going
+ * to be called directly after processing the event (and possibly passing it to
+ * user space for further processing).
+ */
+void pm_stay_awake(struct device *dev)
+{
+	unsigned long flags;
+
+	if (!dev)
+		return;
+
+	spin_lock_irqsave(&dev->power.lock, flags);
+	__pm_stay_awake(dev->power.wakeup);
+	spin_unlock_irqrestore(&dev->power.lock, flags);
+}
+EXPORT_SYMBOL_GPL(pm_stay_awake);
 
 /**
  * __pm_relax - Notify the PM core that processing of a wakeup event has ended.
