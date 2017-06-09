@@ -16,8 +16,9 @@
 #define _LINUX_DISPLAY_STATE_H
 #endif
 
-bool display_on = true;
-bool is_display_on()
+bool display_on;
+
+bool is_display_on(void)
 {
 	return display_on;
 }
