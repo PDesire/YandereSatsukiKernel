@@ -17,34 +17,53 @@
 #include <linux/types.h>
 #include <trace/events/power.h>
 #include <linux/moduleparam.h>
-#include <linux/display_state.h>
-#include <linux/delay.h>
+#include <linux/lcd_notify.h>
 
 #include "power.h"
 
-static bool enable_sensorhub_wl = true;
+static bool enable_sensorhub_wl = false;
 module_param(enable_sensorhub_wl, bool, 0644);
 
-static bool enable_ssp_wl = true;
+static bool enable_ssp_wl = false;
 module_param(enable_ssp_wl, bool, 0644);
 
-static bool enable_bcm4773_wl = true;
+static bool enable_bcm4773_wl = false;
 module_param(enable_bcm4773_wl, bool, 0644);
 
-static bool enable_wlan_rx_wake_wl = true;
+static bool enable_wlan_rx_wake_wl = false;
 module_param(enable_wlan_rx_wake_wl, bool, 0644);
 
-static bool enable_wlan_ctrl_wake_wl = true;
+static bool enable_wlan_ctrl_wake_wl = false;
 module_param(enable_wlan_ctrl_wake_wl, bool, 0644);
 
-static bool enable_wlan_wake_wl = true;
+static bool enable_wlan_wake_wl = false;
 module_param(enable_wlan_wake_wl, bool, 0644);
 
-static bool enable_bluedroid_timer_wl = true;
+static bool enable_bluedroid_timer_wl = false;
 module_param(enable_bluedroid_timer_wl, bool, 0644);
 
-static unsigned long timer_delay_wakelocks = 3000;
-module_param(timer_delay_wakelocks, long, 0644);
+static bool enable_nlp_wakelock_wl = true;
+module_param(enable_nlp_wakelock_wl, bool, 0644);
+
+static struct notifier_block lcd_notifier_hook;
+static bool display_online;
+
+static int lcd_notifier_call(struct notifier_block *this,
+                        unsigned long event, void *data)
+{
+	switch (event) {
+		case LCD_EVENT_ON_START:
+			display_online = true;
+			break;
+		case LCD_EVENT_OFF_END:
+			display_online = false;
+			break;
+		default:
+			break;
+	}
+
+	return 0;
+}
 
 /*
  * If set, the suspend/hibernate code will abort transitions to a sleep state
@@ -82,15 +101,6 @@ static LIST_HEAD(wakeup_sources);
 static DECLARE_WAIT_QUEUE_HEAD(wakeup_count_wait_queue);
 
 static ktime_t last_read_time;
-
-static bool wakeup_source_delay_release(struct wakeup_source *ws) {
-	bool display_on = is_display_on();
-	
-	if(!display_on)
-		msleep(timer_delay_wakelocks);
-	
-	return true;
-}
 
 /**
  * wakeup_source_prepare - Prepare a new wakeup source for initialization.
@@ -559,28 +569,31 @@ static bool wakeup_source_blocker(struct wakeup_source *ws)
  
  	if (ws) {
  		wslen = strlen(ws->name);
- 
- 		if ((!enable_sensorhub_wl && !strncmp(ws->name, "ssp_sensorhub_wake_lock", wslen)) ||
- 			(!enable_wlan_rx_wake_wl &&
- 				!strncmp(ws->name, "wlan_rx_wake", wslen)) ||
- 			(!enable_wlan_ctrl_wake_wl &&
- 				!strncmp(ws->name, "wlan_ctrl_wake", wslen)) ||
- 			(!enable_wlan_wake_wl &&
- 				!strncmp(ws->name, "wlan_wake", wslen)) ||
- 			(!enable_bluedroid_timer_wl &&
- 				!strncmp(ws->name, "bluedroid_timer", wslen)) ||
- 			(!enable_ssp_wl &&
- 				!strncmp(ws->name, "ssp_wake_lock", wslen)) ||
- 			(!enable_bcm4773_wl &&
- 				!strncmp(ws->name, "bcm4773_wake_lock", wslen))) {
- 			if (ws->active) {
-					wakeup_source_deactivate(ws);
-					pr_info("forcefully deactivate wakeup source: %s\n",
-						ws->name);
- 			}
- 
- 			return true;
- 		}
+		if (!display_online) {
+			if ((!enable_sensorhub_wl && !strncmp(ws->name, "ssp_sensorhub_wake_lock", wslen)) ||
+				(!enable_wlan_rx_wake_wl &&
+					!strncmp(ws->name, "wlan_rx_wake", wslen)) ||
+				(!enable_wlan_ctrl_wake_wl &&
+					!strncmp(ws->name, "wlan_ctrl_wake", wslen)) ||
+				(!enable_wlan_wake_wl &&
+					!strncmp(ws->name, "wlan_wake", wslen)) ||
+				(!enable_bluedroid_timer_wl &&
+					!strncmp(ws->name, "bluedroid_timer", wslen)) ||
+				(!enable_ssp_wl &&
+					!strncmp(ws->name, "ssp_wake_lock", wslen)) ||
+				(!enable_bcm4773_wl &&
+					!strncmp(ws->name, "bcm4773_wake_lock", wslen)) || 
+				(!enable_nlp_wakelock_wl &&
+					!strncmp(ws->name, "NlpWakeLock", wslen))) {
+				if (ws->active) {
+						wakeup_source_deactivate(ws);
+						pr_info("forcefully deactivate wakeup source: %s\n",
+							ws->name);
+				}
+	 
+				return true;
+			}
+		}
  	}
  
  	return false;
@@ -592,8 +605,8 @@ static bool wakeup_source_blocker(struct wakeup_source *ws)
  */
 static void wakeup_source_report_event(struct wakeup_source *ws)
 {
-	if (!wakeup_source_blocker(ws)) {
-		wakeup_source_delay_release(ws);
+	if (!wakeup_source_blocker(ws)) { 
+			
 		ws->event_count++;
 		/* This is racy, but the counter is approximate anyway. */
 		if (events_check_enabled)
@@ -1058,6 +1071,9 @@ static const struct file_operations wakeup_sources_stats_fops = {
 
 static int __init wakeup_sources_debugfs_init(void)
 {
+	lcd_notifier_hook.notifier_call = lcd_notifier_call;
+	lcd_register_client(&lcd_notifier_hook);
+	
 	wakeup_sources_stats_dentry = debugfs_create_file("wakeup_sources",
 			S_IRUGO, NULL, NULL, &wakeup_sources_stats_fops);
 	return 0;
