@@ -1,10 +1,10 @@
 /* Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
  * Copyright (C) 2017 Tristan Marsell (tristan.marsell@t-online.de). All rights reserved.
- * Copyright (C) 2017 Team Project Desire. All rights reserved.
+ * Copyright (C) 2017 Team DevElite. All rights reserved.
  * 
  * PDesireAudio WCD9330 Tomtom Audio Driver
  * Copyright (C) 2017 Tristan Marsell (tristan.marsell@t-online.de). All rights reserved.
- * Copyright (C) 2017 Team Project Desire. All rights reserved.
+ * Copyright (C) 2017 Team DevElite. All rights reserved.
  *
  * NOTE: This file is licensed under GPL v2 also with modifications.
  *
@@ -46,6 +46,7 @@
 #include <linux/pm_runtime.h>
 #include <linux/kernel.h>
 #include <linux/gpio.h>
+#include <linux/lcd_notify.h>
 #include "wcd9330.h"
 #include "wcd9xxx-resmgr.h"
 #include "wcd9xxx-common.h"
@@ -103,6 +104,26 @@ MODULE_PARM_DESC(cpe_debug_mode, "boot cpe in debug mode");
 
 static atomic_t kp_tomtom_priv;
 
+static struct notifier_block lcd_notifier_hook;
+static bool display_online;
+
+static int lcd_notifier_call(struct notifier_block *this,
+                        unsigned long event, void *data)
+{
+	switch (event) {
+		case LCD_EVENT_ON_START:
+			display_online = true;
+			break;
+		case LCD_EVENT_OFF_END:
+			display_online = false;
+			break;
+		default:
+			break;
+	}
+
+	return 0;
+}
+
 /* Description of PDesireAudio UHQA Mode:
  * The PDesireAudio Mode is based on the UHQA Mode from LA.BR.1.3.3_rb2.14 branch
  * of the sonyxperiadev/kernel repository (https://github.com/sonyxperiadev/kernel)
@@ -131,27 +152,27 @@ MODULE_PARM_DESC(pdesireaudio_static_mode, "Set PDesireAudio to static mode, so 
 
 void pdesireaudio_start(void) 
 {
-	if (!pdesireaudio_static_mode){
-		printk("Enable PDesireAudio");
+	if (!pdesireaudio_static_mode && display_online){
+		pr_info("Enable PDesireAudio");
 		uhqa_mode_pdesireaudio = 1;
 	}
 }
 
 void pdesireaudio_remove(void) 
 {
-	if (!pdesireaudio_static_mode){
-		printk("Disable PDesireAudio");
+	if (!pdesireaudio_static_mode && display_online){
+		pr_info("Disable PDesireAudio");
 		uhqa_mode_pdesireaudio = 0;
 	}
 } 
 
 void pdesireaudio_init(void) 
 {
-	if (!pdesireaudio_static_mode){
+	if (!pdesireaudio_static_mode && display_online){
 		bool active;
 
 
-		printk("Re-Init PDesireAudio");
+		pr_info("Re-Init PDesireAudio");
 		if (!uhqa_mode_pdesireaudio)
 			active = false;
 		else
@@ -168,10 +189,10 @@ void pdesireaudio_init(void)
 void pdesireaudio_api_static_mode_control(bool enable)
 {
 	if(enable == true) {
-		printk("Set PDesireAudio to static mode");
+		pr_info("Set PDesireAudio to static mode");
 		pdesireaudio_static_mode = 1;
 	} else {
-		printk("Set PDesireAudio to dynamic mode");
+		pr_info("Set PDesireAudio to dynamic mode");
 		pdesireaudio_static_mode = 0;
 	}
 }
@@ -1174,39 +1195,35 @@ static int tomtom_config_gain_compander(struct snd_soc_codec *codec,
 				       int comp, bool enable)
 {
 	int ret = 0;
-
-	switch (comp) {
-	case COMPANDER_0:
-		if (!uhqa_mode_pdesireaudio) {
-			snd_soc_update_bits(codec, TOMTOM_A_SPKR_DRV1_GAIN,
-						1 << 2, !enable << 2);
-			snd_soc_update_bits(codec, TOMTOM_A_SPKR_DRV2_GAIN,
-						1 << 2, !enable << 2);
+	if (!uhqa_mode_pdesireaudio) {
+		switch (comp) {
+		case COMPANDER_0:
+				snd_soc_update_bits(codec, TOMTOM_A_SPKR_DRV1_GAIN,
+							1 << 2, !enable << 2);
+				snd_soc_update_bits(codec, TOMTOM_A_SPKR_DRV2_GAIN,
+							1 << 2, !enable << 2);
+			break;
+		case COMPANDER_1:
+				snd_soc_update_bits(codec, TOMTOM_A_RX_HPH_L_GAIN,
+							1 << 5, !enable << 5);
+				snd_soc_update_bits(codec, TOMTOM_A_RX_HPH_R_GAIN,
+							1 << 5, !enable << 5);
+			break;
+		case COMPANDER_2:
+				snd_soc_update_bits(codec, TOMTOM_A_RX_LINE_1_GAIN,
+							1 << 5, !enable << 5);
+				snd_soc_update_bits(codec, TOMTOM_A_RX_LINE_3_GAIN,
+							1 << 5, !enable << 5);
+				snd_soc_update_bits(codec, TOMTOM_A_RX_LINE_2_GAIN,
+							1 << 5, !enable << 5);
+				snd_soc_update_bits(codec, TOMTOM_A_RX_LINE_4_GAIN,
+							1 << 5, !enable << 5);
+			break;
+		default:
+			WARN_ON(1);
+			ret = -EINVAL;
 		}
-		break;
-	case COMPANDER_1:
-		if (!uhqa_mode_pdesireaudio) {
-			snd_soc_update_bits(codec, TOMTOM_A_RX_HPH_L_GAIN,
-					    1 << 5, !enable << 5);
-			snd_soc_update_bits(codec, TOMTOM_A_RX_HPH_R_GAIN,
-					    1 << 5, !enable << 5);
-		}
-		break;
-	case COMPANDER_2:
-		if (!uhqa_mode_pdesireaudio) {
-			snd_soc_update_bits(codec, TOMTOM_A_RX_LINE_1_GAIN,
-					    1 << 5, !enable << 5);
-			snd_soc_update_bits(codec, TOMTOM_A_RX_LINE_3_GAIN,
-					    1 << 5, !enable << 5);
-			snd_soc_update_bits(codec, TOMTOM_A_RX_LINE_2_GAIN,
-					    1 << 5, !enable << 5);
-			snd_soc_update_bits(codec, TOMTOM_A_RX_LINE_4_GAIN,
-					    1 << 5, !enable << 5);
-		}
-		break;
-	default:
-		WARN_ON(1);
-		ret = -EINVAL;
+	
 	}
 
 	return ret;
@@ -1281,72 +1298,61 @@ static int tomtom_config_compander(struct snd_soc_dapm_widget *w,
 				 __func__);
 			break;
 		}
-		/* Disable Compander fully */
+		
+		/* Disable Compander if PDesireAudio enabled */
 		if (!uhqa_mode_pdesireaudio) {
-			/* Set compander Sample rate */
-			snd_soc_update_bits(codec,
+			pr_debug("%s: PDesireAudio is enabled, do not enable compander\n",
+					__func__);
+			break;
+		}
+		
+		/* Set compander Sample rate */
+		snd_soc_update_bits(codec,
 						TOMTOM_A_CDC_COMP0_FS_CFG + (comp * 8),
 						0x07, rate);
-			/* Set the static gain offset for HPH Path */
-			if (comp == COMPANDER_1) {
-				if (buck_mv == WCD9XXX_CDC_BUCK_MV_2P15) {
-					snd_soc_update_bits(codec,
+		/* Set the static gain offset for HPH Path */
+		if (comp == COMPANDER_1) {
+			if (buck_mv == WCD9XXX_CDC_BUCK_MV_2P15) {
+				snd_soc_update_bits(codec,
 						TOMTOM_A_CDC_COMP0_B4_CTL + (comp * 8),
 						0x80, 0x00);
-				} else {
-					snd_soc_update_bits(codec,
+			} else {
+				snd_soc_update_bits(codec,
 						TOMTOM_A_CDC_COMP0_B4_CTL + (comp * 8),
 						0x80, 0x80);
-				}
 			}
 		}
 
-		if (!uhqa_mode_pdesireaudio) {
-			/* Enable RX interpolation path compander clocks */
-			snd_soc_update_bits(codec, TOMTOM_A_CDC_CLK_RX_B2_CTL,
-						mask << comp_shift[comp],
-						mask << comp_shift[comp]);
-			/* Toggle compander reset bits */
-			snd_soc_update_bits(codec, TOMTOM_A_CDC_CLK_OTHR_RESET_B2_CTL,
-						mask << comp_shift[comp],
-						mask << comp_shift[comp]);
-			snd_soc_update_bits(codec, TOMTOM_A_CDC_CLK_OTHR_RESET_B2_CTL,
-						mask << comp_shift[comp], 0);
+		/* Enable RX interpolation path compander clocks */
+		snd_soc_update_bits(codec, TOMTOM_A_CDC_CLK_RX_B2_CTL,
+					mask << comp_shift[comp],
+					mask << comp_shift[comp]);
+		/* Toggle compander reset bits */
+		snd_soc_update_bits(codec, TOMTOM_A_CDC_CLK_OTHR_RESET_B2_CTL,
+					mask << comp_shift[comp],
+					mask << comp_shift[comp]);
+		snd_soc_update_bits(codec, TOMTOM_A_CDC_CLK_OTHR_RESET_B2_CTL,
+					mask << comp_shift[comp], 0);
 
-			/* Set gain source to compander */
-			tomtom_config_gain_compander(codec, comp, true);
-		} else {
-			/* Enable RX interpolation path compander clocks */
-			snd_soc_update_bits(codec, TOMTOM_A_CDC_CLK_RX_B2_CTL,
-						mask << comp_shift[comp],
-						mask << comp_shift[comp]);
-			/* Toggle compander reset bits */
-			snd_soc_update_bits(codec, TOMTOM_A_CDC_CLK_OTHR_RESET_B2_CTL,
-						mask << comp_shift[comp],
-						mask << comp_shift[comp]);
-			snd_soc_update_bits(codec, TOMTOM_A_CDC_CLK_OTHR_RESET_B2_CTL,
-						mask << comp_shift[comp], 0);
-
-			/* Set gain source to compander */
-			tomtom_config_gain_compander(codec, comp, false);			
-		}
+		/* Set gain source to compander */
+		tomtom_config_gain_compander(codec, comp, true);
 
 		/* Compander enable */
 		snd_soc_update_bits(codec, TOMTOM_A_CDC_COMP0_B1_CTL +
 				    (comp * 8), enable_mask, enable_mask);
-		if (!uhqa_mode_pdesireaudio) {
-			tomtom_discharge_comp(codec, comp);
 
-			/* Set sample rate dependent paramater */
-			snd_soc_write(codec, TOMTOM_A_CDC_COMP0_B3_CTL + (comp * 8),
+		tomtom_discharge_comp(codec, comp);
+
+		/* Set sample rate dependent paramater */
+		snd_soc_write(codec, TOMTOM_A_CDC_COMP0_B3_CTL + (comp * 8),
 					  comp_params->rms_meter_resamp_fact);
-			snd_soc_update_bits(codec,
+		snd_soc_update_bits(codec,
 						TOMTOM_A_CDC_COMP0_B2_CTL + (comp * 8),
 						0xF0, comp_params->rms_meter_div_fact << 4);
-			snd_soc_update_bits(codec,
+		snd_soc_update_bits(codec,
 						TOMTOM_A_CDC_COMP0_B2_CTL + (comp * 8),
 						0x0F, comp_params->peak_det_timeout);
-		}
+
 		break;
 	case SND_SOC_DAPM_PRE_PMD:
 		/* Disable compander */
@@ -9515,6 +9521,9 @@ static struct platform_driver tomtom_codec_driver = {
 
 static int __init tomtom_codec_init(void)
 {
+	lcd_notifier_hook.notifier_call = lcd_notifier_call;
+	lcd_register_client(&lcd_notifier_hook);
+	
 	return platform_driver_register(&tomtom_codec_driver);
 }
 
