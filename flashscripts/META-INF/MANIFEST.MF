@@ -1,0 +1,2000 @@
+Manifest-Version: 1.0
+Created-By: 1.0 (Android SignApk)
+
+Name: system/framework/am.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: patch/system/priv-app/SettingsProvider/SettingsProvider.apk.p
+SHA1-Digest: INDF1SQzAvF6ILrX40CBYZcNYGc=
+
+Name: patch/system/bin/surfaceflinger.p
+SHA1-Digest: ej7nWexQeVhxbdNuMfoDmbuFnDE=
+
+Name: patch/system/fonts/NotoSansMalayalamUI-Bold.ttf.p
+SHA1-Digest: swgNexW754eZQT72uqLwBrTHoXc=
+
+Name: patch/system/lib/libRSCpuRef.so.p
+SHA1-Digest: juJ4VddLZWp4sEeuYULIf/iQIlo=
+
+Name: patch/system/lib/libmemtrack.so.p
+SHA1-Digest: dCTOKKv+s6PnfFGC6vwm/F8CSAQ=
+
+Name: patch/system/lib/libRS.so.p
+SHA1-Digest: s0e7W8A7RmaBQZEL1awsj56kwZM=
+
+Name: patch/system/lib/libiprouteutil.so.p
+SHA1-Digest: JexFHvZIca/lAjL6DBial1kjJNc=
+
+Name: system/lib/libradioservice.so
+SHA1-Digest: S0JOmtBFhREh3qOk8HuBX/LXYRA=
+
+Name: patch/system/lib/libstagefright_foundation.so.p
+SHA1-Digest: 7lgix4xS1TmKGyQNLr1Zvqp4Rd4=
+
+Name: patch/system/lib/libutils.so.p
+SHA1-Digest: c1BLt733XrKMw6RVH1DM9JtH9+E=
+
+Name: system/usr/hyphen-data/hyph-en-us.lic.txt
+SHA1-Digest: AIMaaOZmPR05E/sujl98OHQYI7U=
+
+Name: patch/system/fonts/NotoSansKhmerUI-Bold.ttf.p
+SHA1-Digest: tCdCHjidtbRr9AsfpIHeXAD0Uss=
+
+Name: system/lib/hw/audio.r_submix.default.so
+SHA1-Digest: 0qzWWbT2LZ4XwQWrrgOMnF2gYtM=
+
+Name: system/priv-app/Lto/oat/arm/Lto.odex
+SHA1-Digest: pQJPaOLkC5ZBTgO/ObhxE0NEn8Y=
+
+Name: system/fonts/NotoSansThaana-Bold.ttf
+SHA1-Digest: lYXLJnLkhfhiFocKRQ4i75El/TM=
+
+Name: system/lib/libkeymaster_messages.so
+SHA1-Digest: 8LYTzoMe4XUZZ/oAmNV9UF4jB0A=
+
+Name: system/priv-app/DownloadProvider/oat/arm/DownloadProvider.odex
+SHA1-Digest: 2ZcHF9eOIkkh7ikBQn8MFCMhyWM=
+
+Name: patch/system/fonts/NotoSansThai-Regular.ttf.p
+SHA1-Digest: Eu1ywgC+KyUoi4s8DXxQngjyN08=
+
+Name: patch/system/lib/libsensorservice.so.p
+SHA1-Digest: 5YiXiS7P3sUgMOXoTAlG6uAKV4k=
+
+Name: patch/system/lib/libgui.so.p
+SHA1-Digest: 1AfyI9eUK/OEz7amUPyUHtzxbuM=
+
+Name: patch/system/lib/libstagefright_soft_vorbisdec.so.p
+SHA1-Digest: TR80wTyHnFvv1n84nWM3GJ0Diyk=
+
+Name: patch/system/lib/libsurfaceflinger.so.p
+SHA1-Digest: +/h5u/6udo6ga3Bo/DF6jlVPFQ0=
+
+Name: patch/system/fonts/NotoSansSymbols-Regular-Subsetted.ttf.p
+SHA1-Digest: mfjmBvPBvje42MUQsMTPAxDGBYI=
+
+Name: system/fonts/NotoSansLepcha-Regular.ttf
+SHA1-Digest: /bX60B9xStj4Rjeiox2wBObmcMg=
+
+Name: system/priv-app/SonyWearSettingService/oat/arm/SonyWearSettingSe
+ rvice.odex
+SHA1-Digest: eZAZATliAQxIlhxqw9759WG6bbg=
+
+Name: bootloader.hwconf.img
+SHA1-Digest: j4OmKmygztYgknqe9varPSxPYGQ=
+
+Name: patch/system/fonts/NotoSansArmenian-Regular.ttf.p
+SHA1-Digest: 1hL1EPK+1UfmhU7fGE+NgtbWe2g=
+
+Name: system/fonts/NotoNaskhArabic-Bold.ttf
+SHA1-Digest: uBUw+pV4Q7oE6ckd0e5cuo5zc0U=
+
+Name: patch/system/fonts/NotoSansThaiUI-Bold.ttf.p
+SHA1-Digest: HY823csSdorTOtNJZgiDhnWbRCs=
+
+Name: system/priv-app/SonyWearWatchFaces2/oat/arm/SonyWearWatchFaces2.
+ odex
+SHA1-Digest: +LRegyqooy6rdRFOVPYMWGPRPyY=
+
+Name: patch/system/bin/ping6.p
+SHA1-Digest: x63tJLTLbhBNTAQoRaJL7StVc30=
+
+Name: patch/system/framework/arm/content.odex.p
+SHA1-Digest: xJ+nGCpJ1m8Ooh98qLi2HC0EBDc=
+
+Name: system/fonts/NotoSansTagbanwa-Regular.ttf
+SHA1-Digest: 6TMhdkZCMYe6wRlr0sGrO6SK300=
+
+Name: patch/system/lib/libpixelflinger.so.p
+SHA1-Digest: VV2jC2YM8S6jwFojUkCOGcEesRw=
+
+Name: patch/system/fonts/NotoSansTamilUI-Regular.ttf.p
+SHA1-Digest: FM2h36XynS7CBMjD6jL+ryhUs4M=
+
+Name: system/fonts/NotoSansJavanese-Regular.ttf
+SHA1-Digest: JUKIPDBfASHjMsZYqo7iKBOVL9I=
+
+Name: system/framework/content.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: system/app/ClockworkFlashlight/oat/arm/ClockworkFlashlight.odex
+SHA1-Digest: cIfLlJgHpInPkESIUTihcg0T1Vc=
+
+Name: system/etc/audio_effects.conf
+SHA1-Digest: Bjl+Ub+IIg6HGXP7kBytqtMBdKc=
+
+Name: system/framework/voip-common.jar
+SHA1-Digest: Ah0Qtn4KE73qnDZvnKI/79or9Gw=
+
+Name: system/lib/libsoftkeymasterdevice.so
+SHA1-Digest: nTNNWykOjXe8NweaPq1ArTJkj+A=
+
+Name: patch/system/bin/iptables.p
+SHA1-Digest: heGBePHauZPChLfXVNZ7P3zv4/A=
+
+Name: patch/system/lib/libfilterfw.so.p
+SHA1-Digest: 1HDN1NQzGC4PJX6tzTu7a/CpSQY=
+
+Name: system/fonts/NotoSansMeeteiMayek-Regular.ttf
+SHA1-Digest: Dj4DXctiRGAhJbF+PzdOeVgwiLc=
+
+Name: system/framework/ims-common.jar
+SHA1-Digest: Ah0Qtn4KE73qnDZvnKI/79or9Gw=
+
+Name: patch/system/priv-app/CalendarProvider/CalendarProvider.apk.p
+SHA1-Digest: 9PlFizOJP1Sjrshb6l4n1rKZDw0=
+
+Name: patch/system/bin/pppd.p
+SHA1-Digest: ohzrLnBu5hVfLYsxQEvJ+OYoiE8=
+
+Name: system/fonts/NotoSansLisu-Regular.ttf
+SHA1-Digest: v5W5dftPlhFnxxxYNup6RmCTGwM=
+
+Name: patch/system/fonts/NotoSansMyanmarUI-Regular.ttf.p
+SHA1-Digest: z8DdZFPvIgn5D/sv+hcx+0gl72c=
+
+Name: patch/system/priv-app/ClockworkSystemUI/ClockworkSystemUI.apk.p
+SHA1-Digest: yPxRDrkG7AYBs1Kh1HM//x+P4Os=
+
+Name: patch/system/bin/install-recovery.sh.p
+SHA1-Digest: cS/GTzxuMnPuJyqMZUXQUTQKFtg=
+
+Name: patch/system/lib/libext2_blkid.so.p
+SHA1-Digest: AeX6XvLJzuTedK8r8cnTsCNlamY=
+
+Name: patch/system/lib/libimg_utils.so.p
+SHA1-Digest: RJf3nCeWF3oS7O0D3NYF/rbcNVQ=
+
+Name: patch/system/fonts/NotoSansTamilUI-Bold.ttf.p
+SHA1-Digest: HwaEQ7tiYxFV6nM2apR3Y6eZv54=
+
+Name: patch/system/bin/lmkd.p
+SHA1-Digest: j0ydBekTYIEv2He6WW41OW/R9v4=
+
+Name: patch/system/fonts/NotoSansGeorgian-Regular.ttf.p
+SHA1-Digest: wlPbog16MYpqonRW6ZSwB4Nzgt8=
+
+Name: patch/system/fonts/NotoSansTamil-Bold.ttf.p
+SHA1-Digest: 5tVKcHrKt1HfKTRT0SOb24MLG5A=
+
+Name: system/priv-app/ClockworkPhone/oat/arm/ClockworkPhone.odex
+SHA1-Digest: uTmqFK1nFrS6pDYrPernCd/F0jM=
+
+Name: patch/system/lib/libprocessgroup.so.p
+SHA1-Digest: qJwD+jh6KuS/1YfVr+DcBI3xjvc=
+
+Name: patch/system/lib/libmediaplayerservice.so.p
+SHA1-Digest: 2+Uu2+ipGvLJg+bGDVqktCvcXGU=
+
+Name: patch/system/fonts/RobotoCondensed-Light.ttf.p
+SHA1-Digest: IUDe8TF5EVq47C4XnVwUpmUHqL4=
+
+Name: patch/system/lib/libhardware_legacy.so.p
+SHA1-Digest: F0eXuvSwl4qbeuhRwhW/Q9hOSVw=
+
+Name: patch/system/fonts/NotoSerif-Italic.ttf.p
+SHA1-Digest: sGwsTpce8cX7db7XpDGssJflqBQ=
+
+Name: system/framework/oat/arm/sm.odex
+SHA1-Digest: iIk9u30mX2xsWRqlLWnBRXT86iI=
+
+Name: system/lib/libresourcemanagerservice.so
+SHA1-Digest: oVVR60sfaNw4QTxRuxAoSgF7PV4=
+
+Name: patch/system/fonts/Roboto-Bold.ttf.p
+SHA1-Digest: E/HDddlQWF5cThlaDS0ZnqqGOBw=
+
+Name: patch/system/lib/libmtp.so.p
+SHA1-Digest: 4bjvkBgJkUXB6mk7Qcw/JXbs02Y=
+
+Name: system/priv-app/CalendarProvider/oat/arm/CalendarProvider.odex
+SHA1-Digest: p8whrhPGXSjHlfqlbve7pV73OJ4=
+
+Name: patch/system/fonts/NotoSansDevanagariUI-Regular.ttf.p
+SHA1-Digest: S765Q109R7KEWBdk9X9FjTHseXU=
+
+Name: patch/system/framework/arm/services.odex.p
+SHA1-Digest: 0n2Zzyk42CkOqUmVf63AwDnVDnw=
+
+Name: patch/system/fonts/NotoSansTeluguUI-Bold.ttf.p
+SHA1-Digest: UNsxq/zhcSqP/a94vVoHWf44/Lo=
+
+Name: system/fonts/NotoSansOlChiki-Regular.ttf
+SHA1-Digest: Ds4kZSQf8zUTn5VYnVXw5CJ0+Bs=
+
+Name: system/priv-app/ClockworkBugReportSender/oat/arm/ClockworkBugRep
+ ortSender.odex
+SHA1-Digest: stMThuGhzX/p9qKNZeFYdE1AWmk=
+
+Name: patch/system/framework/arm/pm.odex.p
+SHA1-Digest: Z+KVMxH91SC6ZoRl44gmNZpaN5w=
+
+Name: system/fonts/NotoSansGurmukhi-Bold.ttf
+SHA1-Digest: ZrRsJN1uzmTUEoPwc07CM4C7ZBc=
+
+Name: patch/system/lib/libssl.so.p
+SHA1-Digest: hrK9D+g/jfhq0e+BZdreuAshKMc=
+
+Name: patch/system/priv-app/Lto/Lto.apk.p
+SHA1-Digest: 4DPDTtKxj6rwT2gsUhq2DBcUVHw=
+
+Name: system/fonts/NotoSansNewTaiLue-Regular.ttf
+SHA1-Digest: gampwdmkwptBvKAUGBCNUiFrVVk=
+
+Name: patch/system/lib/libmedialogservice.so.p
+SHA1-Digest: 01UZoIJ3VyajpdU/b9DyfRbZSDI=
+
+Name: patch/system/lib/libext2_uuid.so.p
+SHA1-Digest: edbweW4ZvctEjUmJe8e9lUyzYpY=
+
+Name: patch/system/lib/libril.so.p
+SHA1-Digest: VWWyuePzef10cUYlJqHkZyp+1wQ=
+
+Name: system/fonts/NotoSansHanunoo-Regular.ttf
+SHA1-Digest: /gzKFk9CWzn4VA2ltkY853vuZAw=
+
+Name: patch/system/priv-app/StepService/StepService.apk.p
+SHA1-Digest: nTwld7LV+6sxB35XuwXFjS9+yzU=
+
+Name: system/fonts/NotoSansMongolian-Regular.ttf
+SHA1-Digest: UUwj2qgp2Yb7g84dt+Dbl7aYOnI=
+
+Name: patch/system/lib/libkeystore_binder.so.p
+SHA1-Digest: ueSXvvpDr/K3K5738dj1cD0F6Y4=
+
+Name: patch/system/lib/libpcre.so.p
+SHA1-Digest: 6cSoLcNAB5KGqLzqF7rFQwrGdJ8=
+
+Name: patch/system/fonts/Roboto-Thin.ttf.p
+SHA1-Digest: HUTq7WMdCBniJZfgunCNKjh7AdU=
+
+Name: system/priv-app/WristGesturesTutorial/oat/arm/WristGesturesTutor
+ ial.odex
+SHA1-Digest: 8B38D65spPak0CunU+DYZ1nXGSY=
+
+Name: patch/system/framework/arm/wifi-service.odex.p
+SHA1-Digest: TWp3lh82KgcyRpEJGY6HOI+dXUk=
+
+Name: system/framework/services.jar
+SHA1-Digest: +cxKoc5WlVSLNObDYulCwI7IRBM=
+
+Name: patch/system/lib/libcapi2.so.p
+SHA1-Digest: qddEGmmirStq+LZ7ZJOvHj/Nucw=
+
+Name: patch/system/lib/libjhead.so.p
+SHA1-Digest: Bhcv+l0klVA+H6taIIi8/hjIX3c=
+
+Name: system/lib/libprotobuf-cpp-lite.so
+SHA1-Digest: djMmMOvxQ6HmroaJnh6vlRzOJ6o=
+
+Name: patch/system/fonts/NotoSansLaoUI-Regular.ttf.p
+SHA1-Digest: xNl2bNXUJMWzJ4LK2jrjKLSiV9k=
+
+Name: patch/system/lib/libclockwork_proxy_jni.so.p
+SHA1-Digest: phsi4URp1RuNb0rNBQ2ZCuP2i9s=
+
+Name: patch/system/bin/applypatch.p
+SHA1-Digest: KJRTkCWC7+CK3ht66e93Ng2dWuk=
+
+Name: system/etc/security/cacerts/4be590e0.0
+SHA1-Digest: H1qAIltctx9ud1UQX9XT3fZC/Wg=
+
+Name: patch/system/fonts/NotoSerif-Regular.ttf.p
+SHA1-Digest: ok1k8qtzPtTzhwJfp0Ndbh3pfSA=
+
+Name: system/priv-app/ClockworkSettings/oat/arm/ClockworkSettings.odex
+SHA1-Digest: 6JQ3cZn4AzZ7clIwufUJnnuBgfc=
+
+Name: patch/system/lib/hw/audio_policy.default.so.p
+SHA1-Digest: P1k0Euxx+UsHT0lyZP1dZ7c/oXw=
+
+Name: system/fonts/NotoSansYi-Regular.ttf
+SHA1-Digest: 6iDh6HqUOzcmKrEOMANSWGHZXWA=
+
+Name: system/framework/wifi-service.jar
+SHA1-Digest: QgxmS6H+5j6uUSAraAuBwqL/OoQ=
+
+Name: system/fonts/NotoSansGurmukhiUI-Regular.ttf
+SHA1-Digest: Dq4D27rU0gXgOWUYmeqaUxBzbG4=
+
+Name: patch/system/build.prop.p
+SHA1-Digest: oDiGVDImVj275re6V0bVcXQXT8c=
+
+Name: patch/system/lib/libvixl.so.p
+SHA1-Digest: I6hCs2I5qRkPOIRJz0HQKkHMAu8=
+
+Name: system/app/TranslatePrebuiltWearable/oat/arm/TranslatePrebuiltWe
+ arable.odex
+SHA1-Digest: Ljasx7bjepFI7JiRBOXvQQXtPrQ=
+
+Name: patch/system/lib/libcommon_time_client.so.p
+SHA1-Digest: OgoaQnXcOcPvXF9GWqAx3s5FGgw=
+
+Name: patch/system/lib/libft2.so.p
+SHA1-Digest: NViWZDgjTMsZ/HoqNXuY5cfEktM=
+
+Name: system/usr/hyphen-data/hyph-hy.lic.txt
+SHA1-Digest: PgskLreK0hJsIFETUDzpMBuBQdk=
+
+Name: patch/system/bin/sh.p
+SHA1-Digest: HqzWs3D/FhYYG7/VzKjkD3hiZgU=
+
+Name: patch/system/fonts/NotoSansBengali-Regular.ttf.p
+SHA1-Digest: BdI5OycSie+jfAPhEtwtB2VB0oE=
+
+Name: system/lib/libgoogle_speech_micro_jni.so
+SHA1-Digest: 35NThnraMbcKu0sybkvw1MgSnho=
+
+Name: bootloader.abi.img
+SHA1-Digest: TxDF/sAymkzGNQuXgdSN3BiVHaw=
+
+Name: patch/system/fonts/NotoSerif-Bold.ttf.p
+SHA1-Digest: 74vUzlUet1mw746OUxXiiRX1UeY=
+
+Name: patch/system/lib/libclcore_debug.bc.p
+SHA1-Digest: iofWwX7dUibwB4DwvR4qnRqF7dE=
+
+Name: patch/system/priv-app/ClockworkBugReportSender/ClockworkBugRepor
+ tSender.apk.p
+SHA1-Digest: eh6mQRSHfdbSMOmker06A8Cdh8Q=
+
+Name: patch/system/xbin/tatest.p
+SHA1-Digest: QqnA2697UvfxjJr8C6QHP1QjDzE=
+
+Name: system/framework/input.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: system/priv-app/GooglePackageInstaller/oat/arm/GooglePackageInst
+ aller.odex
+SHA1-Digest: IYpdQVf0CPnjmUGy3ojUjJZQMHs=
+
+Name: system/usr/hyphen-data/hyph-en-us.hyb
+SHA1-Digest: JneUfAcL5uJBMNDnWuuIHQun6fY=
+
+Name: system/framework/conscrypt.jar
+SHA1-Digest: Yb9LBkalVAckUDSoLLRIYNSOwuE=
+
+Name: system/fonts/NotoSansCham-Bold.ttf
+SHA1-Digest: StmMWI7yIUrKdPZjQnjliuxoH80=
+
+Name: system/app/Bluetooth/oat/arm/Bluetooth.odex
+SHA1-Digest: iyl9FcbDhOVXRnz/CN4Fdvq12aI=
+
+Name: system/framework/sm.jar
+SHA1-Digest: WU9AVcs7w34j70XiqfWm4Z9Xeqg=
+
+Name: patch/system/lib/libgabi++.so.p
+SHA1-Digest: ZO+9z5I/Lv5SRVIkcMv/kaGVyao=
+
+Name: patch/system/etc/NOTICE.html.gz.p
+SHA1-Digest: 8GscJbrTK9fOpRouA74prNwxDhs=
+
+Name: patch/system/fonts/NotoSansBengaliUI-Bold.ttf.p
+SHA1-Digest: SCJ31itwPuuadYOItwy3CpHfaSE=
+
+Name: patch/system/lib/hw/lights.tetra.so.p
+SHA1-Digest: F+pXfxiWd0Imisdm3Cp8voO2L8I=
+
+Name: patch/system/fonts/NotoSansBengali-Bold.ttf.p
+SHA1-Digest: rn6elEZIQuW52AA7xQF4+j7MzuI=
+
+Name: patch/system/lib/libGLES_trace.so.p
+SHA1-Digest: EHESfjhS41zIjoycyAD6GrvLfqg=
+
+Name: patch/system/bin/dumpstate.p
+SHA1-Digest: Kp9HdfsZ1wVM6JoxLNdlC3OMt9Y=
+
+Name: bootloader.ubootlogo.img
+SHA1-Digest: SQ2amlzlPadsWQULUGCCCrbFBGk=
+
+Name: patch/system/lib/libnetutils.so.p
+SHA1-Digest: ofbi9txNxJTOXD/bWDgPvTqeHcw=
+
+Name: patch/system/bin/key_sleep_vibrate_service.p
+SHA1-Digest: PJAtTkFnChAnKm8J/EV7uILBAsE=
+
+Name: patch/system/fonts/Roboto-Light.ttf.p
+SHA1-Digest: vo+Mz+PsffMy/mit71JUDe9WjRE=
+
+Name: patch/system/lib/libdl.so.p
+SHA1-Digest: bG3X44DpusPBrzyc0WhftqTnac4=
+
+Name: system/fonts/NotoSansKayahLi-Regular.ttf
+SHA1-Digest: hwtKUGY6+4rz9mHrw+GMp6bdqNM=
+
+Name: system/priv-app/ClockworkHomeGoogle/oat/arm/ClockworkHomeGoogle.
+ odex
+SHA1-Digest: TvkinuMA9oxFHDty+gvLG8y7BTk=
+
+Name: system/etc/hosts
+SHA1-Digest: veSixZ8F9kKD3JVIh4k2RsiLajo=
+
+Name: patch/system/framework/arm/bmgr.odex.p
+SHA1-Digest: 16DJ60Flgexcyx8tCxuNRS1BNew=
+
+Name: system/priv-app/Telecom/Telecom.apk
+SHA1-Digest: 9sRS724b/3dZn8djaDDiGXBECJM=
+
+Name: system/usr/hyphen-data/hyph-eu.hyb
+SHA1-Digest: jIO0zVTTlK7/MbFKIZ8qNWITKQg=
+
+Name: patch/system/lib/libETC1.so.p
+SHA1-Digest: kyU5OBObq33UaO6kjs90ONyJaqc=
+
+Name: patch/system/lib/libpower.so.p
+SHA1-Digest: JYTEaOAPFB4B5bxEI6IP/DeSqJc=
+
+Name: patch/system/lib/libm.so.p
+SHA1-Digest: O66YygTXM15NruVvUC9W4bdkN8A=
+
+Name: patch/system/lib/libjavacore.so.p
+SHA1-Digest: CETqbMAq6VVcbTdONX5vaK1Glf4=
+
+Name: patch/system/lib/libwifi-service.so.p
+SHA1-Digest: X2Skb87itueoOyNu0Y3yRPbPVL4=
+
+Name: patch/system/lib/libmedia.so.p
+SHA1-Digest: mGLNASX92xQev2hHx1IHtiOGqt8=
+
+Name: system/priv-app/DefaultContainerService/oat/arm/DefaultContainer
+ Service.odex
+SHA1-Digest: fFCmOCjija9OuzzDYE5IhZuN5BA=
+
+Name: system/fonts/NotoNaskhArabicUI-Bold.ttf
+SHA1-Digest: Q8gnwHcOaNIRsvZPd5bkdzZlQ58=
+
+Name: patch/system/vendor/lib/mediadrm/libdrmclearkeyplugin.so.p
+SHA1-Digest: p1IOj5nvj9KopZ91c9SW4OTxLzg=
+
+Name: patch/system/lib/hw/hwcomposer.bcm_java.so.p
+SHA1-Digest: 1UjjlUKWUVhWo27gMZSV1yPFPj8=
+
+Name: patch/system/lib/libFFTEm.so.p
+SHA1-Digest: YrSRWQoEIhX8DmhbXo2UNUjNNtY=
+
+Name: patch/system/lib/libstagefright_yuv.so.p
+SHA1-Digest: dK7AHSuOmupj0ZkGPo1qWbBJ+lU=
+
+Name: patch/system/fonts/Roboto-BoldItalic.ttf.p
+SHA1-Digest: SjqOKBDrYvLbwC8Vw0VXTXg18Ec=
+
+Name: patch/system/fonts/NotoSansKannadaUI-Bold.ttf.p
+SHA1-Digest: gJTyHsJclzv1uj0kw7YIUJd23V4=
+
+Name: system/framework/framework.jar
+SHA1-Digest: Ah0Qtn4KE73qnDZvnKI/79or9Gw=
+
+Name: patch/system/lib/libstagefright_soft_aacdec.so.p
+SHA1-Digest: bskS0wcZAYbj5WAm7IckeGTUDbk=
+
+Name: system/app/RemindersPrebuiltWearable/RemindersPrebuiltWearable.a
+ pk
+SHA1-Digest: fSPLNxwRQ/2rQo2StcETA6SWjMw=
+
+Name: patch/system/bin/sensorservice.p
+SHA1-Digest: LREtA7e+Ag+LHA6IdFEG0+U70cw=
+
+Name: patch/system/etc/gps/glconfig.xml.p
+SHA1-Digest: bNuT0ZxxXKhe+ez4N2BZTJlhqGs=
+
+Name: system/bin/secdiscard
+SHA1-Digest: uP8Ki4FtnmJjPEj0Dcs3Nx4ihFA=
+
+Name: system/etc/security/cacerts/5a250ea7.0
+SHA1-Digest: QfEZmm73FswAxNued1nHNEln54k=
+
+Name: system/fonts/NotoSansMandaic-Regular.ttf
+SHA1-Digest: NwOCcXpaFm+QND9o82XVyTL3aPU=
+
+Name: patch/system/lib/libharfbuzz_ng.so.p
+SHA1-Digest: YieSLVfupoOgo/FqXhIewMDWF1E=
+
+Name: system/framework/oat/arm/hid.odex
+SHA1-Digest: e2/s27vEhE8w9rFd3dPznkVRSKE=
+
+Name: patch/system/lib/libcutils.so.p
+SHA1-Digest: rDICxLsGiOU8aM+nNJYTZuz9BKg=
+
+Name: system/priv-app/Telecom/oat/arm/Telecom.odex
+SHA1-Digest: gpwURDxSQql6ZyliS3KXBwzGGMU=
+
+Name: patch/system/lib/libinputflinger.so.p
+SHA1-Digest: C2LtKZJVWIBT+SgZgzmvW+zaabU=
+
+Name: system/usr/hyphen-data/hyph-hu.hyb
+SHA1-Digest: 5nLGhwQXxxrNzabBanGF16ho62g=
+
+Name: patch/system/media/bootanimation.zip.p
+SHA1-Digest: V4w9HWZlNxOzwB597kTmBdwcEGg=
+
+Name: patch/system/bin/e2fsck.p
+SHA1-Digest: 2Mpx5Xjn7Fl3rUywfNalS8XgiFg=
+
+Name: system/recovery-from-boot.p
+SHA1-Digest: bMUSTjeuuLsGLOHX835Y//JN9PA=
+
+Name: patch/system/bin/schedtest.p
+SHA1-Digest: Ed60zvFSfp6hUYl77yeZiCsT2ZA=
+
+Name: patch/system/lib/libspeexresampler.so.p
+SHA1-Digest: KkBfdiujVHkeCqi9ZVdKM9uHKaU=
+
+Name: patch/system/bin/dnsmasq.p
+SHA1-Digest: KOAqAoo2hqqzRKWNzlWlGpHUPBw=
+
+Name: patch/system/priv-app/ClockworkSetup/ClockworkSetup.apk.p
+SHA1-Digest: G00LSnLCHd2yA1G/xVjyAfIZa9o=
+
+Name: patch/system/lib/libclcore_neon.bc.p
+SHA1-Digest: hLyoQWyOaf2rmhsSUdK1iWKlsn0=
+
+Name: patch/system/priv-app/FusedLocation/FusedLocation.apk.p
+SHA1-Digest: bZl6MhcF1+1NrQidY3Y45oPm6a4=
+
+Name: patch/system/fonts/Roboto-ThinItalic.ttf.p
+SHA1-Digest: 4ywdq1eqHin2mNrb0s4IziID7Xc=
+
+Name: patch/system/framework/ext.jar.p
+SHA1-Digest: MhN/oEqGS1JLYTsNmmOgEMUMkCQ=
+
+Name: bootloader.dt-blob.img
+SHA1-Digest: OeYUpFU/gruUmZLmdDX8JU1zO0A=
+
+Name: system/fonts/NotoSansSaurashtra-Regular.ttf
+SHA1-Digest: bjON5zKIBGnAnmH13lCRifBSJfM=
+
+Name: system/lib/libaudiospdif.so
+SHA1-Digest: jhmm6QnikwPYTI3g4k41tUUjCew=
+
+Name: patch/system/fonts/NotoSansKhmerUI-Regular.ttf.p
+SHA1-Digest: VOisx2r9AmCmVQOSkCvAPg2+0xw=
+
+Name: patch/system/lib/libdrmframework.so.p
+SHA1-Digest: kGV1svjYHdLeLYNVkKQZmWY8Kbw=
+
+Name: patch/system/lib/libext2_e2p.so.p
+SHA1-Digest: HuQjwSaNfuDyFlWodHTy0pbumPA=
+
+Name: system/lib/libhidcommand_jni.so
+SHA1-Digest: q7xxK/Ndpg0rhoglTLnJw/y2w4I=
+
+Name: patch/system/bin/servicemanager.p
+SHA1-Digest: lQrGkw+KOVvE4nSIQdchwq2E5cY=
+
+Name: patch/system/lib/libclcore.bc.p
+SHA1-Digest: fZFoD0wznfdrxmC5BsSXQZzz+zQ=
+
+Name: patch/system/lib/libbacktrace.so.p
+SHA1-Digest: Qb4L/9ubBUx1sngiqmUUWPwn6RM=
+
+Name: system/priv-app/FusedLocation/oat/arm/FusedLocation.odex
+SHA1-Digest: Fty/IOwYLirNQlSUihdS2IaiTJc=
+
+Name: system/fonts/NotoSansGujaratiUI-Regular.ttf
+SHA1-Digest: obpkJW1zHrO9vzFEa77tqmxtkF4=
+
+Name: patch/system/priv-app/PrebuiltGmsCoreForClockworkWearable/Prebui
+ ltGmsCoreForClockworkWearable.apk.p
+SHA1-Digest: uJyel/O2L35MVP9+bk5QuQlAAy0=
+
+Name: patch/system/etc/mkshrc.p
+SHA1-Digest: OWU/0xIy3PaGy+76QK63GUmrpKw=
+
+Name: system/framework/javax.obex.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: patch/system/lib/libbcinfo.so.p
+SHA1-Digest: BDyU4vgTP/ICT+KxUfDFYgz8SU8=
+
+Name: patch/system/lib/libsurfaceflinger_ddmconnection.so.p
+SHA1-Digest: 2VxaQyFuJi4NRPCQRhkPO/ja16c=
+
+Name: system/usr/icu/icudt55l.dat
+SHA1-Digest: 1cbH8MzWPOyueFZpparajY9NNKQ=
+
+Name: patch/system/bin/reboot.p
+SHA1-Digest: /ysVaGJESdTn7huN2xqi3jfEZ4A=
+
+Name: patch/system/fonts/NotoSerif-BoldItalic.ttf.p
+SHA1-Digest: Z2vWlhPryzRQTHbSaHN7agbYbxA=
+
+Name: system/priv-app/SonyWearWatchFaces/oat/arm/SonyWearWatchFaces.od
+ ex
+SHA1-Digest: oYuVxDer5SR7CJNriPKztvozMJ0=
+
+Name: patch/system/fonts/NotoSansKannada-Bold.ttf.p
+SHA1-Digest: HBdl4riR6eFzdBFqAbXFCYWBWyE=
+
+Name: patch/system/lib/hw/sensors.bcm_java.so.p
+SHA1-Digest: QfNyggmXFCjYu9chZFBqSMIRlms=
+
+Name: patch/system/lib/libbcc.so.p
+SHA1-Digest: h9ptO8XJJCj2/KXUVtm3tvnbALY=
+
+Name: patch/system/lib/libnl.so.p
+SHA1-Digest: NeMoaBmYyWhuWeDzlqUxSV1Lfgs=
+
+Name: system/bin/telecom
+SHA1-Digest: k6dwoWMZKcrdB81wPnlBfQ8jDbM=
+
+Name: system/app/KeyChain/KeyChain.apk
+SHA1-Digest: IZe7rZn3UvG1pm4zm6ZoWcJHObs=
+
+Name: system/priv-app/InputDevices/oat/arm/InputDevices.odex
+SHA1-Digest: 5nYp8mY+o2HqXAPzXoYcoDIL7mU=
+
+Name: system/priv-app/BackupRestoreConfirmation/oat/arm/BackupRestoreC
+ onfirmation.odex
+SHA1-Digest: OYPKLbdEROZ+yGDRalOHESmhg3c=
+
+Name: system/priv-app/WristGesturesTutorial/WristGesturesTutorial.apk
+SHA1-Digest: M7K85sDUbYxrw6GMreXn1+NwboE=
+
+Name: patch/system/lib/libRScpp.so.p
+SHA1-Digest: wHch8ycm5p0ulS+toG1vLiaDHow=
+
+Name: system/fonts/NotoSansBuhid-Regular.ttf
+SHA1-Digest: e2vBx7ZEQJC0W6VAC9Fv7dPx8xA=
+
+Name: patch/system/bin/vold.p
+SHA1-Digest: bVGetBzgcyy9qu7mVSV8GAup8bA=
+
+Name: patch/system/lib/libsparse.so.p
+SHA1-Digest: +ZafbdFH3HKG7w5bxsr12VuzJqA=
+
+Name: patch/system/fonts/NotoSansTelugu-Regular.ttf.p
+SHA1-Digest: RRh5IOetzKFaCltWT+aWtLsbLjI=
+
+Name: patch/system/lib/libmediandk.so.p
+SHA1-Digest: 9o5JxEi943N67RSBYEjxY0/+Z8M=
+
+Name: system/bin/grep
+SHA1-Digest: wNFBCOxvF0M17/g3uh7cyRjy488=
+
+Name: patch/system/lib/libskia.so.p
+SHA1-Digest: n+37zlhaEqLJTTrZDVBYz1WkLuk=
+
+Name: system/etc/sysconfig/clockwork.xml
+SHA1-Digest: kqk1Pq6HkUBgFttNeo6LszaNVxk=
+
+Name: patch/system/lib/libta.so.p
+SHA1-Digest: CNlO1c69BV4KFuTADJyffNXERsI=
+
+Name: patch/system/priv-app/SonyWearProviderDefaultsSetup/SonyWearProv
+ iderDefaultsSetup.apk.p
+SHA1-Digest: xc8JF3KzEPzd6/ioF67h3pQc43E=
+
+Name: patch/system/lib/libaudiopolicyservice.so.p
+SHA1-Digest: ICG2JqWUEN6boqvcTuSGodGae/o=
+
+Name: patch/system/lib/libstagefright_amrnb_common.so.p
+SHA1-Digest: qksCFBYu8g332TuD4uE+4UToioU=
+
+Name: patch/system/lib/hw/local_time.default.so.p
+SHA1-Digest: ONQcOENmXNQZf9wsljPMRg7vRaQ=
+
+Name: patch/system/bin/patchoat.p
+SHA1-Digest: V+f3vAsLJz8lV3nG6twGvuUBpaU=
+
+Name: patch/system/etc/bluetooth/bt_stack.conf.p
+SHA1-Digest: sr9kSYZ13YTNkiMO7GJUNxsemCo=
+
+Name: patch/system/fonts/NotoColorEmoji.ttf.p
+SHA1-Digest: cKyV5SqeYgljBidbGJ6GOTSgVy8=
+
+Name: patch/system/lib/libart.so.p
+SHA1-Digest: OINzhFN2ZMFKdzJS2ZsBw5epuLE=
+
+Name: system/fonts/NotoSansBuginese-Regular.ttf
+SHA1-Digest: vFb7SSNL6eft26o1/D6JZc3mEVU=
+
+Name: patch/system/bin/ClockworkProxy.p
+SHA1-Digest: pzK1wciwOQE+1MkupT+tjkbRNPA=
+
+Name: patch/system/fonts/NotoSansLao-Bold.ttf.p
+SHA1-Digest: /gMhEGhHp9fUL9LcT8CG0ejeaOw=
+
+Name: patch/system/bin/atrace.p
+SHA1-Digest: W+YE04qhCANofoFO0MNzw8ksk40=
+
+Name: patch/system/lib/libext2fs.so.p
+SHA1-Digest: nM8Qt+YhYEDpzpwFNMiTCCvc9vE=
+
+Name: system/bin/sm
+SHA1-Digest: ZfC1nxbQvUc0vaOLATrOAX21Sgc=
+
+Name: system/fonts/NotoSansSC-Regular.otf
+SHA1-Digest: /Q6Z8U/iFmGg1Sj7mILIM5efM4Y=
+
+Name: system/priv-app/ClockworkBluetooth/oat/arm/ClockworkBluetooth.od
+ ex
+SHA1-Digest: ukVYNvicR2xykscgIo4g2DB2V0E=
+
+Name: patch/system/bin/setup_fs.p
+SHA1-Digest: 2JpgOvhP7JYphcC6h0reBLRSVL0=
+
+Name: patch/system/bin/taimport.p
+SHA1-Digest: jtnGeHuZpb2rQLMzbFCakmOUOvQ=
+
+Name: patch/system/framework/arm/android.test.runner.odex.p
+SHA1-Digest: Q7REqNUczarQRTK4ub+YNHN4VBc=
+
+Name: system/framework/monkey.jar
+SHA1-Digest: WU9AVcs7w34j70XiqfWm4Z9Xeqg=
+
+Name: system/priv-app/PrebuiltWearsky/oat/arm/PrebuiltWearsky.odex
+SHA1-Digest: AH4X0f6qMS4xPsvOuag+tpl1/0Q=
+
+Name: patch/system/fonts/NotoSansDevanagari-Bold.ttf.p
+SHA1-Digest: 8uweOUP14fUAB4/71E6kmcJdsmM=
+
+Name: patch/system/bin/bugreport.p
+SHA1-Digest: A8x8vVqVgH7Rf3te3tNfyAXZ45Q=
+
+Name: patch/system/lib/libwpa_client.so.p
+SHA1-Digest: e+2ee3zncR32JK43LFKArEZ0FKo=
+
+Name: patch/system/priv-app/GoogleServicesFramework/GoogleServicesFram
+ ework.apk.p
+SHA1-Digest: orHFWQq+zUcSFiWBMTX8qsDw+FU=
+
+Name: patch/system/bin/gzip.p
+SHA1-Digest: ssYCdjG827vNuTbd3/dPh4Oa0DM=
+
+Name: patch/system/fonts/NotoSansBengaliUI-Regular.ttf.p
+SHA1-Digest: MiXM/6Jz4XZSUBrEzhFfvInlG5E=
+
+Name: patch/system/fonts/RobotoCondensed-LightItalic.ttf.p
+SHA1-Digest: 0riUA66pRdsFnxVcSHSlgOH0NyA=
+
+Name: patch/system/lib/hw/audio.a2dp.default.so.p
+SHA1-Digest: 3xRO4+GRdpKqVSqYbIj42M30qc8=
+
+Name: patch/system/lib/libbluetooth_jni.so.p
+SHA1-Digest: pFKElN+khqghgHS5I27emevxXRU=
+
+Name: patch/system/bin/resize2fs.p
+SHA1-Digest: JfmO2EhPsqr/7eM2J842R8j4vIY=
+
+Name: system/fonts/NotoSansThaana-Regular.ttf
+SHA1-Digest: vGhQUAWMpHL91n+KekNpklK78+8=
+
+Name: patch/system/bin/glgps.p
+SHA1-Digest: vwsdc943bSSRZh86lixpRhIkEUE=
+
+Name: patch/system/lib/libcompiler_rt.so.p
+SHA1-Digest: /XHdn+cJUqOScJtBeWNV2qhzEu0=
+
+Name: patch/system/lib/hw/keystore.default.so.p
+SHA1-Digest: 6iabYnVgAoXhFgq0z+rnPq+It7U=
+
+Name: patch/system/lib/libf2fs_sparseblock.so.p
+SHA1-Digest: c1HhP3BXDpLsgddGBmXlREAsrUY=
+
+Name: system/priv-app/ClockworkBluetooth/ClockworkBluetooth.apk
+SHA1-Digest: dj65wWtx5j/emdq28nI7csvQcUw=
+
+Name: system/usr/hyphen-data/hyph-nb.lic.txt
+SHA1-Digest: 9bYXdk9sZfnFFBK8xduywRnMm0Y=
+
+Name: system/bin/toybox
+SHA1-Digest: tCmdyGT+eRiF9jP5xllzAkkKO3k=
+
+Name: patch/system/priv-app/SonyWearWatchFaces/SonyWearWatchFaces.apk.
+ p
+SHA1-Digest: 7pLcxeo2QLjWJ+FCjao+emO5X38=
+
+Name: system/app/CertInstaller/oat/arm/CertInstaller.odex
+SHA1-Digest: Sv3/Sf7CYs7e+8Tl665OL87hFpA=
+
+Name: patch/system/lib/hw/audio.primary.default.so.p
+SHA1-Digest: r1fZovP8vrKz6GTsyzR96ou7nx4=
+
+Name: patch/system/lib/libOpenSLES.so.p
+SHA1-Digest: 2Gz1b/KKB0QpMClQBrLJXi6PY5Y=
+
+Name: patch/system/lib/soundfx/libdownmix.so.p
+SHA1-Digest: an7sEVNZSqn+dFoyUQ/8ZudQ1BE=
+
+Name: bootloader.loader.img
+SHA1-Digest: WU/oZXj5D49wvJgBr3vGXLBGgok=
+
+Name: patch/system/lib/libext2_profile.so.p
+SHA1-Digest: C1sIwlpf6cG8/d2b5V5Q4XfyKn8=
+
+Name: system/fonts/NotoSansGurmukhiUI-Bold.ttf
+SHA1-Digest: JBAXgHLcxpC1Ksxol+d4oL//9FI=
+
+Name: patch/system/priv-app/MediaProvider/MediaProvider.apk.p
+SHA1-Digest: FkzhX7gGTXpiS6IU3HQPhLECGHQ=
+
+Name: patch/system/lib/libexpat.so.p
+SHA1-Digest: jghUmUzpelpCwO6yj+sY1/gRsy4=
+
+Name: system/fonts/NotoSansKR-Regular.otf
+SHA1-Digest: guScTX5OztigvOSe+QGoZFlUfYw=
+
+Name: system/priv-app/StepService/oat/arm/StepService.odex
+SHA1-Digest: vCzckLYOdOrRiXvEnkp8Vpw+dhc=
+
+Name: patch/system/lib/libpdfium.so.p
+SHA1-Digest: wKfHlMYtWHurCEiXrigad8n/zEQ=
+
+Name: patch/system/etc/security/otacerts.zip.p
+SHA1-Digest: 2pTvzNs0rzF2sPbPuU9cbJVAG+w=
+
+Name: patch/system/etc/event-log-tags.p
+SHA1-Digest: EmqMvDfel2oDRPBz7gS9RLftuRA=
+
+Name: patch/system/lib/libtinyalsa.so.p
+SHA1-Digest: Mz7EgMnEMlg+DtIOFJ40/61K1WY=
+
+Name: patch/system/lib/libwilhelm.so.p
+SHA1-Digest: qdCxvHP7vIGgPwP8FGwoydrJUak=
+
+Name: patch/system/bin/find-device.p
+SHA1-Digest: QDHesegTs4AXQPwNudMLVz2Gncg=
+
+Name: patch/system/lib/libjnigraphics.so.p
+SHA1-Digest: 5FAOohf1SIM0wYNsBNKisopVV/8=
+
+Name: patch/system/etc/permissions/platform.xml.p
+SHA1-Digest: RtcWvga5wveLkiKlMC16xvjLD24=
+
+Name: patch/system/fonts/Roboto-Black.ttf.p
+SHA1-Digest: 0xpu4lsGJi976gg02Mj/AlebOs8=
+
+Name: patch/system/fonts/Roboto-Italic.ttf.p
+SHA1-Digest: bHFmqOKCsidh2+FRlMDgiII760k=
+
+Name: patch/system/fonts/NotoSansArmenian-Bold.ttf.p
+SHA1-Digest: oMRPsTm0wkxk4kZqFFUzUYPcS/w=
+
+Name: patch/system/lib/libEGL.so.p
+SHA1-Digest: PsyX60DjCsmHY2777LSZdOT3jn8=
+
+Name: patch/system/lib/libandroid_runtime.so.p
+SHA1-Digest: DmdlAmoal0ioshrPB6CecM6mySg=
+
+Name: patch/system/lib/librs_jni.so.p
+SHA1-Digest: IHXGW+BBH8dQGfPJ9oXzGERTNDg=
+
+Name: patch/system/lib/soundfx/libreverbwrapper.so.p
+SHA1-Digest: tc/MQ+AeiNiB5BYUor+xIGUaAec=
+
+Name: patch/system/bin/screenrecord.p
+SHA1-Digest: vWM0HxbAQ+nXUP1l+SRC8yqMmdE=
+
+Name: system/framework/oat/arm/telecom.odex
+SHA1-Digest: TcgW7aQPuoyp845ElLFsZGWi3B4=
+
+Name: patch/system/bin/service.p
+SHA1-Digest: /Kx/PNe8yH/BzCERt58mC+KbTBs=
+
+Name: patch/system/lib/libcameraservice.so.p
+SHA1-Digest: 6LIwSs08ZyA1653FRXoPJIQQ/IQ=
+
+Name: patch/system/fonts/NotoSansEthiopic-Bold.ttf.p
+SHA1-Digest: 2Kxfrx7VpUv9Xr8EAypUYJuqRxI=
+
+Name: patch/system/lib/hw/power.default.so.p
+SHA1-Digest: +/5TMaVOnHXJeswVdbxLG9JdqO4=
+
+Name: patch/system/lib/libsoundpool.so.p
+SHA1-Digest: iUskHbpKIlFHhqVAuRdUv/xSbWA=
+
+Name: patch/system/lib/libjpeg.so.p
+SHA1-Digest: bXbMiCbiCq6yvSXQZw3l3gcPb+o=
+
+Name: patch/system/priv-app/MinModWatchfaces/MinModWatchfaces.apk.p
+SHA1-Digest: ckce1Ij05xVBVYDSH/JTnkeCirs=
+
+Name: patch/system/bin/capi2test.p
+SHA1-Digest: OmxXfhvbmc3dKRF9lLfqRuOH1xA=
+
+Name: patch/system/lib/libinput.so.p
+SHA1-Digest: k7N3na+eru7fH23MAdCxHgKCW7o=
+
+Name: patch/system/lib/libLLVM.so.p
+SHA1-Digest: MIhfa9RWyxEsnge3DHv7gg1/ymc=
+
+Name: patch/system/framework/arm/javax.obex.odex.p
+SHA1-Digest: k2MoqrDOa0pWJ6RaWLif/51ZFzw=
+
+Name: patch/system/fonts/NotoSansMalayalamUI-Regular.ttf.p
+SHA1-Digest: 8NPUn8WeEdmafc9vsG428G0a9nM=
+
+Name: patch/system/bin/uncrypt.p
+SHA1-Digest: 8vFs4EWj3ffD17xQ4AnTeP3flCg=
+
+Name: patch/system/framework/framework-res.apk.p
+SHA1-Digest: SzvKuTAJIKzghcuKEvajhCVe6+A=
+
+Name: system/lib/libbase.so
+SHA1-Digest: KIbdgH86+sktUHpRnxYKv4iKKnU=
+
+Name: patch/system/framework/arm/input.odex.p
+SHA1-Digest: +uDi9u14VA3Q6vMW1KxRADOOLAQ=
+
+Name: patch/system/lib/libbinder.so.p
+SHA1-Digest: lP7X+xFeItv3lZD3WX8WTwoB1mU=
+
+Name: system/lib/libkeymaster1.so
+SHA1-Digest: 68qqkGnE5avUevkEXdUYq6MgAZg=
+
+Name: patch/system/lib/libdefcontainer_jni.so.p
+SHA1-Digest: CgyufIHcBX17ROxYfjARi47j1+Y=
+
+Name: patch/system/bin/logcat.p
+SHA1-Digest: YBfhTODqqAl1PkJD9X99HZC38Dc=
+
+Name: patch/system/lib/crtbegin_so.o.p
+SHA1-Digest: 9QafohmVDBUaVi93Wo9Ba4hrfcU=
+
+Name: system/fonts/NotoSansTC-Regular.otf
+SHA1-Digest: LEv1VZygACAcVy/AXUbXubSsneQ=
+
+Name: patch/system/lib/hw/bluetooth.default.so.p
+SHA1-Digest: k0B4purYQIRI8IwLqq3O1jnPoUI=
+
+Name: patch/system/lib/libnativehelper.so.p
+SHA1-Digest: 2h5kc/1sAOZTGqA5Jpbz88SqGfk=
+
+Name: patch/system/lib/libtinyalsa_ext.so.p
+SHA1-Digest: zZ+XVVSKCRyGmHxgpfn8jGEKens=
+
+Name: system/fonts/NotoSansCherokee-Regular.ttf
+SHA1-Digest: W+ZauNyJ/NykgBi6PIY2IM6VrDc=
+
+Name: patch/system/etc/preloaded-classes.p
+SHA1-Digest: PA3Y2Y6j789chxeh13tFV+IaIHs=
+
+Name: system/app/ClockworkPhotosWatchFace/oat/arm/ClockworkPhotosWatch
+ Face.odex
+SHA1-Digest: OXXiFBcnL+6RlSCYgwxVMSCYCPM=
+
+Name: patch/system/lib/soundfx/libvisualizer.so.p
+SHA1-Digest: cEiYjVgmG8wl6ohVRtPCBbALfSU=
+
+Name: system/framework/core-junit.jar
+SHA1-Digest: aiC4U2Xcpdywqb81YQ8ekPDYmds=
+
+Name: patch/system/lib/libexif.so.p
+SHA1-Digest: oIusEMkX8vfhWD5uJjFP4osL8FE=
+
+Name: system/fonts/NotoSansRejang-Regular.ttf
+SHA1-Digest: NMe3FUjJtTIWewj6yxyHG7QZYFY=
+
+Name: patch/system/lib/libeffects.so.p
+SHA1-Digest: kdUUMpFw/yoSAiI6qnXTrZev2II=
+
+Name: patch/system/framework/arm/media_cmd.odex.p
+SHA1-Digest: FWPhTPhTR6CSaB9PJlJeZug4rbk=
+
+Name: system/fonts/NotoNaskhArabicUI-Regular.ttf
+SHA1-Digest: Tf6DNpR+blJQLy+BVjcehVU6tgA=
+
+Name: system/etc/wifi/wpa_supplicant_overlay.conf
+SHA1-Digest: azkXKsADEQWku2veAeVfyojVPQU=
+
+Name: patch/system/lib/libaudioeffect_jni.so.p
+SHA1-Digest: xcZCR+EozkcO5PQSlf04VqBUSmE=
+
+Name: patch/system/lib/libz.so.p
+SHA1-Digest: QrgJfFD+R7+R+dAZagYRgKSVVQM=
+
+Name: system/fonts/NotoSansTaiTham-Regular.ttf
+SHA1-Digest: DRvw+Dxm6juS3qrq+jvVRmpU7n8=
+
+Name: system/priv-app/Shell/oat/arm/Shell.odex
+SHA1-Digest: ih8KNLBv+bT3EuDnIfG1zINq8Mw=
+
+Name: patch/system/fonts/NotoSansTelugu-Bold.ttf.p
+SHA1-Digest: 0Iy0ll7jTY204uytCQt77RHgqU4=
+
+Name: patch/system/lib/liblogwrap.so.p
+SHA1-Digest: vVF9njUC5hVdEb5GbHDd2ZN6XnA=
+
+Name: system/framework/nullwebview.jar
+SHA1-Digest: Ah0Qtn4KE73qnDZvnKI/79or9Gw=
+
+Name: patch/system/lib/libOpenMAXAL.so.p
+SHA1-Digest: Fa+StFrC16Ma9CqUygqv9XhscA0=
+
+Name: patch/system/lib/libicuuc.so.p
+SHA1-Digest: OzGZQsOMh4EBWQ0G33athl9XN90=
+
+Name: patch/system/fonts/NotoSansHebrew-Bold.ttf.p
+SHA1-Digest: 2dfallt8LOvyGJDE5ibogMNG/5Q=
+
+Name: system/usr/hyphen-data/hyph-eu.lic.txt
+SHA1-Digest: KXQthR4ys1CBXJ1gWrBPGMuJG70=
+
+Name: system/usr/idc/AVRCP.idc
+SHA1-Digest: ppQdeYCdfNxvA0Cqqkm8/22H1TE=
+
+Name: patch/system/bin/chargemon.p
+SHA1-Digest: vU7vlFd6O4RPTBwmv4iXbv65Ock=
+
+Name: patch/system/lib/libstagefright.so.p
+SHA1-Digest: rk8QlrtYazlyYJ8aNw1wjXDzO3E=
+
+Name: system/etc/security/cacerts/0d5a4e1c.0
+SHA1-Digest: yrO7JVGdlDrQ0eHOltBiNpH6DI8=
+
+Name: system/fonts/NotoSansTaiViet-Regular.ttf
+SHA1-Digest: UIBkyGRTcT7VeKsUKLJoaoE1Afc=
+
+Name: patch/system/lib/libminikin.so.p
+SHA1-Digest: 9s8BlSaF1Q4dI26y7lwDrlTci20=
+
+Name: patch/system/lib/soundfx/libbundlewrapper.so.p
+SHA1-Digest: wnTiW/Z8GZ0De1i3oyFIAbnCj8E=
+
+Name: patch/system/bin/make_ext4fs.p
+SHA1-Digest: bH6jIW+90y0+xHeY6NanLuz1E0g=
+
+Name: patch/system/bin/netd.p
+SHA1-Digest: 5etxND9eis7EQ8CBz0dEtCtywR4=
+
+Name: patch/system/bin/ip.p
+SHA1-Digest: aF7l2O4sN4PXj3e7aQSwjmqRSUY=
+
+Name: patch/system/bin/fsck_msdos.p
+SHA1-Digest: VJ/sJbA6Ex4WGRe/l/f6kXCWoZU=
+
+Name: system/fonts/NotoSansGujarati-Regular.ttf
+SHA1-Digest: JMEz1jUrJcEgvPM9mJvyZyPiQnk=
+
+Name: bootloader-flag.txt
+SHA1-Digest: L6fmc0kG8qyCm/wFpR1oOm3twrY=
+
+Name: patch/system/framework/arm/ime.odex.p
+SHA1-Digest: m5I1CaSpbaoyWmgy2pPVyGZ8dO4=
+
+Name: patch/system/app/PrebuiltDeskClockMicroApp/PrebuiltDeskClockMicr
+ oApp.apk.p
+SHA1-Digest: Y9ko4oPVjJ2n4dAGgGZj7n+VVOw=
+
+Name: patch/system/lib/libext2_quota.so.p
+SHA1-Digest: sbP009OSkglz24hOo060G+R4ZOU=
+
+Name: system/framework/appops.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: system/priv-app/ClockworkAmbient/ClockworkAmbient.apk
+SHA1-Digest: XIWa7qHw4UiM5vXf415VYHt5OWw=
+
+Name: patch/system/lib/libsoundtriggerservice.so.p
+SHA1-Digest: Sm36nUAkLIwfzmlscyiowwAzQME=
+
+Name: patch/system/lib/libstagefright_avc_common.so.p
+SHA1-Digest: WEA3YD7JcPda4HEJBUpW4M5Ar4o=
+
+Name: patch/system/bin/logd.p
+SHA1-Digest: AX0nhi1X1HWkX9bVQ2lEthok4E4=
+
+Name: patch/system/lib/crtend_so.o.p
+SHA1-Digest: OslbpO7L9N/f++Vvk6VqqtZIHcc=
+
+Name: system/bin/sgdisk
+SHA1-Digest: i1nCiAiHWJE7l4Eu2HBf3kJOVtk=
+
+Name: patch/system/fonts/NotoSansKhmer-Bold.ttf.p
+SHA1-Digest: lqhmkO1xCg1eso3Stm1rYA+h4wo=
+
+Name: patch/system/fonts/Roboto-BlackItalic.ttf.p
+SHA1-Digest: B41G43SqeGfCnJXACSrgwYLjxEI=
+
+Name: patch/system/lib/libdrmframework_jni.so.p
+SHA1-Digest: Eag3mDCi4EA9h6qLtpgxZ3SCxDA=
+
+Name: patch/system/lib/libsoundtrigger.so.p
+SHA1-Digest: u/yChAGJSm/adb6/pQRd/Z+Ds5o=
+
+Name: patch/system/framework/arm/bu.odex.p
+SHA1-Digest: Yne/QxsCNt5LQFY1YPjrqdE7pPc=
+
+Name: patch/system/lib/libunwind.so.p
+SHA1-Digest: bb5zEedDu9dUfi36cB6/Sv6Y+m4=
+
+Name: patch/system/lib/libuip.so.p
+SHA1-Digest: mdZYfK7F/q4hg6kQKsqoUGGp5rw=
+
+Name: system/framework/com.google.android.wearable.jar
+SHA1-Digest: cycoiU7nfTlBCFuXw6tZJwgTfvM=
+
+Name: patch/system/lib/librpc.so.p
+SHA1-Digest: 0D9BNd/Sq2LyGSCCsM/wz/UIxr4=
+
+Name: patch/system/bin/wpa_supplicant.p
+SHA1-Digest: TyQVFRk92Pge1dEqXQS43bytxk8=
+
+Name: system/fonts/NotoSansBamum-Regular.ttf
+SHA1-Digest: fT0UrFrl34fX3JJD3wEaYiACPTA=
+
+Name: system/bin/gatekeeperd
+SHA1-Digest: eO+0/3O2H3DgDq/KjIp0+jS3cuQ=
+
+Name: system/framework/bmgr.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: patch/system/lib/libsync.so.p
+SHA1-Digest: Tw7N2BcmDHWvgKvfUjAAMQDasyc=
+
+Name: system/fonts/NotoSansSyriacEstrangela-Regular.ttf
+SHA1-Digest: eDTftr/QKgs1vLwjtqsdDKpoGvY=
+
+Name: patch/system/lib/libdiskconfig.so.p
+SHA1-Digest: cg4ndLXULZk57QrYwBWHpjjMUA0=
+
+Name: patch/system/fonts/NotoSansLaoUI-Bold.ttf.p
+SHA1-Digest: ilEVWNv7nGvDweHfzSD+6PgtDFc=
+
+Name: patch/system/lib/libext4_utils.so.p
+SHA1-Digest: RQXVFgrnOlcAq8GqXVCD+NMbYQs=
+
+Name: system/fonts/NotoSansCoptic-Regular.ttf
+SHA1-Digest: CPJi9221qaU6xIxisD0Nzv7w9ac=
+
+Name: patch/system/lib/libaudiopolicymanager.so.p
+SHA1-Digest: y/cLF+lCvbAPqvfBbDDJC89HISQ=
+
+Name: system/lib/libaudiopolicyenginedefault.so
+SHA1-Digest: cZppiLOKcqFZESMji1r8BakMauk=
+
+Name: patch/system/app/FitnessPrebuiltWearable/FitnessPrebuiltWearable
+ .apk.p
+SHA1-Digest: JE1qjSrClCtgFRHBpcoGb1x1YkI=
+
+Name: system/app/UserDictionaryProvider/oat/arm/UserDictionaryProvider
+ .odex
+SHA1-Digest: x/uxTiyDziG+ZRbYjzqZgL4qmiQ=
+
+Name: patch/system/bin/T2tNdefWrite.p
+SHA1-Digest: vLLTepc1thA3zL09Ap2aCqk7xyU=
+
+Name: patch/system/fonts/NotoSansEthiopic-Regular.ttf.p
+SHA1-Digest: tqInA/7CMs3nKhWKbqob4tIDe2g=
+
+Name: patch/system/lib/hw/audio.primary.bcm_java.so.p
+SHA1-Digest: vv8Yo1KkdwelvWhfG/9O/aypifM=
+
+Name: patch/system/lib/libGLESv2.so.p
+SHA1-Digest: MtmVJEPKecksRy+i5uqEiWKzGUM=
+
+Name: patch/system/xbin/misctatest.p
+SHA1-Digest: 5NLQBDg6J9gGb1WYFpSs7BlyZpY=
+
+Name: patch/system/lib/libaudiopolicymanagerdefault.so.p
+SHA1-Digest: ++ZFMVNFijtNK2LrM7PMCHgDzSc=
+
+Name: patch/system/lib/libnativebridge.so.p
+SHA1-Digest: C/QfwpOIvOFO6gX+KoUsIgOManI=
+
+Name: system/lib/libkeystore-engine.so
+SHA1-Digest: hsUT3U08H+418VXHiD6bsWLS8pM=
+
+Name: patch/system/bin/dhcpcd.p
+SHA1-Digest: p2fk90s7JTvCCdv0KG/U11tOQ7M=
+
+Name: patch/system/xbin/dexdump.p
+SHA1-Digest: Vz9hyE07yrdRE4qRkSRzwcbHL9I=
+
+Name: patch/system/lib/libandroid_servers.so.p
+SHA1-Digest: VPYqlMghac/XuBj0VydK6WPdw8Y=
+
+Name: patch/system/framework/arm/uiautomator.odex.p
+SHA1-Digest: C/RUdsbLFWd5GhorItY3NzItVhs=
+
+Name: system/lib/libradio.so
+SHA1-Digest: fq7YOkDndgXjf+0O9bSOgaEC+g8=
+
+Name: patch/system/etc/recovery-resource.dat.p
+SHA1-Digest: E1XtwU/+vO2IhqQLSmYqTjCAnU8=
+
+Name: patch/system/framework/arm/dpm.odex.p
+SHA1-Digest: CN5RKGh99XEVCxcDYDiEHvCuLw0=
+
+Name: system/framework/ime.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: patch/system/lib/libstagefright_soft_rawdec.so.p
+SHA1-Digest: TDOZ+c+ky75jiEKghxh7R8zT1os=
+
+Name: patch/system/lib/libdev-util.so.p
+SHA1-Digest: p9dZ8RbVDsdZik0QCkBy3UxGF6g=
+
+Name: system/usr/hyphen-data/hyph-und-ethi.lic.txt
+SHA1-Digest: SjVCEVu2JKVsG85v+NKbfckrjd0=
+
+Name: patch/system/lib/libcrypto.so.p
+SHA1-Digest: g9aNxjKFVNDhAJFD7vuxSpSFj1w=
+
+Name: patch/system/lib/libstagefright_httplive.so.p
+SHA1-Digest: 3SpFmrJ8qTl3gg9CCRG3EL4pfaQ=
+
+Name: patch/system/vendor/lib/libbt-vendor.so.p
+SHA1-Digest: NP2kCeiRbLVUBEURIbPEce6ydzU=
+
+Name: patch/system/fonts/RobotoCondensed-Regular.ttf.p
+SHA1-Digest: oLLloB0/a94/BQH1DKG8z7Gkvuo=
+
+Name: patch/system/bin/racoon.p
+SHA1-Digest: rknV5jl0Z/6l0gxQJ4dt8knE/XE=
+
+Name: system/fonts/NotoSansLimbu-Regular.ttf
+SHA1-Digest: WhPzIqJs0SR9yLiAVpUvqtJWtsk=
+
+Name: patch/system/framework/core-libart.jar.p
+SHA1-Digest: dzCPi4C7abHKP2lqxHBCAelc1cY=
+
+Name: patch/system/lib/libjavacrypto.so.p
+SHA1-Digest: fE6o8f8ridMUG6LSxs/cNXNzEfM=
+
+Name: system/bin/hid
+SHA1-Digest: RauDTCOS+6q66IE3DR979rxfbIo=
+
+Name: META-INF/com/google/android/updater-script
+SHA1-Digest: As9lZNjASOvn0VVHtUU3lxHmbi8=
+
+Name: system/fonts/NotoSansGujarati-Bold.ttf
+SHA1-Digest: jI+0aYX4GOkh/+25qb3g/PeCiRE=
+
+Name: patch/system/lib/libstagefright_soft_g711dec.so.p
+SHA1-Digest: fh/CCs6RpAX4QzOeRrVCskpOmpo=
+
+Name: system/usr/hyphen-data/hyph-und-ethi.hyb
+SHA1-Digest: 0XWeimKkKnJSmt+bxzggvzLyo3s=
+
+Name: system/priv-app/SonyWearProviderDefaultsSetup/oat/arm/SonyWearPr
+ oviderDefaultsSetup.odex
+SHA1-Digest: M7XL3OzAhQaaswvtryURu3MYqcQ=
+
+Name: patch/system/app/ClockworkFrameworkPackageStubs/ClockworkFramewo
+ rkPackageStubs.apk.p
+SHA1-Digest: Zovf55bQl9jbmrIGV5q0EQSVqn4=
+
+Name: patch/system/framework/arm/boot.art.p
+SHA1-Digest: jWtOaz5gLCqQSjkesG5ZjngytbY=
+
+Name: patch/system/lib/libopus.so.p
+SHA1-Digest: lZRxpJaDH3WTN0J4muSGyEMkwns=
+
+Name: patch/system/lib/libsuspend.so.p
+SHA1-Digest: kuSsVxpFrq0oGC4vnxZRR5I60eo=
+
+Name: system/etc/security/cacerts/3c6676aa.0
+SHA1-Digest: XBiLLDJZL1d0OIlFC3bDlnCNp8Y=
+
+Name: system/framework/clockwork-system.jar
+SHA1-Digest: AgPqC2N3AQ09w21w9ndvTP4JTyI=
+
+Name: system/fonts/NotoSansBatak-Regular.ttf
+SHA1-Digest: ETwneYhZLc2TX61YQWSBSgw5mHw=
+
+Name: system/fonts/NotoSansCham-Regular.ttf
+SHA1-Digest: GM1vOyZBCnDBoAv1LvJtY3aHSrA=
+
+Name: patch/system/lib/libnetlink.so.p
+SHA1-Digest: ngpEwnYQT76vbXtbqtLbzhZOZWQ=
+
+Name: system/fonts/NotoSansGurmukhi-Regular.ttf
+SHA1-Digest: MprfnQg+c+bgOT2uYuKBqZHIsQM=
+
+Name: patch/system/priv-app/SonyWearWatchFaces2/SonyWearWatchFaces2.ap
+ k.p
+SHA1-Digest: kdLn+DcUV5ti+7971VwjsbmzHls=
+
+Name: patch/system/fonts/NotoSansLao-Regular.ttf.p
+SHA1-Digest: VlpPbp2d6pJuzEKV1q517X0a7ig=
+
+Name: patch/system/fonts/NotoSansMalayalam-Regular.ttf.p
+SHA1-Digest: 1imUJep31u4hfFbB8YShJosOpGI=
+
+Name: patch/system/lib/libvorbisidec.so.p
+SHA1-Digest: hoEeJeSnaRo3N0OekFtYzdeOQSA=
+
+Name: patch/system/lib/libstagefright_wfd.so.p
+SHA1-Digest: y367jComhiIWnndw5EQ1WXvM4P8=
+
+Name: system/fonts/NotoSansTaiLe-Regular.ttf
+SHA1-Digest: FV3yE740xFJpkl6hWBNU7AIXnAM=
+
+Name: system/priv-app/MinModWatchfaces/oat/arm/MinModWatchfaces.odex
+SHA1-Digest: wLMJYDhSlXb4yCv71Bc2jGZ87Z4=
+
+Name: patch/system/bin/dumpsys.p
+SHA1-Digest: kGG4cC3AyauxMskRUOclWEbQ0tA=
+
+Name: patch/system/fonts/NotoSansKhmer-Regular.ttf.p
+SHA1-Digest: ie8z14eDOH9od/k8SPTqK+xGk0Q=
+
+Name: patch/system/lib/libcamera_metadata.so.p
+SHA1-Digest: ytrIToTQbgGYClTqVGEgWn+Dmq8=
+
+Name: system/usr/hyphen-data/hyph-nn.lic.txt
+SHA1-Digest: Hg8+2M6erVjWKPeS4TQG+PPzIs4=
+
+Name: system/usr/hyphen-data/hyph-nn.hyb
+SHA1-Digest: bIdE+nBlH2Ke2IfLdra8G+0wSvk=
+
+Name: system/app/SonyWearServiceMenu/oat/arm/SonyWearServiceMenu.odex
+SHA1-Digest: cvBlW4PvVtZkABFv8PE+5XIOL3M=
+
+Name: system/fonts/NotoSansSylotiNagri-Regular.ttf
+SHA1-Digest: qGL0V/Bn/eSBYfaGXZQYZDs3wCk=
+
+Name: patch/system/lib/libstagefright_enc_common.so.p
+SHA1-Digest: 65tVxh7fNriXBSbjk80hS3stYYQ=
+
+Name: patch/system/bin/installd.p
+SHA1-Digest: SHmvWNLGbZrTB1CL9cSeDb3QauU=
+
+Name: system/priv-app/ClockworkHomeGoogle/lib/arm/libsketchology_nativ
+ e.so
+SHA1-Digest: b1aKI5b6SG0ZytGKkYhvqsTWGOQ=
+
+Name: patch/system/lib/libclockwork_home_jni.so.p
+SHA1-Digest: +F1f6HW7nCBdSWicH2Ei9J2cjXA=
+
+Name: system/framework/android.test.runner.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: system/fonts/NotoSansCanadianAboriginal-Regular.ttf
+SHA1-Digest: 05d9DlNFzLLMfKHZPSQg8xtOtVg=
+
+Name: patch/system/framework/arm/monkey.odex.p
+SHA1-Digest: qx7D04EKkZ7e7Obn1CbGn2J/OWM=
+
+Name: patch/system/priv-app/ContactsProvider/ContactsProvider.apk.p
+SHA1-Digest: Q7eeBZTuoFDbfytC9OQA3ne88Yk=
+
+Name: system/fonts/NotoSansSinhala-Regular.ttf
+SHA1-Digest: w9zKN63zuYrdcWh2+T4w59KNVzA=
+
+Name: system/etc/security/cacerts/9282e51c.0
+SHA1-Digest: TTtlPmFkTNEYPcna9KhuqobZdiI=
+
+Name: patch/system/lib/libpowermanager.so.p
+SHA1-Digest: vgBaiT7RTuRwT1fjyvzQg3rkj5I=
+
+Name: patch/system/lib/libstagefright_omx.so.p
+SHA1-Digest: EYoVBZNy/lsePV0YJWxMSISEUcw=
+
+Name: system/priv-app/ClockworkPhone/ClockworkPhone.apk
+SHA1-Digest: coxbxdwlHEVJKyzySEuxAYlcLNE=
+
+Name: patch/system/priv-app/DefaultContainerService/DefaultContainerSe
+ rvice.apk.p
+SHA1-Digest: qOk847Ols5LJseBbbkiy3cnNX2w=
+
+Name: patch/system/lib/hw/gralloc.bcm_java.so.p
+SHA1-Digest: BwGkw8Br2FTyS2Gla0IslDEWmOU=
+
+Name: patch/system/lib/libpng.so.p
+SHA1-Digest: 0EfdsEV+0MJndcOq55We9+lUtk4=
+
+Name: patch/system/lib/hw/gralloc.default.so.p
+SHA1-Digest: tDDzKMrVkTMxP+TelVX7VekB8jk=
+
+Name: system/priv-app/PrebuiltGmsCoreForClockworkWearable/oat/arm/Preb
+ uiltGmsCoreForClockworkWearable.odex
+SHA1-Digest: SFDAbmwWRr2wQfAUdFjmWk/VDg4=
+
+Name: patch/system/lib/libsqlite_jni.so.p
+SHA1-Digest: YprpVzGoNMi7+Q0vRzUoD9HfeC0=
+
+Name: patch/system/lib/libVCOS.so.p
+SHA1-Digest: KC9ZlremlNDdGKsEz9mXkDO1ync=
+
+Name: patch/system/bin/dalvikvm32.p
+SHA1-Digest: gENoWe+lvWpJtOWtVFN89OOXtJo=
+
+Name: patch/system/lib/libbrcmcutils.so.p
+SHA1-Digest: u9Q6ds+1ScnNAMeGG96VWBZi3AA=
+
+Name: patch/system/lib/libnbaio.so.p
+SHA1-Digest: +HOT2YCm4w+bIKmTaTJ/Vx+Dr8g=
+
+Name: patch/system/lib/libc++.so.p
+SHA1-Digest: EVpCHNM67T16kGGUhIv9wBBtS0o=
+
+Name: system/usr/keychars/Vendor_18d1_Product_5018.kcm
+SHA1-Digest: NUKY1n4kvC9+ckmMUMPpHWNT6xE=
+
+Name: system/app/KeyChain/oat/arm/KeyChain.odex
+SHA1-Digest: Db7JpYVR5nUpXKjfR9mlAkURrMA=
+
+Name: system/app/ClockworkFrameworkPackageStubs/oat/arm/ClockworkFrame
+ workPackageStubs.odex
+SHA1-Digest: t/BAVhOB8KuMhrggi7JrdPLpJEo=
+
+Name: system/fonts/NotoSansOriya-Regular.ttf
+SHA1-Digest: sGNaOaI7cfiAhcQDs67yab97WMQ=
+
+Name: patch/system/lib/libart-disassembler.so.p
+SHA1-Digest: VdQv6enW3Jua0G+osSHXKqZ05Os=
+
+Name: system/lib/libblas.so
+SHA1-Digest: gKEwNNp5Dk4vZ3FGK3OF5MKfNLk=
+
+Name: patch/system/lib/libstagefright_soft_mp3dec.so.p
+SHA1-Digest: RmIYShKb1qBy72uk7vbWNHUVErw=
+
+Name: patch/system/bin/ping.p
+SHA1-Digest: 8eyjQ4l/AwsJfZmcjfn+3d5YqFI=
+
+Name: system/app/PrebuiltDeskClockMicroApp/oat/arm/PrebuiltDeskClockMi
+ croApp.odex
+SHA1-Digest: EP28JEvQdEnPuF38m0WdrpItgDE=
+
+Name: patch/system/lib/libusbhost.so.p
+SHA1-Digest: A9dtqFZDcRjYRAuFzw6Itubi6Wk=
+
+Name: system/fonts/NotoNaskhArabic-Regular.ttf
+SHA1-Digest: ZRdS4bJnGUpGO0+yEe6FeVdunA8=
+
+Name: system/fonts/NotoSansOriyaUI-Bold.ttf
+SHA1-Digest: VBFwyHgHXarfzx0qeStqcxL9QJY=
+
+Name: patch/system/fonts/Roboto-MediumItalic.ttf.p
+SHA1-Digest: NuItsWQEeHl2g4oMVp2thUnyYkk=
+
+Name: patch/system/bin/clatd.p
+SHA1-Digest: xEEuadQ0KnlQGHr4TAtRzOOw6J0=
+
+Name: system/priv-app/ClockworkSystemUI/oat/arm/ClockworkSystemUI.odex
+SHA1-Digest: 9qyCO1DWlUk83NG3n+26J9O5xQg=
+
+Name: system/framework/okhttp.jar
+SHA1-Digest: ockatZsFqT6LfOTwejn7/s9Rwok=
+
+Name: patch/system/lib/libandroidfw.so.p
+SHA1-Digest: y4XhSty/HHt0NlBRmZaVCZbbgoE=
+
+Name: system/usr/keylayout/Vendor_18d1_Product_5018.kl
+SHA1-Digest: cGvkPCeCQyNkrq2mwHtVTIC8Ptg=
+
+Name: patch/system/lib/libstagefright_soft_amrdec.so.p
+SHA1-Digest: OqtXLo5qh9Ahk8m3un+b1djyza0=
+
+Name: patch/system/framework/arm/settings.odex.p
+SHA1-Digest: fUPB9MTuJw4aDXJPjS6Em01+1dY=
+
+Name: system/priv-app/ClockworkAmbient/oat/arm/ClockworkAmbient.odex
+SHA1-Digest: w2RGv87lUlaDbztbWWWmAUtUB3A=
+
+Name: system/lib/libradio_metadata.so
+SHA1-Digest: Jf432QQA6gD4zmX2aGHm+EQUH44=
+
+Name: patch/system/bin/ip6tables.p
+SHA1-Digest: y2R3BOj7oDLAhhLzY1yAyRvRPkI=
+
+Name: system/bin/tzdatacheck
+SHA1-Digest: KDFwRp8ubE+chqdeXlJF3FYpi8I=
+
+Name: system/usr/hyphen-data/hyph-nb.hyb
+SHA1-Digest: mP7cWGLHjzsD2u0f+e++XjHCBe4=
+
+Name: patch/system/bin/app_process32.p
+SHA1-Digest: 0G78SaJzgth/yOtT4WVRFo2meNQ=
+
+Name: system/etc/security/cacerts/d18e9066.0
+SHA1-Digest: 6x6LTHXBiwcIIWeKcBDIItQ6UxA=
+
+Name: patch/system/lib/libart-compiler.so.p
+SHA1-Digest: QkVAHjxAbMr9A2kPmA4NDNl+NzM=
+
+Name: system/framework/telephony-common.jar
+SHA1-Digest: dGV8pFNOqvSNGptAmS4+Ssi1x+I=
+
+Name: patch/system/bin/debuggerd.p
+SHA1-Digest: O7bKpTARoV3k0N1ueJ6O6Rl17zU=
+
+Name: patch/system/bin/ndc.p
+SHA1-Digest: qkBpEWsC29DlNaGh7S2GQysHNFs=
+
+Name: patch/system/fonts/NotoSansKannada-Regular.ttf.p
+SHA1-Digest: zkYlVJLxht+PEbydp4Er/atPT7c=
+
+Name: patch/system/framework/apache-xml.jar.p
+SHA1-Digest: b0H5AOkP5pBx3BJEU1Js8pktevE=
+
+Name: system/bin/ld.mc
+SHA1-Digest: LF6wfzYm7NhE/c/FQLWa6lqkmRw=
+
+Name: patch/system/lib/libc.so.p
+SHA1-Digest: Q5iBozQ4Zd6ssZitEJMBA364Bd4=
+
+Name: system/fonts/NotoSansTibetan-Regular.ttf
+SHA1-Digest: S3aYVdwV7ev21uE6/cBEyWyYxoA=
+
+Name: patch/system/lib/libmedia_jni.so.p
+SHA1-Digest: PRJ1RTjf40XM9y3k5tXbDw5m1TY=
+
+Name: system/fonts/NotoSansBalinese-Regular.ttf
+SHA1-Digest: SKeCIizLxuZwNqg92Mz+91t2a4w=
+
+Name: patch/system/lib/libjhead_jni.so.p
+SHA1-Digest: UYpZNpTlwrkodTSQj8xtarDEXTo=
+
+Name: patch/system/lib/soundfx/libldnhncr.so.p
+SHA1-Digest: x1OuRnzaJ7aj2LWRRyxOyIBADb0=
+
+Name: patch/system/app/ClockworkFlashlight/ClockworkFlashlight.apk.p
+SHA1-Digest: GFEujcjC99UwOy2ofKHBmkTOKWg=
+
+Name: system/fonts/NotoSansGlagolitic-Regular.ttf
+SHA1-Digest: JUWX+rIAhyIRWIVfWNHOl2U/dG8=
+
+Name: patch/system/fonts/NotoSansThaiUI-Regular.ttf.p
+SHA1-Digest: gfAK4748lfWlX6Z/POocnqxblRY=
+
+Name: patch/system/framework/arm/svc.odex.p
+SHA1-Digest: UDiY22JW0yOZcx6txktEUULthms=
+
+Name: patch/system/usr/share/zoneinfo/tzdata.p
+SHA1-Digest: OmxP3UrFrbM5ArBe96+27I9GGBo=
+
+Name: patch/system/bin/dex2oat.p
+SHA1-Digest: WKv0K8tdWijltBb5dud8oVJNQ34=
+
+Name: patch/system/lib/libbralloc.so.p
+SHA1-Digest: rXJGu6WQw0AiQrDsHSEHZXr7UC8=
+
+Name: patch/system/app/SonyWearServiceMenu/SonyWearServiceMenu.apk.p
+SHA1-Digest: 5ef9qJtevrjNCAf9CSQWltaavOk=
+
+Name: patch/system/lib/hw/power.bcm_java.so.p
+SHA1-Digest: Cj2DEv0axyeG/WzgZ1FSzNfRd9I=
+
+Name: patch/system/priv-app/Shell/Shell.apk.p
+SHA1-Digest: B6sahSfGTzBFUVp+yJOgAfzZkeA=
+
+Name: system/etc/security/cacerts/6645de82.0
+SHA1-Digest: tvqRYZziguEAkZ9HGjE8HJGAuno=
+
+Name: patch/system/priv-app/ClockworkHomeGoogle/ClockworkHomeGoogle.ap
+ k.p
+SHA1-Digest: biQx5DP/l0PNNg1KMb21Nng7bSE=
+
+Name: patch/system/lib/hw/gps.bcm_java.so.p
+SHA1-Digest: XhgBqRKqWqBoNQEoxX4G9bkLWgI=
+
+Name: patch/system/lib/libicui18n.so.p
+SHA1-Digest: Ocya+Zs7Ikl7/ECBX9F7Xgid/dQ=
+
+Name: system/framework/dpm.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: patch/system/fonts/DroidSansMono.ttf.p
+SHA1-Digest: Z90nl8FHStyjUl+6zSWtRskq0f4=
+
+Name: system/framework/uiautomator.jar
+SHA1-Digest: fJlpz47X+87lxn3TExBdBk/CWIo=
+
+Name: patch/system/bin/tc.p
+SHA1-Digest: jKDjb8SqKFcnsrNK3qUdSiE0g/Q=
+
+Name: patch/system/bin/mtpd.p
+SHA1-Digest: oI0lKg7Ur1VDOepw3rUQYj0XnbA=
+
+Name: patch/system/lib/egl/libGLES_java.so.p
+SHA1-Digest: ObUkM2xEza/i4TthonjM2zzOICg=
+
+Name: patch/system/framework/arm/appops.odex.p
+SHA1-Digest: Qhu/cj9NmD+c06ZGUVZC8uvUFDg=
+
+Name: patch/boot.img.p
+SHA1-Digest: p4UrgFB5/PvLqsHutz4Gq1XGoZY=
+
+Name: patch/system/app/UserDictionaryProvider/UserDictionaryProvider.a
+ pk.p
+SHA1-Digest: XvmWICgjbTbjtrQkD4U6xtNvbCQ=
+
+Name: system/fonts/NotoSansTifinagh-Regular.ttf
+SHA1-Digest: 6GAAAujU5gpDycQIS1J6ol2O0cQ=
+
+Name: patch/system/fonts/NotoSansDevanagariUI-Bold.ttf.p
+SHA1-Digest: zUbNVYL5FymplmiI/0vhSonLUpc=
+
+Name: system/priv-app/ClockworkSetup/oat/arm/ClockworkSetup.odex
+SHA1-Digest: G8I47zIQsSEkV8BtCNlTCCnLdyk=
+
+Name: patch/system/bin/bcc.p
+SHA1-Digest: iYc+CNbRM7ENAm4v7JZgDHAQyNc=
+
+Name: patch/system/bin/input.p
+SHA1-Digest: qkhts4cj3efkcDSJh2XiEVzA4m0=
+
+Name: patch/system/priv-app/ClockworkSettings/ClockworkSettings.apk.p
+SHA1-Digest: jE2Q0iK6GO8fQg/y153m5EvfItM=
+
+Name: system/usr/hyphen-data/hyph-hy.hyb
+SHA1-Digest: 4ME5DZSHa/Kjy97Kq7DjNb2GNV0=
+
+Name: patch/system/bin/screencap.p
+SHA1-Digest: 97hpWndmeuZ3uZIOCOkrvuTyn70=
+
+Name: patch/system/fonts/RobotoCondensed-BoldItalic.ttf.p
+SHA1-Digest: ccbkNBhbNpG1YYz7skFnNh74WxA=
+
+Name: patch/system/lib/libmiscta.so.p
+SHA1-Digest: LDKOjSGAtuwVvmrC0aeDKCCHPZU=
+
+Name: system/fonts/NotoSansJP-Regular.otf
+SHA1-Digest: aFxSqK0LQQmOhcCZpuW+DQnvLwI=
+
+Name: patch/system/framework/arm/wm.odex.p
+SHA1-Digest: qseTr3ibroZyHgdTKFJ9am3Y/d0=
+
+Name: patch/system/bin/mediaserver.p
+SHA1-Digest: 806EhzLrAa8WWRX37hTa8NkmZig=
+
+Name: bootloader-flag-clear.txt
+SHA1-Digest: 3oqEe/+MND1puFOiFebud17y75Y=
+
+Name: system/priv-app/ContactsProvider/oat/arm/ContactsProvider.odex
+SHA1-Digest: xU3PY3+K8eMCapx0oc0VvsvqoVA=
+
+Name: patch/system/fonts/NotoSansMyanmar-Regular.ttf.p
+SHA1-Digest: dREW9rFtWIFsiSjzz++Lr8WEdtk=
+
+Name: patch/system/lib/libGLESv1_CM.so.p
+SHA1-Digest: FSVdHwQBV6Cb3xVC2v8hGxtCdG4=
+
+Name: system/priv-app/SonyWearSettingService/SonyWearSettingService.ap
+ k
+SHA1-Digest: mMm57K6Vsc4ZKvIk7I8eBVUT3nQ=
+
+Name: patch/system/framework/arm/am.odex.p
+SHA1-Digest: z7+jBN2uJrc7BvoO3dShHEiyeqk=
+
+Name: patch/system/lib/libV3D_driver.so.p
+SHA1-Digest: 2t6hB/ueqrCMyJyQS3GryEQKxG0=
+
+Name: system/framework/bouncycastle.jar
+SHA1-Digest: aipTY0OAwn7fUtHb7HG9mgysNkg=
+
+Name: system/lib/libaudio-resampler.so
+SHA1-Digest: x9M5zR8DzTEcThJQa6oCakfQVRM=
+
+Name: patch/system/lib/libstagefright_soft_opusdec.so.p
+SHA1-Digest: pNIjLoneThc62uOiW/u0BJPkO0I=
+
+Name: system/fonts/NotoSansSinhala-Bold.ttf
+SHA1-Digest: /3hCW+/a8L3SS5egdeZoGWZaslc=
+
+Name: system/framework/com.android.location.provider.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: patch/system/priv-app/DownloadProvider/DownloadProvider.apk.p
+SHA1-Digest: yHNZKcx1dycxrzyNvH47CPob4OI=
+
+Name: patch/system/fonts/NotoSansGeorgian-Bold.ttf.p
+SHA1-Digest: PRrYdTPwU+/43OhbM8K1R8Zax6E=
+
+Name: patch/system/lib/libhardware.so.p
+SHA1-Digest: Wq2BpVpiXKPSesDSQ8XnC/ZOf6g=
+
+Name: patch/system/lib/libstagefright_http_support.so.p
+SHA1-Digest: gpMT+0KglEnYybxjit/Jl5+FbOw=
+
+Name: patch/system/bin/sdcard.p
+SHA1-Digest: 4oOT68Zony/oIr4f28AZgpx4FTQ=
+
+Name: patch/system/lib/librtp_jni.so.p
+SHA1-Digest: REN/W+YDg7J3IG611gVxwkLMu68=
+
+Name: system/framework/hid.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: system/framework/telecom.jar
+SHA1-Digest: C4ybd8tL2QUFO9EZVovACsMXoa0=
+
+Name: system/priv-app/SettingsProvider/oat/arm/SettingsProvider.odex
+SHA1-Digest: +CxWB5Mk2ECjp2T1k6lds1j/q58=
+
+Name: system/fonts/NotoSansNKo-Regular.ttf
+SHA1-Digest: M16nwtO+fYih6/qg3kEzYDfsJZU=
+
+Name: patch/system/lib/libsoftkeymaster.so.p
+SHA1-Digest: 6HJy/xEWsrFcDsFCVeGXKSGQWwE=
+
+Name: patch/system/lib/libreference-ril.so.p
+SHA1-Digest: dWwnU05YZD6EvFLbvrHa4KW3gnk=
+
+Name: system/priv-app/MediaProvider/oat/arm/MediaProvider.odex
+SHA1-Digest: aXx8SYo8QqETr3r8MoGxBY816So=
+
+Name: system/framework/bu.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: patch/system/etc/ppp/ip-up-vpn.p
+SHA1-Digest: Cb1kEUaAJ1dsXsbwi0Wv8WaREZ8=
+
+Name: system/fonts/NotoSansOriyaUI-Regular.ttf
+SHA1-Digest: kx9Qfi7TLYcoTIEJ/+An8eeVqu0=
+
+Name: patch/system/lib/libui.so.p
+SHA1-Digest: nqVKAnk6vtXzcQYyuUNlM7A0018=
+
+Name: system/usr/hyphen-data/hyph-hu.lic.txt
+SHA1-Digest: 29cm7rz4g8mevD1S3DXUPOLn964=
+
+Name: patch/system/bin/bootanimation.p
+SHA1-Digest: 1QFiPdk9TOAfO+uRhx8NP0uuF3M=
+
+Name: patch/system/fonts/NotoSansMyanmarUI-Bold.ttf.p
+SHA1-Digest: gx4E+BCpxTfwHIKJyWUBFQhDP0o=
+
+Name: patch/system/lib/libsonivox.so.p
+SHA1-Digest: AXnDM1qtknLRRkN+QdsfX5QRXXw=
+
+Name: system/priv-app/GooglePackageInstaller/GooglePackageInstaller.ap
+ k
+SHA1-Digest: Vtj1p42fGhaGu5heLM9a5rQzV6c=
+
+Name: patch/system/fonts/NotoSansTeluguUI-Regular.ttf.p
+SHA1-Digest: RRjmDVTY1jaiVcHeNv+3WN2eacI=
+
+Name: patch/system/framework/arm/boot.oat.p
+SHA1-Digest: ffTifvB3PpgEMccMAB3LW5/Okyw=
+
+Name: system/framework/settings.jar
+SHA1-Digest: WU9AVcs7w34j70XiqfWm4Z9Xeqg=
+
+Name: patch/system/lib/libsqlite.so.p
+SHA1-Digest: Q5CAnw8u8X65g4O9zYPs6zV2/fs=
+
+Name: patch/system/fonts/NotoSansThai-Bold.ttf.p
+SHA1-Digest: Hbt3iebCzXfNjkTKmqiCDnl9K+A=
+
+Name: patch/system/lib/libaudioresampler.so.p
+SHA1-Digest: 4letJ/jSFEggRMYMfmqEN/BTeRY=
+
+Name: patch/system/lib/libinputservice.so.p
+SHA1-Digest: uAu7rwjN8iJA+mYTQydfjLnVxhw=
+
+Name: patch/system/lib/soundfx/libeffectproxy.so.p
+SHA1-Digest: DpAikjW1NGB8POtZwV8QKlzy9nA=
+
+Name: META-INF/com/android/metadata
+SHA1-Digest: Qq1XGgdXsYLPLbie0NO/zYkZZJY=
+
+Name: patch/system/bin/vdc.p
+SHA1-Digest: 5MEiihcpReNHkZ3YiVTAwLjhyT0=
+
+Name: patch/system/lib/libsysutils.so.p
+SHA1-Digest: O/M2c4hk3ehxhkRYJLGhScw/lSg=
+
+Name: system/framework/media_cmd.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+
+Name: system/app/ClockworkPhotosWatchFace/ClockworkPhotosWatchFace.apk
+SHA1-Digest: DrvIcjELioOxvkkRgqMa2kzxpiQ=
+
+Name: patch/system/lib/libbcm_hp_filter.so.p
+SHA1-Digest: Isbdp8iLik9VTdjUR5M6fd1pWD0=
+
+Name: system/app/FitnessPrebuiltWearable/oat/arm/FitnessPrebuiltWearab
+ le.odex
+SHA1-Digest: q2IddxBnARbsraWJFSs15WLCk8s=
+
+Name: patch/system/lib/libRSDriver.so.p
+SHA1-Digest: yDUUF18a1sYKmCgD4rN7lx1tiQ4=
+
+Name: patch/system/lib/libnetd_client.so.p
+SHA1-Digest: GWzg/cUoslUI0EPketGdLk6fnm0=
+
+Name: patch/system/fonts/RobotoCondensed-Italic.ttf.p
+SHA1-Digest: Zhti8rmxQ+DnAsX3gkw1aoBjAfc=
+
+Name: system/fonts/NotoSansSundanese-Regular.ttf
+SHA1-Digest: uJkNlke+CG/y7zwu6uU1Nuw82Y8=
+
+Name: META-INF/com/google/android/update-binary
+SHA1-Digest: 0153nlgmJ4WnWpzt8x/Dvc/BEMg=
+
+Name: patch/system/bin/blkid.p
+SHA1-Digest: davyvzmo3Fza4S6vQF3RgeMUc3k=
+
+Name: system/fonts/NotoSansOriya-Bold.ttf
+SHA1-Digest: BfW65dBfhTpsxLOiSEmuxlLJBxg=
+
+Name: patch/system/fonts/NotoSansTamil-Regular.ttf.p
+SHA1-Digest: k1IagYKFswBg+APDwH0Ww+1Qh4A=
+
+Name: patch/system/lib/libmdnssd.so.p
+SHA1-Digest: dNHJfcfz7H81YDCmdeaFU/bQths=
+
+Name: patch/system/bin/oatdump.p
+SHA1-Digest: bWrZ4xkhrM9bMZVCx00SJZYS048=
+
+Name: patch/system/fonts/Roboto-Regular.ttf.p
+SHA1-Digest: CfTBAMt5wYPk78AtZqaicAMRW/A=
+
+Name: patch/system/fonts/Roboto-LightItalic.ttf.p
+SHA1-Digest: rQQYxs9b3ERZbdRJoqUwiRqfI8Y=
+
+Name: patch/system/lib/libaudioflinger.so.p
+SHA1-Digest: fWoKwkrDm4zQgBYi6IaIELEhZsE=
+
+Name: patch/system/lib/libserviceutility.so.p
+SHA1-Digest: 6Dis77JVhteVspRjUDIxmTvjDfU=
+
+Name: system/fonts/NotoSansGujaratiUI-Bold.ttf
+SHA1-Digest: ++nXRhI0dHAzRQZ60BaqHxTPbck=
+
+Name: patch/system/priv-app/InputDevices/InputDevices.apk.p
+SHA1-Digest: CRJaBzd6b3jG2ChTP9bcfr8GsCs=
+
+Name: patch/system/fonts/RobotoCondensed-Bold.ttf.p
+SHA1-Digest: p20Ld6vfyJo826JWRl4W60/1Zuw=
+
+Name: patch/system/app/SonyWearMenuLauncher/SonyWearMenuLauncher.apk.p
+SHA1-Digest: IFj5iP5a68B1381SuEXQAi0zUVQ=
+
+Name: patch/system/lib/libcamera_client.so.p
+SHA1-Digest: 7dwNEhCShVMZWK+ne5RCJl1dCTs=
+
+Name: patch/system/bin/logwrapper.p
+SHA1-Digest: sMNo9QNuhT0Dt3UuFqehMXzncDg=
+
+Name: patch/system/fonts/NotoSansHebrew-Regular.ttf.p
+SHA1-Digest: 6kuAHzeF7u6SDwTpD2S8vdK5a3Q=
+
+Name: system/framework/pm.jar
+SHA1-Digest: WU9AVcs7w34j70XiqfWm4Z9Xeqg=
+
+Name: patch/system/fonts/NotoSansMyanmar-Bold.ttf.p
+SHA1-Digest: KVqeh4TROQpyi4OSmTUwAEe8QaU=
+
+Name: patch/system/priv-app/PrebuiltWearsky/PrebuiltWearsky.apk.p
+SHA1-Digest: O5FIo2I9v1Bt8xxmqw7QC5JLMpQ=
+
+Name: system/lib/libgatekeeper.so
+SHA1-Digest: QkmdE8RLZ5qP91DpOr0j1GD9FBs=
+
+Name: patch/system/app/TranslatePrebuiltWearable/TranslatePrebuiltWear
+ able.apk.p
+SHA1-Digest: T7Q0dPQ33jXpgJV8o7d6bxE24EI=
+
+Name: system/framework/org.apache.http.legacy.boot.jar
+SHA1-Digest: A4iE3Fn5fLFzBjVfPSvbncyuQlU=
+
+Name: patch/system/etc/fonts.xml.p
+SHA1-Digest: rOs2zIIISPsu3syndOtHLGLX658=
+
+Name: system/app/RemindersPrebuiltWearable/oat/arm/RemindersPrebuiltWe
+ arable.odex
+SHA1-Digest: JElVZvU+JuKQseui3JFqlFwnYw8=
+
+Name: patch/system/framework/arm/appwidget.odex.p
+SHA1-Digest: ZOi21eAosl170F91Hk5fjLFpEso=
+
+Name: bootloader.abi-sec.img
+SHA1-Digest: YJ+ewg9gIL/I4Fr2G/aao7TKbBo=
+
+Name: patch/system/bin/toolbox.p
+SHA1-Digest: X9WZD+9ZTOI/yIV7IbwkSF8r+p8=
+
+Name: system/lib/libsonic.so
+SHA1-Digest: 0G+HPTCuY3cnqHtdIJxsakXlYZQ=
+
+Name: patch/system/lib/libstdc++.so.p
+SHA1-Digest: xYHqpNEVMC+vtbpDzlKmrbIIC3g=
+
+Name: patch/system/bin/keystore.p
+SHA1-Digest: WmjSdcrBDF7nmZ5Iij/rJ6OWlRw=
+
+Name: system/framework/svc.jar
+SHA1-Digest: C4ybd8tL2QUFO9EZVovACsMXoa0=
+
+Name: patch/system/fonts/Roboto-Medium.ttf.p
+SHA1-Digest: dloGgF+A4gyb7DL+Bm+sa0Y6huw=
+
+Name: patch/system/lib/libext2_com_err.so.p
+SHA1-Digest: AipVi2yzGGjzW0mi3cVH0pdZIwc=
+
+Name: patch/system/bin/linker.p
+SHA1-Digest: Muz5t4pnitMx0ZKi4IlellZh4EU=
+
+Name: patch/system/fonts/NotoSansKannadaUI-Regular.ttf.p
+SHA1-Digest: zF5iZ6HNZ2sSpBsifzuXOuMZP2c=
+
+Name: patch/system/bin/run-as.p
+SHA1-Digest: 52Gfjzr/ODxesDweD9MZLyn2W+A=
+
+Name: patch/system/app/CertInstaller/CertInstaller.apk.p
+SHA1-Digest: JCF5tAy2XsiyjXV/YT7U8f5aKMY=
+
+Name: patch/system/lib/libhwui.so.p
+SHA1-Digest: 21I3ClfS2etk4pLjti4scRcQERk=
+
+Name: patch/system/priv-app/BackupRestoreConfirmation/BackupRestoreCon
+ firmation.apk.p
+SHA1-Digest: ZQbu7f03LxnTpUtn/Idu9uUdWHQ=
+
+Name: patch/system/lib/libandroid.so.p
+SHA1-Digest: KaTVUXVN8Uq2n9EviydzFxbS6xk=
+
+Name: patch/system/lib/libsigchain.so.p
+SHA1-Digest: Q4X9OMEvK86j2rkkafiEqratug4=
+
+Name: system/app/SonyWearMenuLauncher/oat/arm/SonyWearMenuLauncher.ode
+ x
+SHA1-Digest: F8S6Mn6iHIbqN1TYO1/mk2oF9ik=
+
+Name: patch/system/framework/arm/com.android.location.provider.odex.p
+SHA1-Digest: sHGZL+Zmbux7OXAR+aiFGl4oz8w=
+
+Name: patch/system/fonts/NotoSansMalayalam-Bold.ttf.p
+SHA1-Digest: olzLQaufHuPMMMklJNKKoig4q6g=
+
+Name: system/etc/security/cacerts/d6e6eab9.0
+SHA1-Digest: q85zKIa98TwoWJFOZh+B9KHzTRs=
+
+Name: system/framework/wm.jar
+SHA1-Digest: C4ybd8tL2QUFO9EZVovACsMXoa0=
+
+Name: bootloader.u-boot.img
+SHA1-Digest: yEtWuXjf7vIUZajWzJFo5MTjbUw=
+
+Name: patch/system/lib/liblog.so.p
+SHA1-Digest: dKBrwwYFHmunq+25KnVzvMgtO2w=
+
+Name: patch/system/lib/libsoc.so.p
+SHA1-Digest: 676UwQci7jfiShCj16x7tjl5CnY=
+
+Name: system/lib/libclockwork-bluetooth-jni.so
+SHA1-Digest: hcMpEY06EfnTq4D6GAF03EDVXVI=
+
+Name: patch/system/lib/libselinux.so.p
+SHA1-Digest: 7bu5OX8kDn+6WG//RlQxXRynEfk=
+
+Name: patch/system/fonts/NotoSansDevanagari-Regular.ttf.p
+SHA1-Digest: MbjzeTqZpxfEIV60c91v/zrc4As=
+
+Name: patch/system/lib/libaudioutils.so.p
+SHA1-Digest: JpKYtRC0LBzznnSbdSYffhtQPdU=
+
+Name: patch/system/app/Bluetooth/Bluetooth.apk.p
+SHA1-Digest: /vXv8A8rb9ZR2NvkVTcBhMte9DQ=
+
+Name: patch/system/lib/librilutils.so.p
+SHA1-Digest: /GVY1drWwT5GJCbBPs3CZ16HgC8=
+
+Name: system/fonts/NotoSansVai-Regular.ttf
+SHA1-Digest: TOkgg4S/taIXZ6uFMRg3J32LmXg=
+
+Name: system/lib/libmediautils.so
+SHA1-Digest: IHWhD+6ifJXRjWwX/JRD/gjspN0=
+
+Name: patch/system/etc/fallback_fonts.xml.p
+SHA1-Digest: csnc+kSD7Ls3pt6SgXx7iXjxBfY=
+
+Name: system/framework/appwidget.jar
+SHA1-Digest: u1tFC6G1G3xMm7MSyFTHi/uSULY=
+

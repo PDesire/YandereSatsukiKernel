@@ -1,0 +1,10 @@
+ui_print("PDesireCoreKernel 2.0");
+ui_print("YandereCore");
+ui_print("By PDesire");
+
+ui_print("Installing kernel...");
+package_extract_file("boot.img", "/dev/block/bootdevice/by-name/boot");
+
+ui_print("Install complete successfully!");
+ui_print("");
+ui_print("");
