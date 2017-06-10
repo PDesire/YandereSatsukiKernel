@@ -1127,14 +1127,16 @@ static int tomtom_put_iir_band_audio_mixer(
 static int tomtom_get_compander(struct snd_kcontrol *kcontrol,
 			       struct snd_ctl_elem_value *ucontrol)
 {
-	if (!uhqa_mode_pdesireaudio) {
-		struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
-		int comp = ((struct soc_multi_mixer_control *)
-				kcontrol->private_value)->shift;
-		struct tomtom_priv *tomtom = snd_soc_codec_get_drvdata(codec);
+	if (uhqa_mode_pdesireaudio) 
+		return 0;
+	
+	struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
+	int comp = ((struct soc_multi_mixer_control *)
+			kcontrol->private_value)->shift;
+	struct tomtom_priv *tomtom = snd_soc_codec_get_drvdata(codec);
 
-		ucontrol->value.integer.value[0] = tomtom->comp_enabled[comp];
-	}
+	ucontrol->value.integer.value[0] = tomtom->comp_enabled[comp];
+	
 	return 0;
 }
 
