@@ -1300,7 +1300,7 @@ static int tomtom_config_compander(struct snd_soc_dapm_widget *w,
 		}
 		
 		/* Disable Compander if PDesireAudio enabled */
-		if (!uhqa_mode_pdesireaudio) {
+		if (uhqa_mode_pdesireaudio) {
 			pr_debug("%s: PDesireAudio is enabled, do not enable compander\n",
 					__func__);
 			break;
