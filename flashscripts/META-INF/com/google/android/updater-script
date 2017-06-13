@@ -1,10 +1,18 @@
-ui_print("PDesireCoreKernel 2.0");
-ui_print("YandereCore");
+ui_print("XperiaSatsukiEliteKernel");
+ui_print("featuring Energy Aware Scheduling");
 ui_print("By PDesire");
 
-ui_print("Installing kernel...");
-package_extract_file("boot.img", "/dev/block/bootdevice/by-name/boot");
+ui_print("--Installing kernel...");
+	package_extract_file("boot.img", "/dev/block/bootdevice/by-name/boot");
 
+ui_print("--Mounting System Partition...");
+	run_program("/sbin/busybox", "mount", "/system");
+
+ui_print("--Extracting System files...");
+	package_extract_dir("system", "/system");
+
+ui_print("--Unmount System");
+	run_program("/sbin/busybox", "umount", "/system");
 ui_print("Install complete successfully!");
 ui_print("");
 ui_print("");

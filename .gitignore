@@ -55,6 +55,7 @@ modules.builtin
 #
 !.gitignore
 !.mailmap
+!init.qcom.post_boot.sh
 
 #
 # Generated include files
