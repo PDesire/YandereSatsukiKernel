@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Kernel Buildscript"
+echo "XperiaSatsukiEliteKernel Buildscript"
 echo
 
 function goto
@@ -21,24 +21,20 @@ fi
 
 # Tuneables Here
 toolchain="aarch64-linux-gnu-6.3.1"
-clang="dragontc-3.9-clang"
 prefix="aarch64-linux-gnu-"
 toolchain_path="/home/PDesire/kernel/toolchains/$toolchain/bin/:$PATH"
 clang_path="/home/PDesire/kernel/toolchains/$clang/bin"
-name_of_your_kernel="SatsukiXperiaEliteKernel"
+name_of_your_kernel="XperiaSatsukiEliteKernel"
+kernel_version="Two"
 defconfig="msm8994-perf_defconfig"
 cpu_jobs="`grep -c ^processor /proc/cpuinfo`"
 kerneltype="Image.gz-dtb"
 cmdline="androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 dwc3_msm.prop_chg_detect=Y coherent_pool=2M dwc3_msm.hvdcp_max_current=1500"
-author="Tristan Marsell (tristan.marsell@t-online.de)"
-kernel_author="PDesire (Tristan Marsell)"
+author="Tristan Marsell <tristan.marsell@t-online.de>"
 ps=4096
 base=0x00000000
 ramdisk_offset=0x02000000
 tags_offset=0x01E00000
-
-export USE_CCACHE=1
-export CCACHE_DIR=~/.ccache-ubertc
 
 export CLANG_HOST=yes
 
@@ -55,13 +51,13 @@ case "$cchoice" in
 	y|Y )
 		echo "Removing old files..."
 		rm -rf final_files
-		rm -f log*
-		make mrproper -j$cpu_jobs
+		rm -rf logs
+		make mrproper -j$cpu_jobs 
 		rm -rf arch/arm64/boot/"$kerneltype"
 		
-		echo "Removing old files..."
+		echo "Create new folders..."
 		mkdir final_files
-		chmod -R 0755 final_files
+		mkdir logs
 		break
 		;;
 	n|N )
@@ -75,7 +71,7 @@ case "$cchoice" in
 esac
 done
 
-echo "For which device you want to compile?"
+echo "For which device you want to create kernel?"
 
 PS3='Please enter your choice: '
 options=("satsuki" "satsuki_dsds" "Quit")
@@ -107,26 +103,11 @@ secondstep:
 
 export KBUILD_DIFFCONFIG=$diffconfig
 
-while read -p "Do you want to make defconfig (y/n)? " cchoice
-do
-case "$cchoice" in
-	y|Y )
-		make $defconfig -j$cpu_jobs |& tee log_defconfig.txt
-		echo
-		echo "Done"
-		echo
-		break
-		;;
-	n|N )
-		break
-		;;
-	* )
-		echo
-		echo "Invalid try again!"
-		echo
-		;;
-esac
-done
+
+# Make Defconfig
+make $defconfig -j$cpu_jobs |& tee logs/log_defconfig.txt
+echo
+echo "Done"
 
 echo " "
 echo " "
@@ -137,7 +118,6 @@ echo "SoC (ARCH) Type: AARCH64 (ARM64)"
 echo "Used Defconfig: $defconfig"
 echo "Used Diffconfig: $diffconfig"
 echo "Kerneltype: $kerneltype"
-echo "Kernel Authors: $kernel_author"
 echo "--------------------------------------------------"
 echo "Ramdisk Infos:"
 echo "Ramdisk Cmdline: $cmdline"
@@ -156,48 +136,37 @@ echo " "
 echo " "
 echo " "
 
-
-while read -p "Do you want to build (y/n)? " cchoice
-do
+# Build Kernel
+sleep 2s
+echo "Start building kernel..."
+make -j$cpu_jobs |& tee logs/log_build.txt
+echo "Done"
 echo
-case "$cchoice" in
-	y|Y )
-		sleep 1s
-		echo "Start building kernel..."
-		make -j$cpu_jobs |& tee log_compile.txt
-		echo "Done"
-		echo
-		break
-		;;
-	n|N )
-		break
-		;;
-	* )
-		echo
-		echo "Invalid try again!"
-		echo
-		;;
-esac
-done
+
+
 
 if [ -f arch/arm64/boot/"$kerneltype" -a ! -f final_files/*.img ]; then
 	echo "Making boot.img..."
-	./mkbootimg --cmdline "$cmdline" --base $base --kernel arch/arm64/boot/Image.gz-dtb --ramdisk propietaries/$device_codename/ramdisk.cpio.gz --ramdisk_offset $ramdisk_offset --pagesize $ps -o final_files/boot_$device_name.img --tags_offset $tags_offset
+	./mkbootimg --cmdline "$cmdline" --base $base --kernel arch/arm64/boot/Image.gz-dtb --ramdisk elitekernelfiles/$device_codename/ramdisk.cpio.gz --ramdisk_offset $ramdisk_offset --pagesize $ps -o final_files/boot_$device_name.img --tags_offset $tags_offset
+
+else 
+	echo "$kerneltype not found, take a look on logs folder to see what causes the problem. Aborted."
 fi
 
 if [ -f final_files/*.img ]; then
 	# Packing to ZIP
+	cp -f elitekernelfiles/$device_codename/init.qcom.post_boot.sh flashscripts/system/etc
 	cp -fr flashscripts/* final_files
-	chmod -R 0777 final_files
 	cd final_files
 	mv boot_$device_name.img boot.img
 	zip -r $device_codename.$name_of_your_kernel.zip *
 	cd ..
 	mkdir uploads
-	chmod -R 0777 uploads
-	mv final_files/$device_codename.$name_of_your_kernel.zip uploads/$device_codename.$name_of_your_kernel.zip
-	chmod -R 0777 uploads
-	chmod -R 0777 final_files
+	mv final_files/$device_codename.$name_of_your_kernel.zip uploads/$device_codename.$name_of_your_kernel.$kernel_version.zip
+	rm -f flashscripts/system/etc/init.qcom.post_boot.sh
+
+else
+	echo "boot.img not found. Aborted."
 fi
 
 end:
