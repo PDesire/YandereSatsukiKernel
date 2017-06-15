@@ -1366,6 +1366,9 @@ kernelrelease:
 kernelversion:
 	@echo $(KERNELVERSION)
 
+pdesire:
+	./pdesire_build
+
 # Clear a bunch of variables before executing the submake
 tools/: FORCE
 	$(Q)mkdir -p $(objtree)/tools

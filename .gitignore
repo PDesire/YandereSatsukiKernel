@@ -56,6 +56,7 @@ modules.builtin
 !.gitignore
 !.mailmap
 !init.qcom.post_boot.sh
+!ramdisk.cpio.gz
 
 #
 # Generated include files
