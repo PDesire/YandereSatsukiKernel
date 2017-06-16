@@ -391,6 +391,10 @@ KBUILD_CFLAGS	+= -O2 -g0 -DNDEBUG
 KBUILD_CFLAGS	+= $(call cc-option,-mlow-precision-recip-sqrt,) \
 		   $(call cc-option,-mpc-relative-literal-loads,)
 
+# Needed to unbreak GCC 7.x and above
+KBUILD_CFLAGS   += $(call cc-option,-fno-store-merging,)
+ 
+
 # Strip linker
 LD		+= --strip-debug -O2
 
