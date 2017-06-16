@@ -385,7 +385,7 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -std=gnu89
 
 # Optimizations
-KBUILD_CFLAGS	+= -O2 -g0 -DNDEBUG
+KBUILD_CFLAGS	+= -O2 -g0 -DNDEBUG -fdiagnostics-color=always
 
 # These flags need a special toolchain so split them off
 KBUILD_CFLAGS	+= $(call cc-option,-mlow-precision-recip-sqrt,) \
