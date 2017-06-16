@@ -377,11 +377,22 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
+		   -Wno-misleading-indentation \
 		   -fno-delete-null-pointer-checks \
 		   -march=armv8-a+crypto+crc \
 		   -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 \
 		   -mfix-cortex-a53-843419 -mfix-cortex-a53-835769 \
 		   -std=gnu89
+
+# Optimizations
+KBUILD_CFLAGS	+= -O2 -g0 -DNDEBUG
+
+# These flags need a special toolchain so split them off
+KBUILD_CFLAGS	+= $(call cc-option,-mlow-precision-recip-sqrt,) \
+		   $(call cc-option,-mpc-relative-literal-loads,)
+
+# Strip linker
+LD		+= --strip-debug -O2
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
