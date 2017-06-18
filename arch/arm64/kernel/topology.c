@@ -21,6 +21,7 @@
 #include <linux/sched.h>
 #include <linux/slab.h>
 #include <linux/sched_energy.h>
+#include <linux/sched.h>
 
 #include <asm/cputype.h>
 #include <asm/smp_plat.h>
@@ -385,7 +386,6 @@ static void update_cpu_power(unsigned int cpu)
 struct cpu_topology cpu_topology[NR_CPUS];
 EXPORT_SYMBOL_GPL(cpu_topology);
 
-
 static inline const struct sched_group_energy *cpu_core_energy(int cpu)
 {
 	struct sched_group_energy *sge = sge_array[cpu][SD_LEVEL0];
@@ -531,6 +531,20 @@ static inline const struct sched_group_energy *cpu_cluster_energy(int cpu)
 	return sge;
 }
 
+static inline int cpu_corepower_flags(void)
+{
+	return SD_SHARE_PKG_RESOURCES  | SD_SHARE_POWERDOMAIN | \
+	       SD_SHARE_CAP_STATES;
+}
+
+static struct sched_domain_topology_level arm64_topology[] = {
+#ifdef CONFIG_SCHED_MC
+	{ cpu_coregroup_mask, cpu_corepower_flags, cpu_core_energy, SD_INIT_NAME(MC) },
+#endif
+	{ cpu_cpu_mask, 0, cpu_cluster_energy, SD_INIT_NAME(DIE) },
+	{ NULL, },
+};
+
 void __init init_cpu_topology(void)
 {
 	reset_cpu_topology();
@@ -541,6 +555,8 @@ void __init init_cpu_topology(void)
 	 */
 	if (parse_dt_topology())
 		reset_cpu_topology();
+	else
+		set_sched_topology(arm64_topology);
 
 	reset_cpu_capacity();
 	parse_dt_cpu_capacity();
