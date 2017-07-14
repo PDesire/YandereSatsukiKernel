@@ -349,7 +349,7 @@ CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 CFLAGS_MODULE   =
 AFLAGS_MODULE   =
 LDFLAGS_MODULE  =
-CFLAGS_KERNEL	= -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfix-cortex-a53-843419 -mfix-cortex-a53-835769  
+CFLAGS_KERNEL	= -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfix-cortex-a53-843419 -mfix-cortex-a53-835769 -ftree-vectorize
 AFLAGS_KERNEL	=
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
 
@@ -382,6 +382,7 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -march=armv8-a+crypto+crc \
 		   -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 \
 		   -mfix-cortex-a53-843419 -mfix-cortex-a53-835769 \
+		   -ftree-vectorize \
 		   -std=gnu89
 
 # Optimizations
