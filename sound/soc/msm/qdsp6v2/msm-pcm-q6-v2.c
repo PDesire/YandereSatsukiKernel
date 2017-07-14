@@ -305,11 +305,11 @@ static int msm_pcm_playback_prepare(struct snd_pcm_substream *substream)
 	switch (params_format(params)) {
 	case SNDRV_PCM_FORMAT_S24_LE:
 		bits_per_sample = 24;
-		sample_word_size = 32;
+		sample_word_size = 24;
 		break;
 	case SNDRV_PCM_FORMAT_S24_3LE:
 		bits_per_sample = 24;
-		sample_word_size = 24;
+		sample_word_size = 32;
 		break;
 	case SNDRV_PCM_FORMAT_S16_LE:
 	default:
@@ -439,11 +439,11 @@ static int msm_pcm_capture_prepare(struct snd_pcm_substream *substream)
 	switch (runtime->format) {
 	case SNDRV_PCM_FORMAT_S24_LE:
 		bits_per_sample = 24;
-		sample_word_size = 32;
+		sample_word_size = 24;
 		break;
 	case SNDRV_PCM_FORMAT_S24_3LE:
 		bits_per_sample = 24;
-		sample_word_size = 24;
+		sample_word_size = 32;
 		break;
 	case SNDRV_PCM_FORMAT_S16_LE:
 	default:

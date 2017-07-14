@@ -95,8 +95,8 @@ static struct snd_pcm_hardware msm_pcm_hardware_playback = {
 	.channels_min =         1,
 	.channels_max =         8,
 	.buffer_bytes_max =     SIO_PLAYBACK_MAX_NUM_PERIODS *
-				SIO_PLAYBACK_MAX_PERIOD_SIZE,
-	.period_bytes_min =	SIO_PLAYBACK_MIN_PERIOD_SIZE,
+							SIO_PLAYBACK_MAX_PERIOD_SIZE,
+	.period_bytes_min =		SIO_PLAYBACK_MIN_PERIOD_SIZE,
 	.period_bytes_max =     SIO_PLAYBACK_MAX_PERIOD_SIZE,
 	.periods_min =          SIO_PLAYBACK_MIN_NUM_PERIODS,
 	.periods_max =          SIO_PLAYBACK_MAX_NUM_PERIODS,
@@ -119,8 +119,8 @@ static struct snd_pcm_hardware msm_pcm_hardware_capture = {
 	.channels_min =         1,
 	.channels_max =         4,
 	.buffer_bytes_max =     SIO_CAPTURE_MAX_NUM_PERIODS *
-				SIO_CAPTURE_MAX_PERIOD_SIZE,
-	.period_bytes_min =	SIO_CAPTURE_MIN_PERIOD_SIZE,
+							SIO_CAPTURE_MAX_PERIOD_SIZE,
+	.period_bytes_min =		SIO_CAPTURE_MIN_PERIOD_SIZE,
 	.period_bytes_max =     SIO_CAPTURE_MAX_PERIOD_SIZE,
 	.periods_min =          SIO_CAPTURE_MIN_NUM_PERIODS,
 	.periods_max =          SIO_CAPTURE_MAX_NUM_PERIODS,
@@ -284,11 +284,11 @@ static int msm_pcm_hw_params(struct snd_pcm_substream *substream,
 	switch (runtime->format) {
 	case SNDRV_PCM_FORMAT_S24_LE:
 		bits_per_sample = 24;
-		sample_word_size = 32;
+		sample_word_size = 24;
 		break;
 	case SNDRV_PCM_FORMAT_S24_3LE:
 		bits_per_sample = 24;
-		sample_word_size = 24;
+		sample_word_size = 32;
 		break;
 	case SNDRV_PCM_FORMAT_S16_LE:
 	default:
