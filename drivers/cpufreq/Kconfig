@@ -118,12 +118,12 @@ config CPU_FREQ_DEFAULT_GOV_INTERACTIVE
 	  loading your cpufreq low-level hardware driver, using the
 	  'interactive' governor for latency-sensitive workloads.
 
-config CPU_FREQ_DEFAULT_GOV_SCHED
-	bool "sched"
-	select CPU_FREQ_GOV_SCHED
+config CPU_FREQ_DEFAULT_GOV_PDESIRESCHED
+	bool "pdesiresched"
+	select CPU_FREQ_GOV_PDESIRESCHED
 	select CPU_FREQ_GOV_PERFORMANCE
 	help
-	  Use the CPUfreq governor 'sched' as default. This scales
+	  Use the CPUfreq governor 'pdesiresched' as default. This scales
 	  cpu frequency from the scheduler as per-entity load tracking
 	  statistics are updated.
 endchoice
@@ -224,18 +224,19 @@ config CPU_FREQ_GOV_CONSERVATIVE
 
 	  If in doubt, say N.
 
-config CPU_FREQ_GOV_SCHED
-	tristate "'sched' cpufreq governor"
+config CPU_FREQ_GOV_PDESIRESCHED
+	tristate "'pdesiresched' cpufreq governor"
 	depends on CPU_FREQ
 	select CPU_FREQ_GOV_COMMON
 	help
-	  'sched' - this governor scales cpu frequency from the
+	  'pdesiresched' - this governor scales cpu frequency from the
 	  scheduler as a function of cpu capacity utilization. It does
 	  not evaluate utilization on a periodic basis (as ondemand
 	  does) but instead is invoked from the completely fair
 	  scheduler when updating per-entity load tracking statistics.
 	  Latency to respond to changes in load is improved over polling
 	  governors due to its event-driven design.
+	  Via scaleable throttle nanoseconds, scaleable sched priority and suspend freq limit, this governor is more energy aware than sched.
 
 	  If in doubt, say N.
 
