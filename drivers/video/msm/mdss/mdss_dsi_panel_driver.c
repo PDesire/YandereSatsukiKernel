@@ -31,6 +31,7 @@
 #include <linux/err.h>
 #include <linux/string.h>
 #include <linux/regulator/consumer.h>
+#include <linux/display_state.h>
 
 #include "mdss_mdp.h"
 #include "mdss_dsi.h"
@@ -108,6 +109,13 @@ enum {
 
 #define QPNP_REGULATOR_VSP_V_5P4V	5400000
 #define QPNP_REGULATOR_VSN_V_M5P4V	5400000
+
+bool display_on = true;
+
+bool is_display_on()
+{
+	return display_on;
+}
 
 static int __init lcdid_adc_setup(char *str)
 {
@@ -1291,6 +1299,8 @@ static int mdss_dsi_panel_on(struct mdss_panel_data *pdata)
 		mdss_dsi_panel_pcc_setup(pdata);
 		spec_pdata->pcc_data.pcc_sts &= ~PCC_STS_UD;
 	}
+	
+	display_on = true;
 
 	if (pdata->panel_info.dsi_master == pdata->panel_info.pdest) {
 		if (spec_pdata->einit_cmds.cmd_cnt) {
@@ -1398,7 +1408,9 @@ static int mdss_dsi_panel_off(struct mdss_panel_data *pdata)
 		fpsd.fpks = 0;
 		pr_info("%s: vsyncs_per_ksecs is invalid\n", __func__);
 	}
-
+	
+	display_on = false;
+	
 end:
 	pinfo->blank_state = MDSS_PANEL_BLANK_BLANK;
 	pdata->resume_started = true;
