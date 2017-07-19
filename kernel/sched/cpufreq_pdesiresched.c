@@ -16,9 +16,9 @@
 
 #include "sched.h"
 
-#define THROTTLE_NSEC_UP		20000000 	/* 50ms default */
+#define THROTTLE_NSEC_UP		50000000 	/* 50ms default */
 
-#define THROTTLE_NSEC_DOWN		30000000 	/* 75ms default */
+#define THROTTLE_NSEC_DOWN		75000000 	/* 75ms default */
 
 #define THROTTLE_NSEC_SLEEP		5000000 	/* 12.5ms default to enter idle faster*/
 
@@ -244,7 +244,7 @@ void cpufreq_sched_set_cap(int cpu, unsigned long capacity)
 		goto out;
 
 	/* Convert the new maximum capacity request into a cpu frequency */
-	freq_new = (capacity * gd->max) / capacity_orig_of(cpu);
+	freq_new = capacity * policy->max >> SCHED_CAPACITY_SHIFT;
 
 	if (freq_new > policy->max)
 		freq_new = policy->max;
@@ -380,7 +380,6 @@ static int cpufreq_sched_policy_init(struct cpufreq_policy *policy)
 	
 	policy->governor_data = gd;
 	gd->policy = policy;
-	gd->max = policy->max;
 
 	mutex_lock(&gov_list_lock);
 	list_add_tail(&gd->gov_list, &sched_gov_list);
@@ -424,7 +423,8 @@ static int cpufreq_sched_policy_exit(struct cpufreq_policy *policy)
 
 static int cpufreq_sched_setup(struct cpufreq_policy *policy, unsigned int event)
 {
-	struct gov_data *gd;
+	unsigned int clamp_freq;
+ 	struct gov_data *gd = policy->governor_data;
 	
 	switch (event) {
 		case CPUFREQ_GOV_START:
@@ -440,20 +440,12 @@ static int cpufreq_sched_setup(struct cpufreq_policy *policy, unsigned int event
 			pr_debug("limit event for cpu %u: %u - %u kHz, currently %u kHz\n",
 				policy->cpu, policy->min, policy->max,
 				policy->cur);
-			/*
-			 * Need to keep track of highest max frequency for
-			 * capacity calculations
-			 */
-			gd = policy->governor_data;
-			if (gd->max < policy->max)
-				gd->max = policy->max;
 			
-			if (policy->max < policy->cur)
-				__cpufreq_driver_target(policy, policy->max, CPUFREQ_RELATION_H);
-			else if (policy->min > policy->cur)
-				__cpufreq_driver_target(policy, policy->min, CPUFREQ_RELATION_L);
-			else
-				__cpufreq_driver_target(policy, policy->cur, CPUFREQ_RELATION_C);
+			clamp_freq = clamp(gd->freq, policy->min, policy->max);
+			
+			if (policy->cur != clamp_freq)	
+				__cpufreq_driver_target(policy, clamp_freq, CPUFREQ_RELATION_L);
+			
 			mutex_unlock(&gov_list_lock);
 			break;
 	}
