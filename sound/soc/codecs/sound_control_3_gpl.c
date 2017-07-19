@@ -34,8 +34,8 @@
 
 extern struct snd_soc_codec *fauxsound_codec_ptr;
 
-int speaker_gain_lval;
-int speaker_gain_rval;
+extern int speaker_gain_lval;
+extern int speaker_gain_rval;
 
 unsigned int tomtom_read(struct snd_soc_codec *codec, unsigned int reg);
 int tomtom_write(struct snd_soc_codec *codec, unsigned int reg,
