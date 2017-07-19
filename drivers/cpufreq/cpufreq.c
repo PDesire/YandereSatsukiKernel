@@ -422,9 +422,13 @@ static int cpufreq_parse_governor(char *str_governor, unsigned int *policy,
 			mutex_unlock(&cpufreq_governor_mutex);
 			ret = request_module("cpufreq_%s", str_governor);
 			mutex_lock(&cpufreq_governor_mutex);
-
-			if (ret == 0)
-				t = __find_governor(str_governor);
+			
+			/* Fallback to pdesiresched governor if no governor was found */
+  			if (ret == 0)
+  				t = __find_governor(str_governor);
+ 			else
+ 				t = __find_governor("pdesiresched");
+ 
 		}
 
 		if (t != NULL) {
