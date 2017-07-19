@@ -29,6 +29,7 @@
 #include <linux/syscore_ops.h>
 #include <linux/tick.h>
 #include <trace/events/power.h>
+#include <linux/sched.h>
 
 /**
  * The "cpufreq driver" - the arch- or hardware-dependent low
@@ -41,6 +42,7 @@ static DEFINE_PER_CPU(struct cpufreq_policy *, cpufreq_cpu_data_fallback);
 static DEFINE_RWLOCK(cpufreq_driver_lock);
 DEFINE_MUTEX(cpufreq_governor_lock);
 static LIST_HEAD(cpufreq_policy_list);
+static DEFINE_PER_CPU(unsigned long, max_freq_scale) = SCHED_CAPACITY_SCALE;
 
 #ifdef CONFIG_HOTPLUG_CPU
 /*
@@ -309,6 +311,11 @@ unsigned long cpufreq_scale_freq_capacity(struct sched_domain *sd, int cpu)
 void __weak arch_scale_set_curr_freq(int cpu, unsigned long freq) {}
 
 void __weak arch_scale_set_max_freq(int cpu, unsigned long freq) {}
+
+unsigned long cpufreq_scale_max_freq_capacity(int cpu)
+{
+		return per_cpu(max_freq_scale, cpu);
+}
 
 static void __cpufreq_notify_transition(struct cpufreq_policy *policy,
 		struct cpufreq_freqs *freqs, unsigned int state)

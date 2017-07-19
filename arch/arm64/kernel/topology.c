@@ -22,6 +22,7 @@
 #include <linux/slab.h>
 #include <linux/sched_energy.h>
 #include <linux/sched.h>
+#include <linux/cpufreq.h>
 
 #include <asm/cputype.h>
 #include <asm/smp_plat.h>
@@ -42,7 +43,13 @@ static DEFINE_PER_CPU(unsigned long, cpu_scale) = SCHED_CAPACITY_SCALE;
 
 unsigned long arch_scale_cpu_capacity(struct sched_domain *sd, int cpu)
 {
-	return per_cpu(cpu_scale, cpu);
+#ifdef CONFIG_CPU_FREQ
+	unsigned long max_cap_scale = cpufreq_scale_max_freq_capacity(cpu);
+
+	return per_cpu(cpu_scale, cpu) * max_cap_scale >> SCHED_CAPACITY_SHIFT;
+#else
+  	return per_cpu(cpu_scale, cpu);
+#endif
 }
 
 static void set_capacity_scale(unsigned int cpu, unsigned long capacity)
