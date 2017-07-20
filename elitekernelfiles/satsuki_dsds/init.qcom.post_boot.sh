@@ -940,6 +940,8 @@ case "$target" in
         echo 1 > /sys/devices/system/cpu/cpu4/online
         # configure governor settings for big cluster
         echo "pdesiresched" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/pdesiresched/big_cluster_power_bias_level
+        echo 10 > /sys/devices/system/cpu/cpu4/cpufreq/pdesiresched/big_cluster_bias_cycles
         echo 384000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
 
         # enable boost for cgroup's tasks
