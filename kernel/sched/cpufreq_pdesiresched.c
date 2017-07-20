@@ -16,9 +16,9 @@
 
 #include "sched.h"
 
-#define THROTTLE_NSEC_UP		50000000 	/* 50ms default */
+#define THROTTLE_NSEC_UP		40000000 	/* 40ms default */
 
-#define THROTTLE_NSEC_DOWN		75000000 	/* 75ms default */
+#define THROTTLE_NSEC_DOWN		62500000 	/* 62,5ms default */
 
 #define THROTTLE_NSEC_SLEEP		5000000 	/* 12.5ms default to enter idle faster*/
 
@@ -62,9 +62,19 @@ static struct irq_work irq_work;
 
 static int sched_priority = 50; 
 
-static int screen_off_max_freq = 384000;
+static unsigned int screen_off_max_freq = 384000;
 
-static int previous_freq = 0;
+static unsigned int big_bias_level_one_freq = 1824000;
+
+static unsigned int big_bias_level_two_freq = 1632000;
+
+static unsigned int big_bias_level_three_freq = 1344000;
+
+static int big_cluster_bias_cycles = 5;
+
+static int big_cluster_power_bias_level = 0;
+
+static unsigned int previous_freq = 0;
 
 static struct notifier_block lcd_notifier_hook;
 static bool display_online;
@@ -86,6 +96,33 @@ static int lcd_notifier_call(struct notifier_block *this,
 	return 0;
 }
 
+static int pdesiresched_cycles;
+
+static int cpufreq_pdesiresched_cycle(void) 
+{
+	pdesiresched_cycles++;
+	
+	return pdesiresched_cycles;
+}
+
+static unsigned int cpufreq_pdesiresched_freq_handler(struct cpufreq_policy *policy, unsigned int freq)
+{
+	if (display_online && freq >= policy->max && cpufreq_pdesiresched_cycle() >= big_cluster_bias_cycles) {
+		switch (big_cluster_power_bias_level) {
+			case 1:
+			return big_bias_level_one_freq;
+			
+			case 2:
+			return big_bias_level_two_freq;
+			
+			case 3:
+			return big_bias_level_three_freq;
+		}
+		pdesiresched_cycles = 0;
+	}
+	return freq;
+}
+
 static void cpufreq_sched_try_driver_target(struct cpufreq_policy *policy, unsigned int freq)
 {
 	struct gov_data *gd;
@@ -99,13 +136,13 @@ static void cpufreq_sched_try_driver_target(struct cpufreq_policy *policy, unsig
 
 	if (!gd)
 		return;
-		
+	
 	
 	if (!display_online && freq > screen_off_max_freq)
 		__cpufreq_driver_target(policy, screen_off_max_freq, CPUFREQ_RELATION_L);
 	else
-		__cpufreq_driver_target(policy, freq, CPUFREQ_RELATION_L);
-	
+		__cpufreq_driver_target(policy, cpufreq_pdesiresched_freq_handler(policy, freq), CPUFREQ_RELATION_L);
+		
 	if (display_online)
 		if (previous_freq > freq) 
 			throttle_time = gd->throttle_nsec_down;
@@ -542,6 +579,43 @@ static ssize_t store_screen_off_max_freq(struct gov_data *gd,
 	screen_off_max_freq = val;
 	return count;
 }
+
+static ssize_t show_big_cluster_power_bias_level(struct gov_data *gd, char *buf)
+{
+	return sprintf(buf, "%u\n", big_cluster_power_bias_level);
+}
+
+static ssize_t store_big_cluster_power_bias_level(struct gov_data *gd,
+		const char *buf, size_t count)
+{
+	int ret;
+	long unsigned int val;
+
+	ret = kstrtoul(buf, 0, &val);
+	if (ret < 0)
+		return ret;
+	big_cluster_power_bias_level = val;
+	return count;
+}
+
+static ssize_t show_big_cluster_bias_cycles(struct gov_data *gd, char *buf)
+{
+	return sprintf(buf, "%u\n", big_cluster_bias_cycles);
+}
+
+static ssize_t store_big_cluster_bias_cycles(struct gov_data *gd,
+		const char *buf, size_t count)
+{
+	int ret;
+	long unsigned int val;
+
+	ret = kstrtoul(buf, 0, &val);
+	if (ret < 0)
+		return ret;
+	big_cluster_bias_cycles = val;
+	return count;
+}
+
 /*
  * Create show/store routines
  * - sys: One governor instance for complete SYSTEM
@@ -578,6 +652,8 @@ tunable_handlers(throttle_ns_down);
 tunable_handlers(throttle_ns_sleep);
 tunable_handlers(sched_priority);
 tunable_handlers(screen_off_max_freq);
+tunable_handlers(big_cluster_power_bias_level);
+tunable_handlers(big_cluster_bias_cycles);
 
 /* Per policy governor instance */
 static struct attribute *sched_attributes_gov_pol[] = {
@@ -586,6 +662,8 @@ static struct attribute *sched_attributes_gov_pol[] = {
 	&throttle_ns_sleep_gov_pol.attr,
 	&sched_priority_gov_pol.attr,
 	&screen_off_max_freq_gov_pol.attr,
+	&big_cluster_power_bias_level_gov_pol.attr,
+	&big_cluster_bias_cycles_gov_pol.attr,
 	NULL,
 };
 
