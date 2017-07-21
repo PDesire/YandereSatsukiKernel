@@ -16,9 +16,9 @@
 
 #include "sched.h"
 
-#define THROTTLE_NSEC_UP		40000000 	/* 40ms default */
+#define THROTTLE_NSEC_UP		4000000 	/* 4ms default */
 
-#define THROTTLE_NSEC_DOWN		62500000 	/* 62,5ms default */
+#define THROTTLE_NSEC_DOWN		50000000 	/* 62,5ms default */
 
 #define THROTTLE_NSEC_SLEEP		12500000 	/* 12.5ms default to enter idle faster*/
 
@@ -49,7 +49,6 @@ struct gov_data {
 	unsigned int freq;
 	bool change_pending;
 	struct list_head gov_list;
-	int max;
 };
 
  /* worker thread for dvfs transition that may block/sleep */
@@ -63,16 +62,6 @@ static struct irq_work irq_work;
 static int sched_priority = 50; 
 
 static unsigned int screen_off_max_freq = 384000;
-
-static unsigned int big_bias_level_one_freq = 1824000;
- 
-static unsigned int big_bias_level_two_freq = 1632000;
-
-static unsigned int big_bias_level_three_freq = 1344000;
-
-static int big_cluster_bias_cycles = 5;
-
-static int big_cluster_power_bias_level = 0;
 
 static unsigned int previous_freq = 0;
 
@@ -112,25 +101,12 @@ static void cpufreq_sched_try_driver_target(struct cpufreq_policy *policy, unsig
 	if (!gd)
 		return;
 	
-	if (display_online && freq >= policy->max && pdesiresched_cycles >= big_cluster_bias_cycles) {
-		switch (big_cluster_power_bias_level) {
-			case 1:
- 			freq = big_bias_level_one_freq;
- 			break;
- 			
- 			case 2:
- 			freq = big_bias_level_two_freq;
- 			break;
- 			
- 			case 3:
- 			freq = big_bias_level_three_freq;
- 			break;
- 		}
-		pdesiresched_cycles = 0;
-	}
-	
 	if (!display_online && freq > screen_off_max_freq)
 		__cpufreq_driver_target(policy, screen_off_max_freq, CPUFREQ_RELATION_L);
+	else if (freq > previous_freq)
+		__cpufreq_driver_target(policy, freq, CPUFREQ_RELATION_H);
+	else if (freq == policy->cur)
+		__cpufreq_driver_target(policy, freq, CPUFREQ_RELATION_C);
 	else
 		__cpufreq_driver_target(policy, freq, CPUFREQ_RELATION_L);
 	
@@ -274,7 +250,7 @@ void cpufreq_sched_set_cap(int cpu, unsigned long capacity)
 		goto out;
 
 	/* Convert the new maximum capacity request into a cpu frequency */
-	freq_new = capacity * policy->max >> SCHED_CAPACITY_SHIFT;
+	freq_new = (capacity * policy->max) / capacity_orig_of(cpu) >> SCHED_CAPACITY_SHIFT;
 
 	if (freq_new > policy->max)
 		freq_new = policy->max;
@@ -387,17 +363,13 @@ static int cpufreq_sched_policy_init(struct cpufreq_policy *policy)
 	 * Don't ask for freq changes at an higher rate than what
 	 * the driver advertises as transition latency.
 	 */
-	gd->throttle_nsec_up = policy->cpuinfo.transition_latency ?
-			    policy->cpuinfo.transition_latency :
-			    THROTTLE_NSEC_UP;
+	gd->throttle_nsec_up = THROTTLE_NSEC_UP;
 			    
 	gd->throttle_nsec_down = policy->cpuinfo.transition_latency ?
 			    policy->cpuinfo.transition_latency :
 			    THROTTLE_NSEC_DOWN;
 			    
-	gd->throttle_nsec_sleep = policy->cpuinfo.transition_latency ?
-			    policy->cpuinfo.transition_latency :
-			    THROTTLE_NSEC_SLEEP;
+	gd->throttle_nsec_sleep = THROTTLE_NSEC_SLEEP;
 	
 	pr_debug("%s: throttle up threshold = %u [ns]\n",
 		  __func__, gd->throttle_nsec_up);
@@ -572,42 +544,6 @@ static ssize_t store_screen_off_max_freq(struct gov_data *gd,
 	screen_off_max_freq = val;
 	return count;
 }
-
-static ssize_t show_big_cluster_power_bias_level(struct gov_data *gd, char *buf)
-{
-	return sprintf(buf, "%u\n", big_cluster_power_bias_level);
-}
- 
-static ssize_t store_big_cluster_power_bias_level(struct gov_data *gd,
- 		const char *buf, size_t count)
-{
- 	int ret;
- 	long unsigned int val;
- 
- 	ret = kstrtoul(buf, 0, &val);
- 	if (ret < 0)
- 		return ret;
- 	big_cluster_power_bias_level = val;
- 	return count;
-}
-
-static ssize_t show_big_cluster_bias_cycles(struct gov_data *gd, char *buf)
-{
- 	return sprintf(buf, "%u\n", big_cluster_bias_cycles);
-}
-
-static ssize_t store_big_cluster_bias_cycles(struct gov_data *gd,
-		const char *buf, size_t count)
-{
- 	int ret;
- 	long unsigned int val;
- 
- 	ret = kstrtoul(buf, 0, &val);
- 	if (ret < 0)
- 		return ret;
- 	big_cluster_bias_cycles = val;
-	return count;
-}
  
 /*
  * Create show/store routines
@@ -645,8 +581,6 @@ tunable_handlers(throttle_ns_down);
 tunable_handlers(throttle_ns_sleep);
 tunable_handlers(sched_priority);
 tunable_handlers(screen_off_max_freq);
-tunable_handlers(big_cluster_power_bias_level);
-tunable_handlers(big_cluster_bias_cycles);
 
 /* Per policy governor instance */
 static struct attribute *sched_attributes_gov_pol[] = {
@@ -655,8 +589,6 @@ static struct attribute *sched_attributes_gov_pol[] = {
 	&throttle_ns_sleep_gov_pol.attr,
 	&sched_priority_gov_pol.attr,
 	&screen_off_max_freq_gov_pol.attr,
-	&big_cluster_power_bias_level_gov_pol.attr,
- 	&big_cluster_bias_cycles_gov_pol.attr,
 	NULL,
 };
 
