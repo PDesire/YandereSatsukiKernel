@@ -216,9 +216,6 @@ static unsigned int nr_run_last;
 
 static unsigned int idle_count = 0;
 
-extern unsigned long avg_nr_running(void);
-extern unsigned long avg_cpu_nr_running(unsigned int cpu);
-
 static void __ref cpu_all_ctrl(bool online) {
 	unsigned int cpu;
 
