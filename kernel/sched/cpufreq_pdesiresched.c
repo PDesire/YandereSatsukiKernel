@@ -16,7 +16,7 @@
 
 #include "sched.h"
 
-#define THROTTLE_NSEC_UP		4000000 	/* 4ms default */
+#define THROTTLE_NSEC_UP		40000000 	/* 40ms default */
 
 #define THROTTLE_NSEC_DOWN		50000000 	/* 62,5ms default */
 
@@ -68,8 +68,6 @@ static unsigned int previous_freq = 0;
 static struct notifier_block lcd_notifier_hook;
 static bool display_online;
 
-static int pdesiresched_cycles;
-
 static int lcd_notifier_call(struct notifier_block *this,
                         unsigned long event, void *data)
 {
@@ -101,14 +99,13 @@ static void cpufreq_sched_try_driver_target(struct cpufreq_policy *policy, unsig
 	if (!gd)
 		return;
 	
-	if (!display_online && freq > screen_off_max_freq)
+	if (!display_online && freq > screen_off_max_freq) 
 		__cpufreq_driver_target(policy, screen_off_max_freq, CPUFREQ_RELATION_L);
-	else if (freq > previous_freq)
+	else if (display_online && freq > previous_freq) 
 		__cpufreq_driver_target(policy, freq, CPUFREQ_RELATION_H);
-	else if (freq == policy->cur)
-		__cpufreq_driver_target(policy, freq, CPUFREQ_RELATION_C);
-	else
+	else 
 		__cpufreq_driver_target(policy, freq, CPUFREQ_RELATION_L);
+	
 	
 	if (display_online)
 		if (previous_freq > freq) 
@@ -121,8 +118,6 @@ static void cpufreq_sched_try_driver_target(struct cpufreq_policy *policy, unsig
 	gd->throttle = ktime_add_ns(ktime_get(), throttle_time);
 	
 	previous_freq = freq;
-	
-	pdesiresched_cycles++;
 	
 	up_write(&policy->rwsem);
 }
@@ -363,13 +358,17 @@ static int cpufreq_sched_policy_init(struct cpufreq_policy *policy)
 	 * Don't ask for freq changes at an higher rate than what
 	 * the driver advertises as transition latency.
 	 */
-	gd->throttle_nsec_up = THROTTLE_NSEC_UP;
+	gd->throttle_nsec_up = policy->cpuinfo.transition_latency ?
+			    policy->cpuinfo.transition_latency : 
+			    THROTTLE_NSEC_UP;
 			    
 	gd->throttle_nsec_down = policy->cpuinfo.transition_latency ?
 			    policy->cpuinfo.transition_latency :
 			    THROTTLE_NSEC_DOWN;
 			    
-	gd->throttle_nsec_sleep = THROTTLE_NSEC_SLEEP;
+	gd->throttle_nsec_sleep = policy->cpuinfo.transition_latency ?
+			    policy->cpuinfo.transition_latency :
+			    THROTTLE_NSEC_SLEEP;
 	
 	pr_debug("%s: throttle up threshold = %u [ns]\n",
 		  __func__, gd->throttle_nsec_up);
