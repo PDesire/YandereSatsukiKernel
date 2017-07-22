@@ -12,12 +12,8 @@
 #include <linux/gfp.h>
 #include <linux/smp.h>
 #include <linux/cpu.h>
-<<<<<<< HEAD
 #include <linux/cpufreq.h>
 #include <linux/sched.h>
-=======
-#include <asm/relaxed.h>
->>>>>>> faff83eb2b00e... arm64: use the new *_relaxed macros for lower power usage
 
 #include "smpboot.h"
 
@@ -128,8 +124,8 @@ void __init call_function_init(void)
  */
 static void csd_lock_wait(struct call_single_data *csd)
 {
-	while (cpu_relaxed_read_short(&csd->flags) & CSD_FLAG_LOCK)
-		cpu_read_relax();
+	while (csd->flags & CSD_FLAG_LOCK)
+		cpu_relax();
 }
 
 static void csd_lock(struct call_single_data *csd)
