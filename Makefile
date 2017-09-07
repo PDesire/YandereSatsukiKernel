@@ -243,8 +243,8 @@ ifeq ($(CLANG_HOST),yes)
 HOSTCC       = clang
 HOSTCXX      = clang++
 else
-HOSTCC       = $(which ccache) gcc
-HOSTCXX      = $(which ccache) g++
+HOSTCC       = ccache gcc
+HOSTCXX      = ccache g++
 endif
 
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89
@@ -331,7 +331,7 @@ include $(srctree)/scripts/Kbuild.include
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
-REAL_CC		= $(which ccache) $(CROSS_COMPILE)gcc
+REAL_CC		= ccache $(CROSS_COMPILE)gcc
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
