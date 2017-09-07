@@ -25,11 +25,6 @@
  *  2007-11-29  RT balancing improvements by Steven Rostedt, Gregory Haskins,
  *              Thomas Gleixner, Mike Kravetz
  */
-/*
- * NOTE: This file has been modified by Sony Mobile Communications Inc.
- * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
- * and licensed under the license of the file.
- */
 
 #include <linux/mm.h>
 #include <linux/module.h>
@@ -1333,8 +1328,6 @@ static inline unsigned int load_to_freq(struct rq *rq, u64 load)
 static int send_notification(struct rq *rq)
 {
 	unsigned int cur_freq, freq_required;
-	unsigned long flags;
-	int rc = 0;
 
 	if (!sched_enable_hmp)
 		return 0;
@@ -1345,14 +1338,7 @@ static int send_notification(struct rq *rq)
 	if (nearly_same_freq(cur_freq, freq_required))
 		return 0;
 
-	raw_spin_lock_irqsave(&rq->lock, flags);
-	if (!rq->notifier_sent) {
-		rq->notifier_sent = 1;
-		rc = 1;
-	}
-	raw_spin_unlock_irqrestore(&rq->lock, flags);
-
-	return rc;
+	return 1;
 }
 
 /* Alert governor if there is a need to change frequency */
@@ -1655,7 +1641,7 @@ static void update_history(struct rq *rq, struct task_struct *p,
 	u32 *hist = &p->ravg.sum_history[0];
 	int ridx, widx;
 	u32 max = 0, avg, demand;
-	u64 sum = 0, wma = 0, ewa = 0;
+	u64 sum = 0;
 
 	/* Ignore windows where task had no activity */
 	if (!runtime || is_idle_task(p) || exiting_task(p) || !samples)
@@ -1667,8 +1653,6 @@ static void update_history(struct rq *rq, struct task_struct *p,
 	for (; ridx >= 0; --widx, --ridx) {
 		hist[widx] = hist[ridx];
 		sum += hist[widx];
-		wma += hist[widx] * (sched_ravg_hist_size - widx);
-		ewa += hist[widx] << (sched_ravg_hist_size - widx - 1);
 		if (hist[widx] > max)
 			max = hist[widx];
 	}
@@ -1676,8 +1660,6 @@ static void update_history(struct rq *rq, struct task_struct *p,
 	for (widx = 0; widx < samples && widx < sched_ravg_hist_size; widx++) {
 		hist[widx] = runtime;
 		sum += hist[widx];
-		wma += hist[widx] * (sched_ravg_hist_size - widx);
-		ewa += hist[widx] << (sched_ravg_hist_size - widx - 1);
 		if (hist[widx] > max)
 			max = hist[widx];
 	}
@@ -1687,8 +1669,6 @@ static void update_history(struct rq *rq, struct task_struct *p,
 		p->sched_class->dec_hmp_sched_stats(rq, p);
 
 	avg = div64_u64(sum, sched_ravg_hist_size);
-	wma = div64_u64(wma, (sched_ravg_hist_size * (sched_ravg_hist_size + 1)) / 2);
-	ewa = div64_u64(ewa, (1 << sched_ravg_hist_size) - 1);
 
 	if (sched_window_stats_policy == WINDOW_STATS_RECENT)
 		demand = runtime;
@@ -1696,29 +1676,6 @@ static void update_history(struct rq *rq, struct task_struct *p,
 		demand = max;
 	else if (sched_window_stats_policy == WINDOW_STATS_AVG)
 		demand = avg;
-	else if (sched_window_stats_policy == WINDOW_STATS_MAX_RECENT_WMA)
-		/*
-		 * WMA stands for weighted moving average. It helps
-		 * to smooth load curve and react faster while ramping
-		 * down comparing with basic averaging. We do it only
-		 * when load trend goes down. See below example (4 HS):
-		 *
-		 * WMA = (P0 * 4 + P1 * 3 + P2 * 2 + P3 * 1) / (4 + 3 + 2 + 1)
-		 *
-		 * This is done for power saving. Means when load disappears
-		 * or becomes low, this algorithm caches real bottom load faster
-		 * (because of weights) then taking AVG values.
-		 */
-		demand = max((u32) wma, runtime);
-	else if (sched_window_stats_policy == WINDOW_STATS_WMA)
-		demand = (u32) wma;
-	else if (sched_window_stats_policy == WINDOW_STATS_MAX_RECENT_EWA)
-		/*
-		 * EWA stands for exponential weighted average
-		 */
-		demand = max((u32) ewa, runtime);
-	else if (sched_window_stats_policy == WINDOW_STATS_EWA)
-		demand = (u32) ewa;
 	else
 		demand = max(avg, runtime);
 
@@ -2103,14 +2060,10 @@ void reset_all_window_stats(u64 window_start, unsigned int window_size)
 
 		if (window_start) {
 			u32 mostly_idle_load = rq->mostly_idle_load;
-			u32 mostly_occupied_load = rq->mostly_occupied_load;
 
 			rq->window_start = window_start;
 			rq->mostly_idle_load = div64_u64((u64)mostly_idle_load *
 				 (u64)sched_ravg_window, (u64)old_window_size);
-			rq->mostly_occupied_load = div64_u64(
-				(u64)mostly_occupied_load *
-				(u64)sched_ravg_window, (u64)old_window_size);
 		}
 #ifdef CONFIG_SCHED_FREQ_INPUT
 		rq->curr_runnable_sum = rq->prev_runnable_sum = 0;
@@ -2165,93 +2118,35 @@ void reset_all_window_stats(u64 window_start, unsigned int window_size)
 
 #ifdef CONFIG_SCHED_FREQ_INPUT
 
-static inline u64
-scale_load_to_freq(u64 load, unsigned int src_freq, unsigned int dst_freq)
-{
-	return div64_u64(load * (u64)src_freq, (u64)dst_freq);
-}
-
-void sched_get_cpus_busy(unsigned long *busy, const struct cpumask *query_cpus)
+unsigned long sched_get_busy(int cpu)
 {
 	unsigned long flags;
-	struct rq *rq;
-	const int cpus = cpumask_weight(query_cpus);
-	u64 load[cpus];
-	unsigned int cur_freq[cpus], max_freq[cpus];
-	int notifier_sent[cpus];
-	int cpu, i = 0;
-	unsigned int window_size;
-
-	if (unlikely(cpus == 0))
-		return;
+	struct rq *rq = cpu_rq(cpu);
+	u64 load;
 
 	/*
 	 * This function could be called in timer context, and the
 	 * current task may have been executing for a long time. Ensure
 	 * that the window stats are current by doing an update.
 	 */
-	local_irq_save(flags);
-	for_each_cpu(cpu, query_cpus)
-		raw_spin_lock(&cpu_rq(cpu)->lock);
+	raw_spin_lock_irqsave(&rq->lock, flags);
+	update_task_ravg(rq->curr, rq, TASK_UPDATE, sched_clock(), 0);
+	load = rq->old_busy_time = rq->prev_runnable_sum;
+	raw_spin_unlock_irqrestore(&rq->lock, flags);
 
-	window_size = sched_ravg_window;
+	/*
+	 * Scale load in reference to rq->max_possible_freq.
+	 *
+	 * Note that scale_load_to_cpu() scales load in reference to
+	 * rq->max_freq
+	 */
+	load = scale_load_to_cpu(load, cpu);
+	load = div64_u64(load * (u64)rq->max_freq, (u64)rq->max_possible_freq);
+	load = div64_u64(load, NSEC_PER_USEC);
 
-	for_each_cpu(cpu, query_cpus) {
-		rq = cpu_rq(cpu);
+	trace_sched_get_busy(cpu, load);
 
-		update_task_ravg(rq->curr, rq, TASK_UPDATE, sched_clock(), 0);
-		load[i] = rq->old_busy_time = rq->prev_runnable_sum;
-		/*
-		 * Scale load in reference to rq->max_possible_freq.
-		 *
-		 * Note that scale_load_to_cpu() scales load in reference to
-		 * rq->max_freq.
-		 */
-		load[i] = scale_load_to_cpu(load[i], cpu);
-
-		notifier_sent[i] = rq->notifier_sent;
-		rq->notifier_sent = 0;
-		cur_freq[i] = rq->cur_freq;
-		max_freq[i] = rq->max_freq;
-		i++;
-	}
-
-	for_each_cpu(cpu, query_cpus)
-		raw_spin_unlock(&(cpu_rq(cpu))->lock);
-	local_irq_restore(flags);
-
-	i = 0;
-	for_each_cpu(cpu, query_cpus) {
-		rq = cpu_rq(cpu);
-
-		if (!notifier_sent[i]) {
-			load[i] = scale_load_to_freq(load[i], max_freq[i],
-						     cur_freq[i]);
-			if (load[i] > window_size)
-				load[i] = window_size;
-			load[i] = scale_load_to_freq(load[i], cur_freq[i],
-						     rq->max_possible_freq);
-		} else {
-			load[i] = scale_load_to_freq(load[i], max_freq[i],
-						     rq->max_possible_freq);
-		}
-
-		busy[i] = div64_u64(load[i], NSEC_PER_USEC);
-
-		trace_sched_get_busy(cpu, busy[i]);
-		i++;
-	}
-}
-
-unsigned long sched_get_busy(int cpu)
-{
-	struct cpumask query_cpu = CPU_MASK_NONE;
-	unsigned long busy;
-
-	cpumask_set_cpu(cpu, &query_cpu);
-	sched_get_cpus_busy(&busy, &query_cpu);
-
-	return busy;
+	return load;
 }
 
 void sched_set_io_is_busy(int val)
@@ -4634,7 +4529,7 @@ void __kprobes add_preempt_count(int val)
 	if (DEBUG_LOCKS_WARN_ON((preempt_count() < 0)))
 		return;
 #endif
-	preempt_count() += val;
+	add_preempt_count_notrace(val);
 #ifdef CONFIG_DEBUG_PREEMPT
 	/*
 	 * Spinlock count overflowing soon?
@@ -4665,7 +4560,7 @@ void __kprobes sub_preempt_count(int val)
 
 	if (preempt_count() == val)
 		trace_preempt_on(CALLER_ADDR0, get_parent_ip(CALLER_ADDR1));
-	preempt_count() -= val;
+	sub_preempt_count_notrace(val);
 }
 EXPORT_SYMBOL(sub_preempt_count);
 
@@ -4784,6 +4679,9 @@ pick_next_task(struct rq *rq)
 static void __sched __schedule(void)
 {
 	struct task_struct *prev, *next;
+#ifdef CONFIG_TASK_CPUFREQ_STATS
+	struct task_struct *parent;
+#endif
 	unsigned long *switch_count;
 	struct rq *rq;
 	int cpu;
@@ -4847,7 +4745,15 @@ need_resched:
 	wallclock = sched_clock();
 	update_task_ravg(prev, rq, PUT_PREV_TASK, wallclock, 0);
 	update_task_ravg(next, rq, PICK_NEXT_TASK, wallclock, 0);
-	clear_tsk_need_resched(prev);
+#ifdef CONFIG_TASK_CPUFREQ_STATS
+	parent = prev;
+	if (prev->pid != prev->tgid) {
+		parent = find_task_by_vpid(prev->tgid);
+	}
+	task_update_cumulative_time_in_state(prev, parent, cpu_of(rq));
+	task_update_time_in_state(next, cpu_of(rq));
+#endif
+        clear_tsk_need_resched(prev);
 	rq->skip_clock_update = 0;
 
 	BUG_ON(task_cpu(next) != cpu_of(rq));
@@ -5676,6 +5582,8 @@ static void __setscheduler(struct rq *rq, struct task_struct *p,
 
 	if (policy == -1) /* setparam */
 		policy = p->policy;
+	else
+		policy &= ~SCHED_RESET_ON_FORK;
 
 	p->policy = policy;
 
@@ -5925,7 +5833,6 @@ int sched_setscheduler_nocheck(struct task_struct *p, int policy,
 	};
 	return __sched_setscheduler(p, &attr, false);
 }
-EXPORT_SYMBOL(sched_setscheduler_nocheck);
 
 static int
 do_sched_setscheduler(pid_t pid, int policy, struct sched_param __user *param)
@@ -9159,7 +9066,6 @@ void __init sched_init(void)
 		rq->wakeup_latency = 0;
 		rq->wakeup_energy = 0;
 #ifdef CONFIG_SCHED_HMP
-		cpumask_set_cpu(i, &rq->freq_domain_cpumask);
 		rq->cur_freq = 1;
 		rq->max_freq = 1;
 		rq->min_freq = 1;
@@ -9173,7 +9079,6 @@ void __init sched_init(void)
 		rq->hmp_stats.nr_small_tasks = rq->hmp_stats.nr_big_tasks = 0;
 		rq->hmp_flags = 0;
 		rq->mostly_idle_load = pct_to_real(20);
-		rq->mostly_occupied_load = pct_to_real(80);
 		rq->mostly_idle_nr_run = 3;
 		rq->mostly_idle_freq = 0;
 		rq->cur_irqload = 0;
@@ -9183,7 +9088,6 @@ void __init sched_init(void)
 #ifdef CONFIG_SCHED_FREQ_INPUT
 		rq->old_busy_time = 0;
 		rq->curr_runnable_sum = rq->prev_runnable_sum = 0;
-		rq->notifier_sent = 0;
 #endif
 #endif
 
@@ -9880,6 +9784,23 @@ static void cpu_cgroup_css_offline(struct cgroup *cgrp)
 	sched_offline_group(tg);
 }
 
+static int
+cpu_cgroup_allow_attach(struct cgroup *cgrp, struct cgroup_taskset *tset)
+{
+	const struct cred *cred = current_cred(), *tcred;
+	struct task_struct *task;
+
+	cgroup_taskset_for_each(task, cgrp, tset) {
+		tcred = __task_cred(task);
+
+		if ((current != task) && !capable(CAP_SYS_NICE) &&
+		    cred->euid != tcred->uid && cred->euid != tcred->suid)
+			return -EACCES;
+	}
+
+	return 0;
+}
+
 static int cpu_cgroup_can_attach(struct cgroup *cgrp,
 				 struct cgroup_taskset *tset)
 {
@@ -9936,23 +9857,6 @@ static int cpu_notify_on_migrate_write_u64(struct cgroup *cgrp,
 	struct task_group *tg = cgroup_tg(cgrp);
 
 	tg->notify_on_migrate = (notify > 0);
-
-	return 0;
-}
-static u64 cpu_sched_boost_read_u64(struct cgroup *cgrp,
-				struct cftype *cft)
-{
-	struct task_group *tg = cgroup_tg(cgrp);
-
-	return tg->sched_boost;
-}
-
-static int cpu_sched_boost_write_u64(struct cgroup *cgrp,
-				struct cftype *cft, u64 boost)
-{
-	struct task_group *tg = cgroup_tg(cgrp);
-
-	tg->sched_boost = (boost > 0);
 
 	return 0;
 }
@@ -10286,11 +10190,6 @@ static struct cftype cpu_files[] = {
 		.write_u64 = cpu_upmigrate_discourage_write_u64,
 	},
 #endif
-	{
-		.name = "sched_boost",
-		.read_u64 = cpu_sched_boost_read_u64,
-		.write_u64 = cpu_sched_boost_write_u64,
-	},
 #ifdef CONFIG_FAIR_GROUP_SCHED
 	{
 		.name = "shares",
@@ -10337,7 +10236,7 @@ struct cgroup_subsys cpu_cgroup_subsys = {
 	.css_offline	= cpu_cgroup_css_offline,
 	.can_attach	= cpu_cgroup_can_attach,
 	.attach		= cpu_cgroup_attach,
-	.allow_attach	= subsys_cgroup_allow_attach,
+	.allow_attach	= cpu_cgroup_allow_attach,
 	.exit		= cpu_cgroup_exit,
 	.subsys_id	= cpu_cgroup_subsys_id,
 	.base_cftypes	= cpu_files,
