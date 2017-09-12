@@ -73,6 +73,7 @@
 	vdd-dig-supply = <&pm8994_s2_corner_ao>;
 	qcom,a53-speedbin0-v0 =
 			<	   0 0>,
+			<  201400000 1>,
 			<  302400000 1>,
 			<  384000000 3>,
 			<  460800000 4>,
@@ -87,6 +88,7 @@
 			< 1555200000 13>;
 	qcom,a57-speedbin0-v0 =
 			<	   0 0>,
+			<  201400000 5>,
 			<  302400000 5>,
 			<  384000000 5>,
 			<  480000000 5>,
@@ -118,6 +120,7 @@
 			< 1766400000 15>;
 	qcom,cci-speedbin0-v0 =
 			<	   0 0>,
+			<  201400000 4>,
 			<  302400000 4>,
 			<  384000000 5>,
 			<  537600000 7>,
@@ -128,6 +131,7 @@
 
 &cci_cache {
 	freq-tbl-khz =
+		<  201400 >,
 		<  302400 >,
 		<  384000 >,
 		<  537600 >,
@@ -138,6 +142,7 @@
 
 &msm_cpufreq {
 	qcom,cpufreq-table-0 =
+		<  201400 >,
 		<  302400 >,
 		<  384000 >,
 		<  460800 >,
@@ -152,6 +157,7 @@
 		< 1555200 >;
 
 	qcom,cpufreq-table-4 =
+		<  201400 >,
 		<  302400 >,
 		<  384000 >,
 		<  480000 >,
@@ -166,12 +172,14 @@
 		< 1632000 >,
 		< 1728000 >,
 		< 1824000 >,
-		< 1958400 >;
+		< 1958400 >,
+		< 2025100 >;
 };
 
 &devfreq_cpufreq {
 	cpubw-cpufreq {
 		cpu-to-dev-map-0 =
+			<  201400  1525 >,
 			<  302400  1525 >,
 			<  384000  1525 >,
 			<  460800  1525 >,
@@ -185,6 +193,7 @@
 			< 1478400 11863 >,
 			< 1555200 11863 >;
 		cpu-to-dev-map-4 =
+			<  201400  1525 >,
 			<  302400  1525 >,
 			<  384000  1525 >,
 			<  480000  2288 >,
@@ -205,6 +214,7 @@
 	mincpubw-cpufreq {
 		target-dev = <&mincpubw>;
 		cpu-to-dev-map-0 =
+			<  201400  1525 >,
 			<  302400  1525 >,
 			<  384000  1525 >,
 			<  460800  1525 >,
@@ -218,6 +228,7 @@
 			< 1478400  1525 >,
 			< 1555200  1525 >;
 		cpu-to-dev-map-4 =
+			<  201400  1525 >,
 			<  302400  1525 >,
 			<  384000  1525 >,
 			<  480000  1525 >,
@@ -237,6 +248,7 @@
 
 	cci-cpufreq {
 		cpu-to-dev-map-0 =
+			<  201400 300000 >,
 			<  302400 300000 >,
 			<  384000 300000 >,
 			<  460800 300000 >,
@@ -250,6 +262,7 @@
 			< 1478400 787200 >,
 			< 1555200 787200 >;
 		cpu-to-dev-map-4 =
+			<  201400 300000 >,
 			<  302400 300000 >,
 			<  384000 300000 >,
 			<  480000 300000 >,
@@ -310,8 +323,16 @@
 		#size-cells = <0>;
 
 		compatible = "qcom,gpu-pwrlevels";
-
+		
 		qcom,gpu-pwrlevel@0 {
+			reg = <0>;
+			qcom,gpu-freq = <630000000>;
+			qcom,bus-freq = <9>;
+			qcom,bus-min = <8>;
+			qcom,bus-max = <10>;
+		};
+
+		qcom,gpu-pwrlevel@1 {
 			reg = <0>;
 			qcom,gpu-freq = <600000000>;
 			qcom,bus-freq = <8>;
@@ -319,7 +340,7 @@
 			qcom,bus-max = <9>;
 		};
 
-		qcom,gpu-pwrlevel@1 {
+		qcom,gpu-pwrlevel@2 {
 			reg = <1>;
 			qcom,gpu-freq = <510000000>;
 			qcom,bus-freq = <7>;
@@ -327,7 +348,7 @@
 			qcom,bus-max = <8>;
 		};
 
-		qcom,gpu-pwrlevel@2 {
+		qcom,gpu-pwrlevel@3 {
 			reg = <2>;
 			qcom,gpu-freq = <450000000>;
 			qcom,bus-freq = <6>;
@@ -335,7 +356,7 @@
 			qcom,bus-max = <7>;
 		};
 
-		qcom,gpu-pwrlevel@3 {
+		qcom,gpu-pwrlevel@4 {
 			reg = <3>;
 			qcom,gpu-freq = <390000000>;
 			qcom,bus-freq = <5>;
@@ -343,28 +364,28 @@
 			qcom,bus-max = <6>;
 		};
 
-		qcom,gpu-pwrlevel@4 {
+		qcom,gpu-pwrlevel@5 {
 			reg = <4>;
 			qcom,gpu-freq = <305000000>;
 			qcom,bus-freq = <3>;
 			qcom,bus-min = <2>;
 			qcom,bus-max = <4>;
 		};
-		qcom,gpu-pwrlevel@5 {
+		qcom,gpu-pwrlevel@6 {
 			reg = <5>;
 			qcom,gpu-freq = <180000000>;
 			qcom,bus-freq = <2>;
 			qcom,bus-min = <1>;
 			qcom,bus-max = <3>;
 		};
-		qcom,gpu-pwrlevel@6 {
+		qcom,gpu-pwrlevel@7 {
 			reg = <6>;
 			qcom,gpu-freq = <27000000>;
 			qcom,bus-freq = <0>;
 			qcom,bus-min = <0>;
 			qcom,bus-max = <0>;
 		};
-		qcom,gpu-pwrlevel@7 {
+		qcom,gpu-pwrlevel@8 {
 			reg = <7>;
 			qcom,gpu-freq = <27000000>;
 			qcom,bus-freq = <0>;
