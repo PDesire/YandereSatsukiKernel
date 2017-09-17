@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
-# Copyright (C) 2017, Tristan Marsell <tristan.marsell@t-online.de>. All rights reserved.
+# Copyright (C) 2016 Sony Mobile Communications Inc.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,6 +26,9 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
+# NOTE: This file has been modified by Sony Mobile Communications Inc.
+# Modifications are licensed under the License.
+#
 
 target=`getprop ro.board.platform`
 
@@ -43,7 +46,7 @@ function configure_memory_parameters() {
     MemTotalStr=`cat /proc/meminfo | grep MemTotal`
     MemTotal=${MemTotalStr:16:8}
 
-    echo 1 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
+    echo 0 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
 
     #if [ "$arch_type" == "aarch64" ] && [ $MemTotal -gt 2097152 ]; then
     #    echo "18432,23040,27648,32256,55296,80640" > /sys/module/lowmemorykiller/parameters/minfree
@@ -934,7 +937,7 @@ case "$target" in
             echo -n enable > $mode
         done
         # configure governor settings for little cluster
-        echo "sched" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+        echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
         echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
         echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif
         echo 19000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
@@ -949,7 +952,7 @@ case "$target" in
         # online CPU4
         echo 1 > /sys/devices/system/cpu/cpu4/online
         # configure governor settings for big cluster
-        echo "sched" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+        echo "interactive" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
         echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load
         echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif
         echo "19000 1400000:39000 1700000:19000" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay
@@ -995,9 +998,12 @@ case "$target" in
         echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
         # Restore CPU 4 max freq from msm_performance
         echo "4:4294967295 5:4294967295 6:4294967295 7:4294967295" > /sys/module/msm_performance/parameters/cpu_max_freq
+        # input boost configuration
+        echo 0:1344000 > /sys/module/cpu_boost/parameters/input_boost_freq
+        echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
         # configure core_ctl module parameters
         echo 4 > /sys/devices/system/cpu/cpu4/core_ctl/max_cpus
-        echo 1 > /sys/devices/system/cpu/cpu4/core_ctl/min_cpus
+        echo 2 > /sys/devices/system/cpu/cpu4/core_ctl/min_cpus
         echo 60 > /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres
         echo 30 > /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres
         echo 100 > /sys/devices/system/cpu/cpu4/core_ctl/offline_delay_ms
@@ -1012,7 +1018,7 @@ case "$target" in
         echo 85 > /proc/sys/kernel/sched_downmigrate
         echo 400000 > /proc/sys/kernel/sched_freq_inc_notify
         echo 400000 > /proc/sys/kernel/sched_freq_dec_notify
-        echo 1 > /proc/sys/kernel/sched_boost
+        echo 0 > /proc/sys/kernel/sched_boost
         #enable rps static configuration
         echo 8 >  /sys/class/net/rmnet_ipa0/queues/rx-0/rps_cpus
         for devfreq_gov in /sys/class/devfreq/qcom,cpubw*/governor
@@ -1259,21 +1265,6 @@ if [ -c /dev/coresight-stm ]; then
         fi
     fi
 fi
-
-# EliteKernel Specific configurations
-echo '0:0' > /sys/module/cpu_boost/parameters/input_boost_freq
-echo '0' > /sys/module/cpu_boost/parameters/boost_ms
-echo '50' > /proc/sys/vm/overcommit_ratio 
-echo '80' > /proc/sys/vm/vfs_cache_pressure 
-echo '20' > /proc/sys/vm/dirty_ratio 
-echo '10' > /proc/sys/vm/dirty_background_ratio 
-echo '500' > /proc/sys/vm/dirty_expire_centisecs 
-echo '1500' > /proc/sys/vm/dirty_writeback_centisecs
-echo '0' > /sys/kernel/mm/ksm/run
-echo '512' > /sys/block/mmcblk0/queue/read_ahead_kb
-echo '2048' > /sys/block/mmcblk1/queue/read_ahead_kb
-
-
 
 # Start RIDL/LogKit II client
 su -c /system/vendor/bin/startRIDL.sh &
