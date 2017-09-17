@@ -970,11 +970,8 @@ case "$target" in
         # disallow upmigrate for cgroup's tasks
         echo 1 > /dev/cpuctl/bg_non_interactive/cpu.upmigrate_discourage
 
-        # Override with SOMC tuning parameters for governor
-        /system/bin/sh /system/etc/init.sony.cpu_parameter_gov.sh
 
         # insert core_ctl module and use conservative paremeters
-        insmod /system/lib/modules/core_ctl.ko
         echo 1 > /sys/devices/system/cpu/cpu4/core_ctl/max_cpus
         # re-enable thermal and BCL hotplug
         echo 1 > /sys/module/msm_thermal/core_control/enabled
@@ -1013,8 +1010,8 @@ case "$target" in
         echo 1 > /proc/sys/kernel/sched_migration_fixup
         echo 30 > /proc/sys/kernel/sched_small_task
         echo 20 > /proc/sys/kernel/sched_mostly_idle_load
-        echo 3 > /proc/sys/kernel/sched_mostly_idle_nr_run
-        echo 99 > /proc/sys/kernel/sched_upmigrate
+        echo 6 > /proc/sys/kernel/sched_mostly_idle_nr_run
+        echo 98 > /proc/sys/kernel/sched_upmigrate
         echo 85 > /proc/sys/kernel/sched_downmigrate
         echo 400000 > /proc/sys/kernel/sched_freq_inc_notify
         echo 400000 > /proc/sys/kernel/sched_freq_dec_notify
@@ -1030,8 +1027,56 @@ case "$target" in
             echo "cpufreq" > $devfreq_gov
         done
 
-        # Override with SOMC tuning parameters for scheduler and others
-        /system/bin/sh /system/etc/init.sony.cpu_parameter.sh
+        # PDesire & frap129 custom configs
+        echo 0 > /sys/module/msm_thermal/core_control/enabled 
+        # Congigure Simple Thermal driver
+     	echo "1555200 1536000 40 38" > /sys/kernel/msm_thermal/zone0 
+     	echo "1478400 1536000 41 40" > /sys/kernel/msm_thermal/zone1 
+     	echo "1478400 1440000 42 41" > /sys/kernel/msm_thermal/zone2 
+     	echo "1344000 1440000 43 42" > /sys/kernel/msm_thermal/zone3 
+     	echo "1344000 1344000 44 43" > /sys/kernel/msm_thermal/zone4 
+     	echo "1248000 1344000 46 44" > /sys/kernel/msm_thermal/zone5 
+     	echo "960000 1248000 48 46" > /sys/kernel/msm_thermal/zone6 
+     	echo "960000 960000 53 50" > /sys/kernel/msm_thermal/zone7 
+     	echo "768000 768000 65 60" > /sys/kernel/msm_thermal/zone8 
+     	echo 8000 > /sys/kernel/msm_thermal/sampling_ms 
+     	echo 1 > /sys/kernel/msm_thermal/enabled 1
+
+     	# Disable msm_performance touchboost
+     	echo 0 > /sys/module/msm_performance/parameters/touchboost 
+
+     	# Set Scheduler Values
+     	echo 6 > /proc/sys/kernel/sched_mostly_idle_nr_run
+        echo 98 > /proc/sys/kernel/sched_upmigrate
+        echo 85 > /proc/sys/kernel/sched_downmigrate
+        echo 8 > /proc/sys/kernel/sched_upmigrate_min_nice 
+        echo 960000 > /sys/devices/system/cpu/cpu0/sched_mostly_idle_freq 
+        echo 25 > /sys/devices/system/cpu/cpu0/sched_mostly_idle_load
+
+        # Enable core control with custom config
+     	echo 95 > /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres 
+     	echo 80 > /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres 
+     	echo 800 > /sys/devices/system/cpu/cpu4/core_ctl/offline_delay_ms 
+     	echo 10000 > /sys/devices/system/cpu/cpu4/core_ctl/online_delay_ms 
+     	echo 4 > /sys/devices/system/cpu/cpu4/core_ctl/task_thres 
+     	echo 1 > /sys/devices/system/cpu/cpu4/core_ctl/is_big_cluster 
+     	echo 4 > /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 
+     	echo 2 > /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 
+     	echo 1 > /sys/devices/system/cpu/cpu0/core_ctl/not_preferred 
+     	echo "1 1 1 1" > /sys/devices/system/cpu/cpu0/core_ctl/always_online_cpu 
+     	echo "1 1 0 0" > /sys/devices/system/cpu/cpu4/core_ctl/always_online_cpu 
+     	chown system:system /sys/devices/system/cpu/cpu4/core_ctl/min_cpus
+     	chown system:system /sys/devices/system/cpu/cpu4/core_ctl/max_cpus
+
+     	# Massive Underclock
+     	echo 201400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+     	echo 201400 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
+
+     	# Enable PDesireAudio
+     	echo 1 > /sys/module/snd_soc_wcd9330/parameters/PDesireAudio
+
+     	# Disable PDesireAudio Static Mode
+     	echo 0 > /sys/module/snd_soc_wcd9330/parameters/pdesireaudio_static_mode
 
         # Set Memory parameters
         configure_memory_parameters
