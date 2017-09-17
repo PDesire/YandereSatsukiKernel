@@ -30,7 +30,7 @@ fi
 # Tuneables Here
 toolchain="aarch64-linux-gnu-7.1.1"
 prefix="aarch64-linux-gnu-"
-toolchain_path="/home/PDesire/kernel/toolchains/$toolchain/bin/:$PATH"
+toolchain_path="/home/pdesire/kernel/toolchains/$toolchain/bin/:$PATH"
 name_of_your_kernel="XperiaSatsukiEliteKernel"
 kernel_version="Four-PDesire-DevElite"
 defconfig="msm8994-perf_defconfig"
