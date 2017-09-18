@@ -8,9 +8,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- */
-/*
+ *
+ *
  * Copyright (C) 2014 Sony Mobile Communications Inc.
+ * Copyright (C) 2017 Tristan Marsell <tristan.marsell@t-online.de>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2, as
@@ -31,6 +32,7 @@
 #include <linux/err.h>
 #include <linux/string.h>
 #include <linux/regulator/consumer.h>
+#include <linux/display_state.h>
 
 #include "mdss_mdp.h"
 #include "mdss_dsi.h"
@@ -53,6 +55,13 @@
  * Needed intervals to boot first time for all panels.
  */
 #define FIRST_POLL_REG_INTERVAL 20000
+
+bool display_on = true;
+
+bool is_display_on()
+{
+	return display_on;
+}
 
 struct device virtdev;
 
@@ -1269,6 +1278,8 @@ static int mdss_dsi_panel_on(struct mdss_panel_data *pdata)
 		return -EINVAL;
 	}
 
+	display_on = true;
+
 	pinfo = &pdata->panel_info;
 	ctrl_pdata = container_of(pdata, struct mdss_dsi_ctrl_pdata,
 				panel_data);
@@ -1355,6 +1366,8 @@ static int mdss_dsi_panel_off(struct mdss_panel_data *pdata)
 		pr_err("%s: Invalid input data\n", __func__);
 		return -EINVAL;
 	}
+
+	display_on = false;
 
 	pinfo = &pdata->panel_info;
 	ctrl = container_of(pdata, struct mdss_dsi_ctrl_pdata,
