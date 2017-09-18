@@ -936,34 +936,6 @@ case "$target" in
         do
             echo -n enable > $mode
         done
-        # configure governor settings for little cluster
-        echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
-        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif
-        echo 19000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
-        echo 90 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
-        echo 20000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
-        echo 960000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
-        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy
-        echo 80 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
-        echo 40000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
-        echo 80000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
-        echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-        # online CPU4
-        echo 1 > /sys/devices/system/cpu/cpu4/online
-        # configure governor settings for big cluster
-        echo "interactive" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
-        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load
-        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif
-        echo "19000 1400000:39000 1700000:19000" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay
-        echo 90 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load
-        echo 20000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
-        echo 1248000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq
-        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy
-        echo "85 1500000:90 1800000:70" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads
-        echo 40000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time
-        echo 80000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis
-        echo 384000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
 
         # enable boost for cgroup's tasks
         echo 1 > /dev/cpuctl/cpu.sched_boost
@@ -1028,7 +1000,68 @@ case "$target" in
         done
 
         # PDesire & frap129 custom configs
+
+        # configure governor settings for little cluster
+        echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
+        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif
+        echo "0  600000:19000 672000:20000 960000:24000 1248000:38000" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
+        echo 93 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
+        echo 50000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
+        echo 600000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
+        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy
+        echo "29 384000:88 600000:90 672000:92 960000:93 1248000:98" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
+        echo 60000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
+        echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
+        echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+        # online CPU4
+        echo 1 > /sys/devices/system/cpu/cpu4/online
+        # configure governor settings for big cluster
+        echo "interactive" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load
+        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif
+        echo "20000 960000:40000 1248000:30000" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay
+        echo 150 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load
+        echo 20000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
+        echo 1248000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq
+        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy
+        echo 98 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads
+        echo 60000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time
+        echo 0 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis
+        echo 384000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
+
+        # Use CPUSet callibrations
+        echo "0-2,4-7" > /dev/cpuset/foreground/cpus 
+    	echo "4-7" > /dev/cpuset/foreground/boost/cpus 
+    	echo "0-7" > /dev/cpuset/top-app/cpus 
+
+    	# Disable some wakelocks
+    	echo 0 > /sys/module/wakeup/parameters/enable_wlan_rx_wake_ws 
+    	echo 0 > /sys/module/wakeup/parameters/enable_wlan_ctrl_wake_ws 
+    	echo 0 > /sys/module/wakeup/parameters/enable_wlan_wake_ws 
+    	echo 0 > /sys/module/wakeup/parameters/enable_msm_hsic_ws 
+    	echo 0 > /sys/module/wakeup/parameters/enable_qcom_rx_wakelock_ws 
+    	echo 0 > /sys/module/wakeup/parameters/enable_netlink_ws 
+    	echo 0 > /sys/module/wakeup/parameters/enable_ipa_ws 
+    	echo 0 > /sys/module/wakeup/parameters/enable_timerfd_ws 
+
+    	# Set I/O Scheduler tweaks
+	    echo "maple" > /sys/block/mmcblk0/queue/scheduler 
+	    echo 512 > /sys/block/mmcblk0/queue/read_ahead_kb 
+	    echo 4 > /sys/block/mmcblk0/queue/iosched/writes_starved 
+	    echo 16 > /sys/block/mmcblk0/queue/iosched/fifo_batch 
+	    echo 350 > /sys/block/mmcblk0/queue/iosched/sync_read_expire 
+	    echo 550 > /sys/block/mmcblk0/queue/iosched/sync_write_expire 
+	    echo 250 > /sys/block/mmcblk0/queue/iosched/async_read_expire 
+	    echo 450 > /sys/block/mmcblk0/queue/iosched/async_write_expire 
+	    echo 10 > /sys/block/mmcblk0/queue/iosched/sleep_latency_multiple 
+
+	    # Don't treat storage as rotational
+    	echo 0 > /sys/block/mmcblk0/queue/rotational 
+
+    	# Disable core control
         echo 0 > /sys/module/msm_thermal/core_control/enabled 
+        
         # Congigure Simple Thermal driver
      	echo "1555200 1536000 40 38" > /sys/kernel/msm_thermal/zone0 
      	echo "1478400 1536000 41 40" > /sys/kernel/msm_thermal/zone1 
@@ -1039,8 +1072,12 @@ case "$target" in
      	echo "960000 1248000 48 46" > /sys/kernel/msm_thermal/zone6 
      	echo "960000 960000 53 50" > /sys/kernel/msm_thermal/zone7 
      	echo "768000 768000 65 60" > /sys/kernel/msm_thermal/zone8 
+     	echo "600000 768000 70 65" > /sys/kernel/msm_thermal/zone9 
+     	echo "600000 600000 75 70" > /sys/kernel/msm_thermal/zone10 
+     	echo "460000 600000 80 78" > /sys/kernel/msm_thermal/zone11 
+     	echo "460000 460000 90 80" > /sys/kernel/msm_thermal/zone12 
      	echo 8000 > /sys/kernel/msm_thermal/sampling_ms 
-     	echo 1 > /sys/kernel/msm_thermal/enabled 1
+     	echo 1 > /sys/kernel/msm_thermal/enabled 
 
      	# Disable msm_performance touchboost
      	echo 0 > /sys/module/msm_performance/parameters/touchboost 
