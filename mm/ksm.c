@@ -301,7 +301,7 @@ static inline struct rmap_item *alloc_rmap_item(void)
 {
 	struct rmap_item *rmap_item;
 
-	map_item = kmem_cache_zalloc(rmap_item_cache, GFP_KERNEL |
+	rmap_item = kmem_cache_zalloc(rmap_item_cache, GFP_KERNEL |
 						__GFP_NORETRY | __GFP_NOWARN);
 	if (rmap_item)
 		ksm_rmap_items++;
