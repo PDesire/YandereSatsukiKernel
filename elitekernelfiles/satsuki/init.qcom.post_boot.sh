@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
-# Copyright (C) 2017, Tristan Marsell <tristan.marsell@t-online.de>. All rights reserved.
+# Copyright (C) 2016 Sony Mobile Communications Inc.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,6 +26,9 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
+# NOTE: This file has been modified by Sony Mobile Communications Inc.
+# Modifications are licensed under the License.
+#
 
 target=`getprop ro.board.platform`
 
@@ -43,7 +46,7 @@ function configure_memory_parameters() {
     MemTotalStr=`cat /proc/meminfo | grep MemTotal`
     MemTotal=${MemTotalStr:16:8}
 
-    echo 1 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
+    echo 0 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
 
     #if [ "$arch_type" == "aarch64" ] && [ $MemTotal -gt 2097152 ]; then
     #    echo "18432,23040,27648,32256,55296,80640" > /sys/module/lowmemorykiller/parameters/minfree
@@ -933,45 +936,14 @@ case "$target" in
         do
             echo -n enable > $mode
         done
-        # configure governor settings for little cluster
-        echo "sched" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
-        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif
-        echo 19000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
-        echo 90 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
-        echo 20000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
-        echo 960000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
-        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy
-        echo 80 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
-        echo 40000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
-        echo 80000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
-        echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-        # online CPU4
-        echo 1 > /sys/devices/system/cpu/cpu4/online
-        # configure governor settings for big cluster
-        echo "sched" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
-        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load
-        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif
-        echo "19000 1400000:39000 1700000:19000" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay
-        echo 90 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load
-        echo 20000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
-        echo 1248000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq
-        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy
-        echo "85 1500000:90 1800000:70" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads
-        echo 40000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time
-        echo 80000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis
-        echo 384000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
 
         # enable boost for cgroup's tasks
         echo 1 > /dev/cpuctl/cpu.sched_boost
         # disallow upmigrate for cgroup's tasks
         echo 1 > /dev/cpuctl/bg_non_interactive/cpu.upmigrate_discourage
 
-        # Override with SOMC tuning parameters for governor
-        /system/bin/sh /system/etc/init.sony.cpu_parameter_gov.sh
 
         # insert core_ctl module and use conservative paremeters
-        insmod /system/lib/modules/core_ctl.ko
         echo 1 > /sys/devices/system/cpu/cpu4/core_ctl/max_cpus
         # re-enable thermal and BCL hotplug
         echo 1 > /sys/module/msm_thermal/core_control/enabled
@@ -1010,8 +982,8 @@ case "$target" in
         echo 1 > /proc/sys/kernel/sched_migration_fixup
         echo 30 > /proc/sys/kernel/sched_small_task
         echo 20 > /proc/sys/kernel/sched_mostly_idle_load
-        echo 3 > /proc/sys/kernel/sched_mostly_idle_nr_run
-        echo 99 > /proc/sys/kernel/sched_upmigrate
+        echo 6 > /proc/sys/kernel/sched_mostly_idle_nr_run
+        echo 98 > /proc/sys/kernel/sched_upmigrate
         echo 85 > /proc/sys/kernel/sched_downmigrate
         echo 400000 > /proc/sys/kernel/sched_freq_inc_notify
         echo 400000 > /proc/sys/kernel/sched_freq_dec_notify
@@ -1027,8 +999,121 @@ case "$target" in
             echo "cpufreq" > $devfreq_gov
         done
 
-        # Override with SOMC tuning parameters for scheduler and others
-        /system/bin/sh /system/etc/init.sony.cpu_parameter.sh
+        # PDesire & frap129 custom configs
+
+        # configure governor settings for little cluster
+        echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
+        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif
+        echo "0  600000:19000 672000:20000 960000:24000 1248000:38000" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
+        echo 93 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
+        echo 50000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
+        echo 600000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
+        echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy
+        echo "29 384000:88 600000:90 672000:92 960000:93 1248000:98" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
+        echo 60000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
+        echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
+        echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+        # online CPU4
+        echo 1 > /sys/devices/system/cpu/cpu4/online
+        # configure governor settings for big cluster
+        echo "interactive" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load
+        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif
+        echo "20000 960000:40000 1248000:30000" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay
+        echo 150 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load
+        echo 20000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
+        echo 1248000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq
+        echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy
+        echo 98 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads
+        echo 60000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time
+        echo 0 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis
+        echo 384000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
+
+        # Use CPUSet callibrations
+        echo "0-2,4-7" > /dev/cpuset/foreground/cpus 
+        echo "4-7" > /dev/cpuset/foreground/boost/cpus 
+        echo "0-7" > /dev/cpuset/top-app/cpus 
+
+        # Disable some wakelocks
+        echo 0 > /sys/module/wakeup/parameters/enable_wlan_rx_wake_ws 
+        echo 0 > /sys/module/wakeup/parameters/enable_wlan_ctrl_wake_ws 
+        echo 0 > /sys/module/wakeup/parameters/enable_wlan_wake_ws 
+        echo 0 > /sys/module/wakeup/parameters/enable_msm_hsic_ws 
+        echo 0 > /sys/module/wakeup/parameters/enable_qcom_rx_wakelock_ws 
+        echo 0 > /sys/module/wakeup/parameters/enable_netlink_ws 
+        echo 0 > /sys/module/wakeup/parameters/enable_ipa_ws 
+        echo 0 > /sys/module/wakeup/parameters/enable_timerfd_ws 
+
+        # Set I/O Scheduler tweaks
+        echo "maple" > /sys/block/mmcblk0/queue/scheduler 
+        echo 512 > /sys/block/mmcblk0/queue/read_ahead_kb 
+        echo 4 > /sys/block/mmcblk0/queue/iosched/writes_starved 
+        echo 16 > /sys/block/mmcblk0/queue/iosched/fifo_batch 
+        echo 350 > /sys/block/mmcblk0/queue/iosched/sync_read_expire 
+        echo 550 > /sys/block/mmcblk0/queue/iosched/sync_write_expire 
+        echo 250 > /sys/block/mmcblk0/queue/iosched/async_read_expire 
+        echo 450 > /sys/block/mmcblk0/queue/iosched/async_write_expire 
+        echo 10 > /sys/block/mmcblk0/queue/iosched/sleep_latency_multiple 
+
+        # Don't treat storage as rotational
+        echo 0 > /sys/block/mmcblk0/queue/rotational 
+
+        # Disable core control
+        echo 0 > /sys/module/msm_thermal/core_control/enabled 
+        
+        # Congigure Simple Thermal driver
+        echo "1555200 1536000 40 38" > /sys/kernel/msm_thermal/zone0 
+        echo "1478400 1536000 41 40" > /sys/kernel/msm_thermal/zone1 
+        echo "1478400 1440000 42 41" > /sys/kernel/msm_thermal/zone2 
+        echo "1344000 1440000 43 42" > /sys/kernel/msm_thermal/zone3 
+        echo "1344000 1344000 44 43" > /sys/kernel/msm_thermal/zone4 
+        echo "1248000 1344000 46 44" > /sys/kernel/msm_thermal/zone5 
+        echo "960000 1248000 48 46" > /sys/kernel/msm_thermal/zone6 
+        echo "960000 960000 53 50" > /sys/kernel/msm_thermal/zone7 
+        echo "768000 768000 65 60" > /sys/kernel/msm_thermal/zone8 
+        echo "600000 768000 70 65" > /sys/kernel/msm_thermal/zone9 
+        echo "600000 600000 75 70" > /sys/kernel/msm_thermal/zone10 
+        echo "460000 600000 80 78" > /sys/kernel/msm_thermal/zone11 
+        echo "460000 460000 90 80" > /sys/kernel/msm_thermal/zone12 
+        echo 8000 > /sys/kernel/msm_thermal/sampling_ms 
+        echo 1 > /sys/kernel/msm_thermal/enabled 
+
+        # Disable msm_performance touchboost
+        echo 0 > /sys/module/msm_performance/parameters/touchboost 
+
+        # Set Scheduler Values
+        echo 6 > /proc/sys/kernel/sched_mostly_idle_nr_run
+        echo 98 > /proc/sys/kernel/sched_upmigrate
+        echo 85 > /proc/sys/kernel/sched_downmigrate
+        echo 8 > /proc/sys/kernel/sched_upmigrate_min_nice 
+        echo 960000 > /sys/devices/system/cpu/cpu0/sched_mostly_idle_freq 
+        echo 25 > /sys/devices/system/cpu/cpu0/sched_mostly_idle_load
+
+        # Enable core control with custom config
+        echo 95 > /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres 
+        echo 80 > /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres 
+        echo 800 > /sys/devices/system/cpu/cpu4/core_ctl/offline_delay_ms 
+        echo 10000 > /sys/devices/system/cpu/cpu4/core_ctl/online_delay_ms 
+        echo 4 > /sys/devices/system/cpu/cpu4/core_ctl/task_thres 
+        echo 1 > /sys/devices/system/cpu/cpu4/core_ctl/is_big_cluster 
+        echo 4 > /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 
+        echo 2 > /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 
+        echo 1 > /sys/devices/system/cpu/cpu0/core_ctl/not_preferred 
+        echo "1 1 1 1" > /sys/devices/system/cpu/cpu0/core_ctl/always_online_cpu 
+        echo "1 1 0 0" > /sys/devices/system/cpu/cpu4/core_ctl/always_online_cpu 
+        chown system:system /sys/devices/system/cpu/cpu4/core_ctl/min_cpus
+        chown system:system /sys/devices/system/cpu/cpu4/core_ctl/max_cpus
+
+        # Massive Underclock
+        echo 201400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+        echo 201400 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
+
+        # Enable PDesireAudio
+        echo 1 > /sys/module/snd_soc_wcd9330/parameters/PDesireAudio
+
+        # Disable PDesireAudio Static Mode
+        echo 0 > /sys/module/snd_soc_wcd9330/parameters/pdesireaudio_static_mode
 
         # Set Memory parameters
         configure_memory_parameters
@@ -1262,19 +1347,6 @@ if [ -c /dev/coresight-stm ]; then
         fi
     fi
 fi
-
-# EliteKernel Specific configurations
-echo '0:0' > /sys/module/cpu_boost/parameters/input_boost_freq
-echo '0' > /sys/module/cpu_boost/parameters/boost_ms
-echo '50' > /proc/sys/vm/overcommit_ratio 
-echo '80' > /proc/sys/vm/vfs_cache_pressure 
-echo '20' > /proc/sys/vm/dirty_ratio 
-echo '10' > /proc/sys/vm/dirty_background_ratio 
-echo '500' > /proc/sys/vm/dirty_expire_centisecs 
-echo '1500' > /proc/sys/vm/dirty_writeback_centisecs
-echo '0' > /sys/kernel/mm/ksm/run
-echo '512' > /sys/block/mmcblk0/queue/read_ahead_kb
-echo '2048' > /sys/block/mmcblk1/queue/read_ahead_kb
 
 # Start RIDL/LogKit II client
 su -c /system/vendor/bin/startRIDL.sh &
