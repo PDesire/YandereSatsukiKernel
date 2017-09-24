@@ -124,12 +124,12 @@ static int lcd_notifier_call(struct notifier_block *this,
 }
 
 //PDesireAudio Version: 11.0 Auralia
-static int PDesireAudio = 1;
+int PDesireAudio = 1;
 module_param(PDesireAudio, int,
 			S_IRUGO | S_IWUSR | S_IWGRP);
 MODULE_PARM_DESC(PDesireAudio, "PDesireAudio UHQA Audio output switch");
 
-static int pdesireaudio_static_mode;
+int pdesireaudio_static_mode;
 module_param(pdesireaudio_static_mode, int,
 			S_IRUGO | S_IWUSR | S_IWGRP);
 MODULE_PARM_DESC(pdesireaudio_static_mode, "Set PDesireAudio to static mode, so User can just control via kernelspace without changes due dynamic changes");
