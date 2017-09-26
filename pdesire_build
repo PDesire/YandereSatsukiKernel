@@ -38,6 +38,7 @@ cpu_jobs="`grep -c ^processor /proc/cpuinfo`"
 kerneltype="Image.gz-dtb"
 cmdline="androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 dwc3_msm.prop_chg_detect=Y coherent_pool=2M dwc3_msm.hvdcp_max_current=1500"
 author="Tristan Marsell <tristan.marsell@t-online.de>"
+DATE="`date '+%Y-%m-%d'`"
 ps=4096
 base=0x00000000
 ramdisk_offset=0x02000000
@@ -142,6 +143,7 @@ echo "Build Target Device: $target"
 echo "Toolchain: $toolchain"
 echo "Threads: $cpu_jobs"
 echo "Buildscript Author: $author"
+echo "Build Date: $DATE"
 echo "##################################################"
 echo " "
 echo " "
@@ -173,7 +175,7 @@ if [ -f final_files/*.img ]; then
 	zip -r $device_codename.$name_of_your_kernel.zip *
 	cd ..
 	mkdir uploads
-	mv final_files/$device_codename.$name_of_your_kernel.zip uploads/$device_codename.$name_of_your_kernel.$kernel_version.zip
+	mv final_files/$device_codename.$name_of_your_kernel.zip uploads/$device_codename.$DATE.$name_of_your_kernel.$kernel_version.zip
 	rm -f flashscripts/system/etc/init.qcom.post_boot.sh
 
 else
