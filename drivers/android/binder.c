@@ -332,6 +332,7 @@ enum {
 	BINDER_LOOPER_STATE_ENTERED     = 0x02,
 	BINDER_LOOPER_STATE_EXITED      = 0x04,
 	BINDER_LOOPER_STATE_INVALID     = 0x08,
+	BINDER_LOOPER_STATE_WAITING     = 0x10,
 	BINDER_LOOPER_STATE_NEED_RETURN = 0x20
 };
 
@@ -2264,6 +2265,7 @@ retry:
 	}
 
 
+	thread->looper |= BINDER_LOOPER_STATE_WAITING;
 	if (wait_for_proc_work)
 		proc->ready_threads++;
 
@@ -2298,6 +2300,7 @@ retry:
 
 	if (wait_for_proc_work)
 		proc->ready_threads--;
+	thread->looper &= ~BINDER_LOOPER_STATE_WAITING;
 
 	if (ret)
 		return ret;
@@ -3081,14 +3084,16 @@ static void binder_deferred_flush(struct binder_proc *proc)
 		struct binder_thread *thread = rb_entry(n, struct binder_thread, rb_node);
 
 		thread->looper |= BINDER_LOOPER_STATE_NEED_RETURN;
-		wake_up(&thread->wait);
-		wake_count++;
+		if (thread->looper & BINDER_LOOPER_STATE_WAITING) {
+			wake_up_interruptible(&thread->wait);
+			wake_count++;
+		}
 	}
 	wake_up_interruptible_all(&proc->wait);
 
 	binder_debug(BINDER_DEBUG_OPEN_CLOSE,
-		     "binder_flush: %d attempted to wake %d threads\n",
-		     proc->pid, wake_count);
+		     "binder_flush: %d woke %d threads\n", proc->pid,
+		     wake_count);
 }
 
 static int binder_release(struct inode *nodp, struct file *filp)
