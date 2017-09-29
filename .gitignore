@@ -57,6 +57,7 @@ modules.builtin
 !.mailmap
 !init.qcom.post_boot.sh
 !ramdisk.cpio.gz
+!libhwbinder.so
 
 #
 # Generated include files
