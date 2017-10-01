@@ -1,0 +1,5 @@
+ota-type=FILE
+post-build=Sony/tetra/tetra:6.0.1/MEC24H/2715035:user/release-keys
+post-timestamp=1458940475
+pre-build=Sony/tetra/tetra:5.1.1/LCA43/2160025:user/release-keys
+pre-device=tetra
