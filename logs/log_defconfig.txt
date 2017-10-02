@@ -1,6 +1,6 @@
   HOSTCC  scripts/basic/fixdep
-  HOSTCC  scripts/kconfig/conf.o
   SHIPPED scripts/kconfig/zconf.tab.c
+  HOSTCC  scripts/kconfig/conf.o
   SHIPPED scripts/kconfig/zconf.lex.c
   SHIPPED scripts/kconfig/zconf.hash.c
   HOSTCC  scripts/kconfig/zconf.tab.o

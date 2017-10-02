@@ -4,8 +4,8 @@ scripts/kconfig/conf --silentoldconfig Kconfig
   WRAP    arch/arm64/include/generated/asm/clkdev.h
   WRAP    arch/arm64/include/generated/asm/cputime.h
   WRAP    arch/arm64/include/generated/asm/current.h
-  WRAP    arch/arm64/include/generated/asm/div64.h
   WRAP    arch/arm64/include/generated/asm/delay.h
+  WRAP    arch/arm64/include/generated/asm/div64.h
   WRAP    arch/arm64/include/generated/asm/dma.h
   WRAP    arch/arm64/include/generated/asm/emergency-restart.h
   WRAP    arch/arm64/include/generated/asm/early_ioremap.h
@@ -16,14 +16,14 @@ scripts/kconfig/conf --silentoldconfig Kconfig
   WRAP    arch/arm64/include/generated/asm/ioctls.h
   WRAP    arch/arm64/include/generated/asm/ipcbuf.h
   WRAP    arch/arm64/include/generated/asm/irq_regs.h
-  CHK     include/generated/uapi/linux/version.h
   WRAP    arch/arm64/include/generated/asm/kdebug.h
-  UPD     include/generated/uapi/linux/version.h
   WRAP    arch/arm64/include/generated/asm/kmap_types.h
   WRAP    arch/arm64/include/generated/asm/kvm_para.h
   WRAP    arch/arm64/include/generated/asm/local.h
   WRAP    arch/arm64/include/generated/asm/local64.h
   WRAP    arch/arm64/include/generated/asm/mcs_spinlock.h
+  CHK     include/generated/uapi/linux/version.h
+  UPD     include/generated/uapi/linux/version.h
   WRAP    arch/arm64/include/generated/asm/mman.h
   WRAP    arch/arm64/include/generated/asm/msgbuf.h
   WRAP    arch/arm64/include/generated/asm/mutex.h
@@ -37,33 +37,33 @@ scripts/kconfig/conf --silentoldconfig Kconfig
   WRAP    arch/arm64/include/generated/asm/sembuf.h
   WRAP    arch/arm64/include/generated/asm/serial.h
   WRAP    arch/arm64/include/generated/asm/shmbuf.h
-  WRAP    arch/arm64/include/generated/asm/simd.h
-  WRAP    arch/arm64/include/generated/asm/socket.h
   WRAP    arch/arm64/include/generated/asm/sizes.h
+  WRAP    arch/arm64/include/generated/asm/socket.h
+  WRAP    arch/arm64/include/generated/asm/simd.h
   WRAP    arch/arm64/include/generated/asm/sockios.h
   WRAP    arch/arm64/include/generated/asm/swab.h
+  WRAP    arch/arm64/include/generated/asm/termbits.h
   WRAP    arch/arm64/include/generated/asm/switch_to.h
   WRAP    arch/arm64/include/generated/asm/termios.h
-  WRAP    arch/arm64/include/generated/asm/termbits.h
   WRAP    arch/arm64/include/generated/asm/topology.h
   WRAP    arch/arm64/include/generated/asm/trace_clock.h
   WRAP    arch/arm64/include/generated/asm/types.h
   WRAP    arch/arm64/include/generated/asm/unaligned.h
   WRAP    arch/arm64/include/generated/asm/user.h
-  WRAP    arch/arm64/include/generated/asm/vga.h
   WRAP    arch/arm64/include/generated/asm/xor.h
+  WRAP    arch/arm64/include/generated/asm/vga.h
   WRAP    arch/arm64/include/generated/uapi/asm/kvm_para.h
-  HOSTCC  scripts/dtc/checks.o
   CC      scripts/mod/empty.o
+  HOSTCC  scripts/dtc/checks.o
   HOSTCC  scripts/selinux/genheaders/genheaders
   HOSTCC  scripts/mod/mk_elfconfig
   CC      scripts/mod/devicetable-offsets.s
-  HOSTCC  scripts/selinux/mdp/mdp
   MKELF   scripts/mod/elfconfig.h
+  HOSTCC  scripts/selinux/mdp/mdp
   GEN     scripts/mod/devicetable-offsets.h
   HOSTCC  scripts/mod/modpost.o
-  HOSTCC  scripts/dtc/data.o
   HOSTCC  scripts/kallsyms
+  HOSTCC  scripts/dtc/data.o
   SHIPPED scripts/dtc/dtc-lexer.lex.c
   SHIPPED scripts/dtc/dtc-parser.tab.h
   SHIPPED scripts/dtc/dtc-parser.tab.c
@@ -73,7 +73,10 @@ scripts/kconfig/conf --silentoldconfig Kconfig
 scripts/sortextable.c:68:1: Warnung: »succeed_file« definiert, aber nicht verwendet [-Wunused-function]
  succeed_file(void)
  ^~~~~~~~~~~~
+  HOSTCC  scripts/mod/sumversion.o
+  HOSTCC  scripts/dtc/fstree.o
   HOSTCC  scripts/asn1_compiler
+  HOSTCC  scripts/dtc/livetree.o
 scripts/asn1_compiler.c: In Funktion »render_out_of_line_list«:
 scripts/asn1_compiler.c:1341:3: Warnung: Aufzählungswert »NOT_COMPOUND« wird nicht von switch behandelt [-Wswitch]
    switch (e->compound) {
@@ -82,12 +85,31 @@ scripts/asn1_compiler.c:1341:3: Warnung: Aufzählungswert »CHOICE« wird nicht 
 scripts/asn1_compiler.c:1341:3: Warnung: Aufzählungswert »ANY« wird nicht von switch behandelt [-Wswitch]
 scripts/asn1_compiler.c:1341:3: Warnung: Aufzählungswert »TYPE_REF« wird nicht von switch behandelt [-Wswitch]
 scripts/asn1_compiler.c:1341:3: Warnung: Aufzählungswert »TAG_OVERRIDE« wird nicht von switch behandelt [-Wswitch]
-  HOSTCC  scripts/dtc/fstree.o
-  HOSTCC  scripts/mod/sumversion.o
-  HOSTCC  scripts/dtc/livetree.o
-  HOSTCC  scripts/dtc/srcpos.o
   HOSTCC  scripts/mod/file2alias.o
+  HOSTCC  scripts/dtc/srcpos.o
   HOSTCC  scripts/dtc/treesource.o
   HOSTCC  scripts/dtc/util.o
   HOSTCC  scripts/dtc/dtc-lexer.lex.o
   HOSTCC  scripts/dtc/dtc-parser.tab.o
+  HOSTLD  scripts/mod/modpost
+  HOSTLD  scripts/dtc/dtc
+make[1]: Für das Ziel „dtbs“ ist nichts zu tun.
+  DTC     arch/arm64/boot/dts/qcom/msm8994-v2.0-kitakami_satsuki_generic.dtb
+  DTC     arch/arm64/boot/dts/qcom/msm8994-v2.1-kitakami_satsuki_generic.dtb
+  CHK     include/generated/utsrelease.h
+  UPD     include/generated/utsrelease.h
+  CC      kernel/bounds.s
+  GEN     include/generated/bounds.h
+  CC      arch/arm64/kernel/asm-offsets.s
+  GEN     include/generated/asm-offsets.h
+  CALL    scripts/checksyscalls.sh
+<stdin>:1226:2: warning: #warning syscall sched_setattr not implemented [-Wcpp]
+<stdin>:1229:2: warning: #warning syscall sched_getattr not implemented [-Wcpp]
+  CHK     include/generated/compile.h
+  CC      init/main.o
+  CC      init/do_mounts.o
+  UPD     include/generated/compile.h
+  CC      init/do_mounts_rd.o
+  HOSTCC  usr/gen_init_cpio
+  GEN     usr/initramfs_data.cpio
+  AS      usr/initramfs_data.o
