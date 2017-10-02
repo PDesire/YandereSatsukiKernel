@@ -1,16 +1,251 @@
 scripts/kconfig/conf --silentoldconfig Kconfig
+  WRAP    arch/arm64/include/generated/asm/bugs.h
+  WRAP    arch/arm64/include/generated/asm/checksum.h
+  WRAP    arch/arm64/include/generated/asm/clkdev.h
+  WRAP    arch/arm64/include/generated/asm/cputime.h
+  WRAP    arch/arm64/include/generated/asm/current.h
+  WRAP    arch/arm64/include/generated/asm/delay.h
+  WRAP    arch/arm64/include/generated/asm/div64.h
+  WRAP    arch/arm64/include/generated/asm/emergency-restart.h
+  WRAP    arch/arm64/include/generated/asm/dma.h
+  WRAP    arch/arm64/include/generated/asm/early_ioremap.h
+  WRAP    arch/arm64/include/generated/asm/errno.h
+  WRAP    arch/arm64/include/generated/asm/ftrace.h
+  WRAP    arch/arm64/include/generated/asm/hw_irq.h
+  WRAP    arch/arm64/include/generated/asm/ioctl.h
+  WRAP    arch/arm64/include/generated/asm/ioctls.h
+  WRAP    arch/arm64/include/generated/asm/ipcbuf.h
+  WRAP    arch/arm64/include/generated/asm/irq_regs.h
+  WRAP    arch/arm64/include/generated/asm/kdebug.h
+  WRAP    arch/arm64/include/generated/asm/kmap_types.h
+  WRAP    arch/arm64/include/generated/asm/kvm_para.h
+  WRAP    arch/arm64/include/generated/asm/local.h
+  WRAP    arch/arm64/include/generated/asm/local64.h
+  WRAP    arch/arm64/include/generated/asm/mcs_spinlock.h
+  WRAP    arch/arm64/include/generated/asm/mman.h
+  WRAP    arch/arm64/include/generated/asm/msgbuf.h
+  WRAP    arch/arm64/include/generated/asm/mutex.h
+  WRAP    arch/arm64/include/generated/asm/pci.h
+  WRAP    arch/arm64/include/generated/asm/poll.h
+  WRAP    arch/arm64/include/generated/asm/resource.h
+  WRAP    arch/arm64/include/generated/asm/rwsem.h
+  WRAP    arch/arm64/include/generated/asm/scatterlist.h
+  WRAP    arch/arm64/include/generated/asm/sections.h
+  WRAP    arch/arm64/include/generated/asm/segment.h
+  WRAP    arch/arm64/include/generated/asm/sembuf.h
+  WRAP    arch/arm64/include/generated/asm/serial.h
+  WRAP    arch/arm64/include/generated/asm/simd.h
+  WRAP    arch/arm64/include/generated/asm/shmbuf.h
+  WRAP    arch/arm64/include/generated/asm/sizes.h
+  WRAP    arch/arm64/include/generated/asm/socket.h
+  WRAP    arch/arm64/include/generated/asm/sockios.h
+  WRAP    arch/arm64/include/generated/asm/swab.h
+  WRAP    arch/arm64/include/generated/asm/switch_to.h
+  WRAP    arch/arm64/include/generated/asm/termbits.h
+  WRAP    arch/arm64/include/generated/asm/termios.h
+  WRAP    arch/arm64/include/generated/asm/topology.h
+  WRAP    arch/arm64/include/generated/asm/trace_clock.h
+  WRAP    arch/arm64/include/generated/asm/types.h
+  WRAP    arch/arm64/include/generated/asm/user.h
+  WRAP    arch/arm64/include/generated/asm/unaligned.h
+  WRAP    arch/arm64/include/generated/asm/vga.h
+  WRAP    arch/arm64/include/generated/asm/xor.h
+  WRAP    arch/arm64/include/generated/uapi/asm/kvm_para.h
   CHK     include/generated/uapi/linux/version.h
+  UPD     include/generated/uapi/linux/version.h
+  HOSTCC  scripts/dtc/checks.o
+  CC      scripts/mod/empty.o
+  HOSTCC  scripts/selinux/genheaders/genheaders
+  HOSTCC  scripts/mod/mk_elfconfig
   CC      scripts/mod/devicetable-offsets.s
+  HOSTCC  scripts/selinux/mdp/mdp
+  MKELF   scripts/mod/elfconfig.h
+  HOSTCC  scripts/kallsyms
   GEN     scripts/mod/devicetable-offsets.h
+  HOSTCC  scripts/mod/modpost.o
+  HOSTCC  scripts/dtc/data.o
+  SHIPPED scripts/dtc/dtc-lexer.lex.c
+  SHIPPED scripts/dtc/dtc-parser.tab.h
+  SHIPPED scripts/dtc/dtc-parser.tab.c
+  HOSTCC  scripts/dtc/dtc.o
+  HOSTCC  scripts/sortextable
+  HOSTCC  scripts/dtc/flattree.o
+scripts/sortextable.c:68:1: Warnung: »succeed_file« definiert, aber nicht verwendet [-Wunused-function]
+ succeed_file(void)
+ ^~~~~~~~~~~~
+  HOSTCC  scripts/asn1_compiler
+scripts/asn1_compiler.c: In Funktion »render_out_of_line_list«:
+scripts/asn1_compiler.c:1341:3: Warnung: Aufzählungswert »NOT_COMPOUND« wird nicht von switch behandelt [-Wswitch]
+   switch (e->compound) {
+   ^~~~~~
+scripts/asn1_compiler.c:1341:3: Warnung: Aufzählungswert »CHOICE« wird nicht von switch behandelt [-Wswitch]
+scripts/asn1_compiler.c:1341:3: Warnung: Aufzählungswert »ANY« wird nicht von switch behandelt [-Wswitch]
+scripts/asn1_compiler.c:1341:3: Warnung: Aufzählungswert »TYPE_REF« wird nicht von switch behandelt [-Wswitch]
+scripts/asn1_compiler.c:1341:3: Warnung: Aufzählungswert »TAG_OVERRIDE« wird nicht von switch behandelt [-Wswitch]
+  HOSTCC  scripts/mod/sumversion.o
+  HOSTCC  scripts/dtc/fstree.o
+  HOSTCC  scripts/dtc/livetree.o
   HOSTCC  scripts/mod/file2alias.o
+  HOSTCC  scripts/dtc/srcpos.o
+  HOSTCC  scripts/dtc/treesource.o
+  HOSTCC  scripts/dtc/util.o
+  HOSTCC  scripts/dtc/dtc-lexer.lex.o
+  HOSTCC  scripts/dtc/dtc-parser.tab.o
   HOSTLD  scripts/mod/modpost
+  HOSTLD  scripts/dtc/dtc
+make[1]: Für das Ziel „dtbs“ ist nichts zu tun.
+  DTC     arch/arm64/boot/dts/qcom/msm8994-v2.0-kitakami_satsuki_generic.dtb
+  DTC     arch/arm64/boot/dts/qcom/msm8994-v2.1-kitakami_satsuki_generic.dtb
   CHK     include/generated/utsrelease.h
-make[1]: Für das Ziel „dtbs“ ist nichts zu tun.
-make[1]: Für das Ziel „dtbs“ ist nichts zu tun.
+  UPD     include/generated/utsrelease.h
+  CC      kernel/bounds.s
+  GEN     include/generated/bounds.h
+  CC      arch/arm64/kernel/asm-offsets.s
+  GEN     include/generated/asm-offsets.h
   CALL    scripts/checksyscalls.sh
 <stdin>:1226:2: warning: #warning syscall sched_setattr not implemented [-Wcpp]
 <stdin>:1229:2: warning: #warning syscall sched_getattr not implemented [-Wcpp]
+  CC      init/main.o
+  CC      init/do_mounts.o
   CHK     include/generated/compile.h
-  DTC     arch/arm64/boot/dts/qcom/msm8994-v2.0-kitakami_satsuki_generic.dtb
-  DTC     arch/arm64/boot/dts/qcom/msm8994-v2.1-kitakami_satsuki_generic.dtb
-  CAT     arch/arm64/boot/Image.gz-dtb
+  HOSTCC  usr/gen_init_cpio
+  UPD     include/generated/compile.h
+  CC      init/do_mounts_rd.o
+  GEN     usr/initramfs_data.cpio
+  AS      usr/initramfs_data.o
+  LD      usr/built-in.o
+  CC      init/do_mounts_initrd.o
+  CC      init/do_mounts_dm.o
+  CC      init/noinitramfs.o
+  CC      init/initramfs.o
+  CC      init/calibrate.o
+  CC      init/init_task.o
+  CC      init/version.o
+  LD      init/mounts.o
+  CC      arch/arm64/kernel/swp_emulate.o
+  CC      arch/arm64/mm/dma-mapping.o
+  CC      arch/arm64/kernel/pcibios.o
+  LD      init/built-in.o
+  CC      arch/arm64/crypto/aes-glue-ce.o
+  LDS     arch/arm64/kernel/vdso/vdso.lds
+  VDSOA arch/arm64/kernel/vdso/gettimeofday.o
+  VDSOA arch/arm64/kernel/vdso/note.o
+  VDSOA arch/arm64/kernel/vdso/sigreturn.o
+  VDSOL arch/arm64/kernel/vdso/vdso.so.dbg
+In file included from arch/arm64/crypto/aes-glue.c:17:0:
+include/linux/cpufeature.h:47:33: warning: ‘cpu_feature_match_AES’ defined but not used [-Wunused-const-variable=]
+ static struct cpu_feature const cpu_feature_match_ ## x[] = \
+                                 ^
+arch/arm64/crypto/aes-glue.c:448:1: note: in expansion of macro ‘module_cpu_feature_match’
+ module_cpu_feature_match(AES, aes_init);
+ ^~~~~~~~~~~~~~~~~~~~~~~~
+  OBJCOPY arch/arm64/kernel/vdso/vdso.so
+  VDSOSYM arch/arm64/kernel/vdso/vdso-offsets.h
+  CC      arch/arm64/mm/extable.o
+  AS      arch/arm64/kernel/vdso/vdso.o
+  AS      arch/arm64/crypto/aes-ce.o
+  LD      arch/arm64/kernel/vdso/built-in.o
+  AS      arch/arm64/kernel/head.o
+  CC      arch/arm64/crypto/aes-ce-ccm-glue.o
+  LDS     arch/arm64/kernel/vmlinux.lds
+  CC      arch/arm64/kernel/cputable.o
+  CC      arch/arm64/kernel/debug-monitors.o
+  CC      arch/arm64/mm/fault.o
+  CC      arch/arm64/mm/init.o
+  AS      arch/arm64/crypto/aes-ce-ccm-core.o
+  CC      arch/arm64/crypto/aes-glue-neon.o
+  AS      arch/arm64/kernel/entry.o
+  AS      arch/arm64/mm/cache.o
+  CC      arch/arm64/kernel/irq.o
+  CC      arch/arm64/mm/copypage.o
+  CC      arch/arm64/mm/flush.o
+  CC      arch/arm64/mm/ioremap.o
+  AS      arch/arm64/crypto/aes-neon.o
+  CC      arch/arm64/kernel/fpsimd.o
+  CC      arch/arm64/crypto/ghash-ce-glue.o
+  CC      arch/arm64/mm/iomap.o
+  CC      arch/arm64/fastcharge/fastchg.o
+  AS      arch/arm64/kernel/entry-fpsimd.o
+  CC      arch/arm64/kernel/process.o
+In file included from arch/arm64/crypto/ghash-ce-glue.c:14:0:
+include/linux/cpufeature.h:47:33: warning: ‘cpu_feature_match_PMULL’ defined but not used [-Wunused-const-variable=]
+ static struct cpu_feature const cpu_feature_match_ ## x[] = \
+                                 ^
+arch/arm64/crypto/ghash-ce-glue.c:155:1: note: in expansion of macro ‘module_cpu_feature_match’
+ module_cpu_feature_match(PMULL, ghash_ce_mod_init);
+ ^~~~~~~~~~~~~~~~~~~~~~~~
+  LD      arch/arm64/fastcharge/built-in.o
+  CC      arch/arm64/mm/mmap.o
+  AS      arch/arm64/crypto/ghash-ce-core.o
+  CC      arch/arm64/crypto/sha1-ce-glue.o
+  CC      arch/arm64/mm/pgd.o
+In file included from arch/arm64/crypto/sha1-ce-glue.c:15:0:
+include/linux/cpufeature.h:47:33: warning: ‘cpu_feature_match_SHA1’ defined but not used [-Wunused-const-variable=]
+ static struct cpu_feature const cpu_feature_match_ ## x[] = \
+                                 ^
+arch/arm64/crypto/sha1-ce-glue.c:173:1: note: in expansion of macro ‘module_cpu_feature_match’
+ module_cpu_feature_match(SHA1, sha1_ce_mod_init);
+ ^~~~~~~~~~~~~~~~~~~~~~~~
+  CC      arch/arm64/kernel/ptrace.o
+  CC      arch/arm64/mm/mmu.o
+  CC      arch/arm64/mm/context.o
+  AS      arch/arm64/crypto/sha1-ce-core.o
+  CC      arch/arm64/crypto/sha2-ce-glue.o
+arch/arm64/kernel/ptrace.c: In function ‘syscall_trace_exit’:
+arch/arm64/kernel/ptrace.c:1180:2: error: implicit declaration of function ‘audit_syscall_exit’; did you mean ‘trace_sys_exit’? [-Werror=implicit-function-declaration]
+  audit_syscall_exit(regs);
+  ^~~~~~~~~~~~~~~~~~
+  trace_sys_exit
+  AS      arch/arm64/crypto/sha2-ce-core.o
+  CC      arch/arm64/crypto/aes-ce-cipher.o
+In file included from arch/arm64/crypto/sha2-ce-glue.c:15:0:
+include/linux/cpufeature.h:47:33: warning: ‘cpu_feature_match_SHA2’ defined but not used [-Wunused-const-variable=]
+ static struct cpu_feature const cpu_feature_match_ ## x[] = \
+                                 ^
+arch/arm64/crypto/sha2-ce-glue.c:254:1: note: in expansion of macro ‘module_cpu_feature_match’
+ module_cpu_feature_match(SHA2, sha2_ce_mod_init);
+ ^~~~~~~~~~~~~~~~~~~~~~~~
+  AS      arch/arm64/mm/proc.o
+  CC      arch/arm64/mm/pageattr.o
+In file included from arch/arm64/crypto/aes-ce-cipher.c:13:0:
+include/linux/cpufeature.h:47:33: warning: ‘cpu_feature_match_AES’ defined but not used [-Wunused-const-variable=]
+ static struct cpu_feature const cpu_feature_match_ ## x[] = \
+                                 ^
+arch/arm64/crypto/aes-ce-cipher.c:264:1: note: in expansion of macro ‘module_cpu_feature_match’
+ module_cpu_feature_match(AES, aes_mod_init);
+ ^~~~~~~~~~~~~~~~~~~~~~~~
+  LD      arch/arm64/crypto/sha1-ce.o
+  LD      arch/arm64/crypto/sha2-ce.o
+  LD      arch/arm64/crypto/ghash-ce.o
+  LD      arch/arm64/crypto/aes-ce-ccm.o
+  LD      arch/arm64/crypto/aes-ce-blk.o
+  LD      arch/arm64/crypto/aes-neon-blk.o
+  LD      arch/arm64/crypto/built-in.o
+cc1: some warnings being treated as errors
+make[1]: *** [scripts/Makefile.build:309: arch/arm64/kernel/ptrace.o] Fehler 1
+make[1]: *** Es wird auf noch nicht beendete Prozesse gewartet....
+  CC      arch/arm64/kernel/setup.o
+  CC      kernel/fork.o
+  LD      arch/arm64/mm/built-in.o
+  CC      mm/filemap.o
+  CC      fs/open.o
+make: *** [Makefile:825: arch/arm64/kernel] Fehler 2
+make: *** Es wird auf noch nicht beendete Prozesse gewartet....
+  CC      kernel/exec_domain.o
+  CC      kernel/panic.o
+  CC      fs/read_write.o
+  CC      mm/mempool.o
+  CC      kernel/printk.o
+  CC      kernel/cpu.o
+  CC      mm/oom_kill.o
+  CC      fs/file_table.o
+  CC      kernel/exit.o
+  CC      fs/super.o
+  CC      mm/fadvise.o
+  CC      kernel/itimer.o
+  CC      mm/maccess.o
+  HZFILE  kernel/hz.bc
+  CC      kernel/softirq.o
+  CC      mm/page_alloc.o
+  CC      fs/char_dev.o
+  CC      kernel/resource.o
