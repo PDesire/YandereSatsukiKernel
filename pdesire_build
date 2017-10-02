@@ -85,15 +85,15 @@ done
 echo "For which device you want to create kernel?"
 
 PS3='Please enter your choice: '
-options=("satsuki" "Quit")
+options=("RR" "Quit")
 select opt in "${options[@]}"
 do
 	case $opt in
-        "satsuki")
+        "RR")
             defconfig="kitakami_satsuki_defconfig"
             target="Xperia Z5 Premium"
             device_name="E6853"
-            device_codename="satsuki"
+            device_codename="RR"
             goto secondstep
             ;;
         "Quit")
