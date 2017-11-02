@@ -5777,10 +5777,13 @@ static void tomtom_shutdown(struct snd_pcm_substream *substream,
 		 substream->name, substream->stream);
 }
 
-void gasaiq_enable_uhqa(struct snd_soc_codec *codec) 
+int gasaiq_enable_uhqa(struct snd_soc_codec *codec) 
 {
 	struct tomtom_priv *tomtom_p = snd_soc_codec_get_drvdata(codec);
 	int value = 5;
+	
+	if (tomtom_p->uhqa_lock)
+		return 0;
 			
 	tomtom_write(codec, TOMTOM_A_RX_HPH_R_GAIN, value);
 	tomtom_write(codec, TOMTOM_A_RX_HPH_L_GAIN, value);
@@ -5791,6 +5794,7 @@ void gasaiq_enable_uhqa(struct snd_soc_codec *codec)
  		tomtom_read(codec, TOMTOM_A_RX_HPH_L_STATUS) | (value << 4));
  	
  	tomtom_p->uhqa_lock = true;
+ 	return 0;
 
 }
 
