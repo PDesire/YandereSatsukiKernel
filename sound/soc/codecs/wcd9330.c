@@ -1,10 +1,8 @@
 /* Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
- * Copyright (C) 2017 Tristan Marsell <tristan.marsell@t-online.de>. All rights reserved.
- * Copyright (C) 2017 Team DevElite. All rights reserved.
+ * Copyright (C) 2017 Tristan Marsell. All rights reserved.
  * 
  * PDesireAudio WCD9330 Tomtom Audio Driver
- * Copyright (C) 2017 Tristan Marsell (tristan.marsell@t-online.de). All rights reserved.
- * Copyright (C) 2017 Team DevElite. All rights reserved.
+ * Copyright (C) 2017 Tristan Marsell. All rights reserved.
  *
  * NOTE: This file keeps licensed under GPLv2
  *
